@@ -7,8 +7,8 @@ class Plane {
         //this.maxX = Math.floor(this.ctx.canvas.width / 2)
         //this.minX = 10;
 
-        this.minX = 100; 
-        this.maxX = Math.floor(this.ctx.canvas.width  - 600); // 600
+        this.minX = 100;
+        this.maxX = Math.floor(this.ctx.canvas.width - 600); // 600
         this.minY = 100;
         this.maxY = Math.floor(this.ctx.canvas.height - 200)
 
@@ -16,7 +16,11 @@ class Plane {
         this.y = y;
         this.vy = 0;
 
-
+        this.canFire = true;
+        this.bullets = [];
+        this.sounds = {
+            fire: new Audio('./assets/sound/shot.wav')
+        }
 
 
         // => una IMAGEN se pinta entera
@@ -66,8 +70,35 @@ class Plane {
             case KEY_DOWN:
                 this.movement.down = state;
                 break;
+
+            case KEY_FIRE:
+                if (this.canFire) {
+               //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
+
+                    this.bullets.push(new Shot(this.ctx, this.x+34, this.y + 3, 500 + this.height, 0));
+                    this.bullets.push(new Shot(this.ctx, this.x+49, this.y + 3, 500 + this.height, 0));
+                    this.bullets.push(new Shot(this.ctx, this.x+80, this.y + 3, 500 + this.height, 0));
+                    this.bullets.push(new Shot(this.ctx, this.x+94, this.y + 3, 500 + this.height, 0));
+
+
+                    this.sounds.fire.currentTime = 0;
+                    this.sounds.fire.play();
+                    this.canFire = false;
+
+                    setTimeout(() => this.canFire = true, 100);
+                }
+
+                break;
+
+
+
         }
     }
+
+    clear() {
+        this.bullets = this.bullets.filter(bullet => bullet.y < 0)
+      }
+
 
     draw() {
         if (this.sprite.isReady) {
@@ -89,15 +120,19 @@ class Plane {
                 // this.width,
                 // this.height
             )
+            this.bullets.forEach(bullet => bullet.draw());
+
             this.drawCount++;
             this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
         }
 
- 
+
 
     }
 
     move() {
+
+        this.bullets.forEach(bullet => bullet.move());
 
         if (this.movement.right) {
             this.vx = + PLANE_SPEED; // => posat a constants.js
@@ -123,19 +158,19 @@ class Plane {
 
         if (this.x >= this.maxX) { // => s'ha fet que es pugui arribar com a màxim a sa meitat d'es canvas
             this.x = this.maxX;
-        //  this.background.move();
+            //  this.background.move();
 
         }
         else if (this.x <= this.minX) { // => no pot sortir de sa pantalla per l'esquerra
             this.x = this.minX;
-         }
-         else if (this.y >= this.maxY) { // => s'ha fet que es pugui arribar com a màxim a sa meitat d'es canvas
-         this.y = this.maxY;
-      }
-      else if (this.y <= this.minY) { // => no pot sortir de sa pantalla per l'esquerra
-      this.y = this.minY + 1;
-   }
-      
+        }
+        else if (this.y >= this.maxY) { // => s'ha fet que es pugui arribar com a màxim a sa meitat d'es canvas
+            this.y = this.maxY;
+        }
+        else if (this.y <= this.minY) { // => no pot sortir de sa pantalla per l'esquerra
+            this.y = this.minY + 1;
+        }
+
     }
 
     animate() { // => aquí hi van tots els moviments

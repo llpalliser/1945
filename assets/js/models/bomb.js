@@ -1,12 +1,12 @@
-class Ship3 {
+class Bomb {
 
     constructor(ctx, x, y) {
-        this.ctx = ctx; 
-        this.x = x; 
+        this.ctx = ctx;
+        this.x = x;
         this.y = y;
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/ship3.png'
+        this.sprite.src = './assets/img/bomb.png'
         this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
         this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
         // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
@@ -36,12 +36,12 @@ class Ship3 {
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
                 // después la posicionamos dentro del canvas
-                this.x,
-                this.y,
-                // 50,
-                // 200
-               this.width,
-              this.height,
+                 this.x,
+                 this.y,
+                 40,
+                 40,
+                //this.width,
+                //this.height,
             )
         }
     }
@@ -50,6 +50,7 @@ class Ship3 {
         this.y -= - GROUND_SPEED - TURBO;
         this.x += lateral_move;
       }
+    
 
 
 }

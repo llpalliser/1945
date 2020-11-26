@@ -21,50 +21,47 @@ class Game {
 
         this.plane = new Plane(this.ctx, 600, 600)
         this.ships = [
-            new Ship1(this.ctx, 1088, this.plane.y - 100),
-            new Ship1(this.ctx, 1188, this.plane.y - 80),
-            new Ship2(this.ctx, 340, -600),
-            new Ship3(this.ctx, 740, -700),
+            new Ship1(this.ctx, 1088, + 300),
+            new Ship1(this.ctx, 100, + -800),
+            new Ship2(this.ctx, 200, + -1200),
+
 
 
 
         ]
 
 
+        this.bombs = [
+            new Bomb(this.ctx, 700, -700),
+            new Bomb(this.ctx, 700, -400),
+            new Bomb(this.ctx, 700, -200),
+ 
 
+
+        ]
         this.canyons = [
 
-            new Canyon(this.ctx, 958, -1100, 40), //OK
+         //   new Canyon(this.ctx, 958, -1100, 40), //OK
 
             // new Canyon(this.ctx, 968, -1000),
-            new Canyon(this.ctx, 632, -343, 50, 0), //OK
-            new Canyon(this.ctx, 400, -562, 40, 10), //ok
-            new Canyon(this.ctx, 20, -398, 40, 20), //ok //390
+            // new Canyon(this.ctx, 632, -343, 50, 0), //OK
+            // new Canyon(this.ctx, 400, -562, 40, 10), //ok
+            // new Canyon(this.ctx, 20, -398, 40, 20), //ok //390
 
 
 
-            new Canyon(this.ctx, 120, 30, 40, 3), // Prova
-            new Canyon(this.ctx, 170, 30, 40, 0), // Prova
-
-
-            new Canyon(this.ctx, 170, this.background.x + 30, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 130, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 230, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 330, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 430, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 530, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 630, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 730, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 830, 40, 0), // Prova
-            new Canyon(this.ctx, 170, this.background.x + 930, 40, 0), // Prova
-
-
-
-
+            // new Canyon(this.ctx, 120, 30, 40, 3), // Prova
+            // new Canyon(this.ctx, 170, 30, 40, 0), // Prova
         ];
 
 
+        this.levantes = [
+            new Levante(this.ctx, 120, 130, 40, 3), // Prova
+            new Levante(this.ctx, 170, 130, 40, 3), // Prova
+            new Levante(this.ctx, 200, 130, 40, 3), // Prova
+            new Levante(this.ctx, 300, 130, 40, 0), // Prova
 
+        ]
 
 
         const motorAudio = new Audio('./assets/sound/motor.wav');
@@ -109,7 +106,7 @@ class Game {
         // per això es fa amb un true/false
         // funciona borrant dibuixant // borrant els fps que faixin falta
         if (!this.drawIntervalId) {
-            this.sounds.theme.play();
+            //   this.sounds.theme.play();
 
             this.drawIntervalId = setInterval(() => {
                 this.clear();
@@ -144,12 +141,16 @@ class Game {
         this.background.draw(); // => quiero llamar al draw del background
         this.ships.forEach(ship => ship.draw());
         this.canyons.forEach(canyon => canyon.draw());
+        this.levantes.forEach(levante => levante.draw());
+
         this.plane.draw(); // => dibuixa es plane
+        this.bombs.forEach(bomb => bomb.draw());
+
+
 
 
         this.tv.draw();
 
-        //console.log(this.plane.x)
 
 
         //    this.coins.forEach(coin =>  coin. draw()); // => com coins és un array, hem d'inter dins s'array
@@ -166,24 +167,28 @@ class Game {
         this.background.move();
         this.ships.forEach(ship => ship.move());
         this.canyons.forEach(canyon => canyon.move());
+        this.levantes.forEach(levante => levante.move());
+
         this.plane.move();
+        this.bombs.forEach(bomb => bomb.move());
+        // this.canyons.forEach(canyon => canyon.shot());
+
+
         // this.sounds.motor_plane.play(); // => desactivat
 
 
+ if (this.plane.y <= 200) {TURBO = 10} else {TURBO = 0}
 
-
-        if (this.plane.x >=  this.plane.maxX - 200 && this.background.x*-1 <= this.background.img.width-1200) {
+        if (this.plane.x >= this.plane.maxX - 200 && this.background.x * -1 <= this.background.img.width - 1200) {
             this.background.moveRight();
         }
 
-        else if (this.plane.x <= this.plane.minX && this.background.x*-1 >=50) {
+        else if (this.plane.x <= this.plane.minX && this.background.x * -1 >= 50) {
 
             this.background.moveLeft();
         }
         else {
         }
-console.log (lateral_move)
-console.log (this.background.x, this.background.img.width)
         //console.log (`movimiento mov_x ${mov_x}`)
 
     }

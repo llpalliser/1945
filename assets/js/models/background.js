@@ -46,6 +46,7 @@ class Background {
 
             case KEY_UP: // => per colocar elements
                 this.movement.up = state;
+
                 break;
             case KEY_DOWN:
                 this.movement.down = state;
@@ -147,7 +148,7 @@ class Background {
         //          this.y = 0
         //      }
 
-        this.y += this.vy;
+        this.y += this.vy + TURBO;
        
 
 

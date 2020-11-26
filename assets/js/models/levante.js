@@ -1,4 +1,4 @@
-class Canyon {
+class Levante {
 
   constructor(ctx, x, y, h, drawCount) {
     this.ctx = ctx;
@@ -10,14 +10,14 @@ class Canyon {
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/canyons4.png'
-    this.sprite.horizontalFrameIndex = 2; // => posición de reposo de la moneda linea 0
-    this.sprite.verticalFrameIndex = 2; // => posición de reposo de la moneda columna 0
+    this.sprite.src = './assets/img/levante.png'
+    this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
+    this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
     // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
 
     // ahora hemos de decir cuantos frames tiene nuestro sprite: 
-    this.sprite.horizontalFrames = 4; // no son palabras reservadas
-    this.sprite.verticalFrames = 4;
+    this.sprite.horizontalFrames = 1; // no son palabras reservadas
+    this.sprite.verticalFrames = 1;
     this.sprite.isReady = false; // casegurarse que las imágenes están en cache
     this.sprite.onload = () => {
       this.sprite.isReady = true;
@@ -31,6 +31,7 @@ class Canyon {
     this.bullets = [];
     this.sounds = {
       fire: new Audio('./assets/sound/shot.wav')
+
     }
 
 
@@ -65,28 +66,8 @@ class Canyon {
       this.animate();
 
 
-
-
-
-
-
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -94,7 +75,8 @@ class Canyon {
     if (this.canFire) {
       //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
 
-      this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 500 + this.height));
+      this.bullets.push(new Shot(this.ctx, this.x+7, this.y + 10, 500 + this.height, 180));
+      this.bullets.push(new Shot(this.ctx, this.x+17, this.y + 10, 500 + this.height, 180));
 
 
 
@@ -124,12 +106,12 @@ class Canyon {
 
 
   animate() {
-    if (this.drawCount % MOVEMENT_FRAMES === 0) {
-      this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-      this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
+    // if (this.drawCount % MOVEMENT_FRAMES === 0) {
+    //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
+    //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
 
-      this.drawCount = 0;
-    }
+    //   this.drawCount = 0;
+    // }
     this.shot()
   }
 
