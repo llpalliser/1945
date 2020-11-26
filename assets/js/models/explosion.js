@@ -1,21 +1,21 @@
-class Shot {
+class Explosion {
 
-    constructor(ctx, x, y, maxY, direction) {
+    constructor(ctx, x, y, maxY) {
       this.ctx = ctx;
       this.x = x;
       this.vx = SHOT_SPEED;
      
-      this.direction = direction;
+
       this.y = y;
       this.maxY = maxY;
       this.vy = SHOT_SPEED;
       
       this.sprite = new Image();
-      this.sprite.src = './assets/img/shots.png';
+      this.sprite.src = './assets/img/explosions.png';
       this.sprite.isReady = false;
       this.sprite.horizontalFrameIndex = 0;
       this.sprite.verticalFrameIndex = 0;
-      this.sprite.horizontalFrames = 4;
+      this.sprite.horizontalFrames = 6;
       this.sprite.verticalFrames = 1;
       this.sprite.onload = () => {
         this.isReady = true;
@@ -26,12 +26,6 @@ class Shot {
       }
   
       this.drawCount = 0;
-
-      this.bullets = [];
-
-
-
-      
     }
   
     draw() {
@@ -46,45 +40,19 @@ class Shot {
         //this.width,
         //this.height
       10,
-      20,
-      
+      20
       
         );
-
       this.drawCount++;
       this.animate();
-
     }
-
-
   
     move() {
-
-      // NORTE
-        if (this.direction === 0) {
-            this.x += SHOT_SPEED;
-            this.y +=0;
-        }
-        // LEVANTE
-        else if (this.direction === 90) {
-            this.x += 0;
-            this.y += SHOT_SPEED;
-        }
-// PONIENTE
-        else if (this.direction === 270) {
-            this.x += 0;
-            this.y -= SHOT_SPEED;
-        }
-// SUR
-        else if (this.direction === 180) {
-          this.x -= SHOT_SPEED;
-          this.y = 0;
-      }
-
-
-      }
-
-
+    
+      
+      this.y -= - GROUND_SPEED - TURBO;
+      this.x += lateral_move;
+       }
   
     animate() {
       if (this.drawCount % MOVEMENT_FRAMES === 0) {
@@ -92,10 +60,5 @@ class Shot {
         this.drawCount = 0;
       }
     }
-
-    
-
-
-
   }
   

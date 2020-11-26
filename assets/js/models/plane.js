@@ -18,6 +18,8 @@ class Plane {
 
         this.canFire = true;
         this.bullets = [];
+        this.explosiones = [];
+
         this.sounds = {
             fire: new Audio('./assets/sound/shot.wav')
         }
@@ -73,12 +75,14 @@ class Plane {
 
             case KEY_FIRE:
                 if (this.canFire) {
-               //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
 
-                    this.bullets.push(new Shot(this.ctx, this.x+34, this.y + 3, 500 + this.height, 0));
-                    this.bullets.push(new Shot(this.ctx, this.x+49, this.y + 3, 500 + this.height, 0));
-                    this.bullets.push(new Shot(this.ctx, this.x+80, this.y + 3, 500 + this.height, 0));
-                    this.bullets.push(new Shot(this.ctx, this.x+94, this.y + 3, 500 + this.height, 0));
+                    //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
+
+                    this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 500 + this.height, 270));
+                    this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
+                    this.bullets.push(new Shot(this.ctx, this.x + 49, this.y + 3, 500 + this.height, 270));
+                    this.bullets.push(new Shot(this.ctx, this.x + 80, this.y + 3, 500 + this.height, 270));
+                    this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 500 + this.height, 270));
 
 
                     this.sounds.fire.currentTime = 0;
@@ -86,6 +90,7 @@ class Plane {
                     this.canFire = false;
 
                     setTimeout(() => this.canFire = true, 100);
+
                 }
 
                 break;
@@ -95,12 +100,28 @@ class Plane {
         }
     }
 
+    explosions () {
+
+this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
+
+
+    }
+
+
     clear() {
-        this.bullets = this.bullets.filter(bullet => bullet.y < 0)
-      }
+
+        this.bullets = this.bullets.filter(bullet => bullet.y >= 300)
+
+    }
+
+
+
+
 
 
     draw() {
+
+
         if (this.sprite.isReady) {
             this.ctx.drawImage(
                 // primero la posicionamos dentro del png
@@ -121,9 +142,15 @@ class Plane {
                 // this.height
             )
             this.bullets.forEach(bullet => bullet.draw());
+            this.explosiones.forEach(explosion => explosion.draw());
+
 
             this.drawCount++;
             this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
+
+            this.bullets.forEach(bullet => console.log(bullet.y));
+            this.clear()
+
         }
 
 
@@ -131,6 +158,13 @@ class Plane {
     }
 
     move() {
+
+        
+        
+        
+      
+        
+        this.explosiones.forEach(explosion => explosion.move());
 
         this.bullets.forEach(bullet => bullet.move());
 
@@ -215,6 +249,16 @@ class Plane {
             this.drawCount = 0;
         }
     }
+
+    collidesWith(element) {
+        // => si todo esto se cumple, hay una colisión
+        // => es importante que se cumplan todas las condiciones
+        return this.x < element.x + element.width &&
+            this.x + this.width > element.x &&
+            this.y < element.y + element.height &&
+            this.y + this.height > element.y;
+    }
+
 
 
 }

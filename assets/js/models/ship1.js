@@ -21,8 +21,23 @@ class Ship1 {
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
             this.width = this.sprite.frameWidth; // => li dic es width de sa moneda
             this.height = this.sprite.frameHeight; // => li dic es height de sa moneda
-
         }
+
+        this.sures = [
+            new Sur(this.ctx, this.x, this.y + 120, 30, 3), // Prova
+            new Sur(this.ctx, this.x, this.y + 160, 30, 3), // Prova
+            new Sur(this.ctx, this.x, this.y + 200, 30, 3), // Prova
+
+        ]
+
+        this.nortes = [
+            new Norte(this.ctx, this.x+40, this.y + 120, 30, 3), // Prova
+            new Norte(this.ctx, this.x+40, this.y + 160, 30, 3), // Prova
+            new Norte(this.ctx, this.x+40, this.y + 200, 30, 3), // Prova
+
+        ]
+
+
     }
 
     draw() {
@@ -44,11 +59,20 @@ class Ship1 {
                 this.height,
             )
         }
+        this.nortes.forEach(norte => norte.draw());
+        this.sures.forEach(sur => sur.draw());
+
+
     }
 
     move() {
+
         this.y -= - GROUND_SPEED - TURBO;
         this.x += lateral_move;
+        this.nortes.forEach(norte => norte.move());
+        this.sures.forEach(sur => sur.move());
+
+
       }
     
 

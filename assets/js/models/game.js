@@ -20,14 +20,11 @@ class Game {
 
 
         this.plane = new Plane(this.ctx, 600, 600)
+
         this.ships = [
             new Ship1(this.ctx, 1088, + 300),
             new Ship1(this.ctx, 100, + -800),
             new Ship2(this.ctx, 200, + -1200),
-
-
-
-
         ]
 
 
@@ -35,31 +32,36 @@ class Game {
             new Bomb(this.ctx, 700, -700),
             new Bomb(this.ctx, 700, -400),
             new Bomb(this.ctx, 700, -200),
- 
-
-
         ]
         this.canyons = [
 
-         //   new Canyon(this.ctx, 958, -1100, 40), //OK
-
+            // new Canyon(this.ctx, 958, -1100, 40), //OK
             // new Canyon(this.ctx, 968, -1000),
             // new Canyon(this.ctx, 632, -343, 50, 0), //OK
             // new Canyon(this.ctx, 400, -562, 40, 10), //ok
             // new Canyon(this.ctx, 20, -398, 40, 20), //ok //390
-
-
-
             // new Canyon(this.ctx, 120, 30, 40, 3), // Prova
             // new Canyon(this.ctx, 170, 30, 40, 0), // Prova
         ];
 
 
         this.levantes = [
-            new Levante(this.ctx, 120, 130, 40, 3), // Prova
-            new Levante(this.ctx, 170, 130, 40, 3), // Prova
-            new Levante(this.ctx, 200, 130, 40, 3), // Prova
+            new Levante(this.ctx, 120, 130, 40, 0), // Prova
+            new Levante(this.ctx, 170, 130, 40, 0), // Prova
+            new Levante(this.ctx, 200, 130, 40, 0), // Prova
             new Levante(this.ctx, 300, 130, 40, 0), // Prova
+            new Levante(this.ctx, 130, 1790, 40, 0), // Prova
+            new Levante(this.ctx, 130, -1800, 40, 0), // Prova
+        ]
+
+
+        this.nortes = [
+            new Norte(this.ctx, 500, -200, 40, 3), // Prova
+            new Norte(this.ctx, 500, -100, 40, 3), // Prova
+            new Norte(this.ctx, 500, 0, 40, 3), // Prova
+            new Norte(this.ctx, 500, 100, 40, 0), // Prova
+            new Norte(this.ctx, 500, 200, 40, 0), // Prova
+            new Norte(this.ctx, 190, -1800, 40, 0), // Prova
 
         ]
 
@@ -112,6 +114,8 @@ class Game {
                 this.clear();
                 this.move(); // => move que crida a move background, plane, etc
                 this.draw();
+                this.checkCollisions();
+
             }, this.fps);
         }
 
@@ -123,6 +127,7 @@ class Game {
         // fillRect() rellena una figura automáticamente; por defecto en negro
         // clearRect() rellenar en blanco
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
 
     }
 
@@ -139,35 +144,31 @@ class Game {
         // ja he creat sa classe background
         /// => IMPORTANT s'ordre, en capes
         this.background.draw(); // => quiero llamar al draw del background
+        this.tv.draw();
         this.ships.forEach(ship => ship.draw());
         this.canyons.forEach(canyon => canyon.draw());
         this.levantes.forEach(levante => levante.draw());
-
+        this.nortes.forEach(norte => norte.draw());
         this.plane.draw(); // => dibuixa es plane
         this.bombs.forEach(bomb => bomb.draw());
-
-
-
-
         this.tv.draw();
+        this.checkCollisions();
 
 
 
-        //    this.coins.forEach(coin =>  coin. draw()); // => com coins és un array, hem d'inter dins s'array
+     
 
     }
 
     move() {
-        // if (this.mario.x >= this.mario.maxX) { // => quan arriba a la meitat, es mou es background
-
-        //     this.background.move(); // => es dona moviment a n'es Background
-        // }
+        
 
         this.plane.move();
         this.background.move();
         this.ships.forEach(ship => ship.move());
         this.canyons.forEach(canyon => canyon.move());
         this.levantes.forEach(levante => levante.move());
+        this.nortes.forEach(norte => norte.move());
 
         this.plane.move();
         this.bombs.forEach(bomb => bomb.move());
@@ -177,7 +178,7 @@ class Game {
         // this.sounds.motor_plane.play(); // => desactivat
 
 
- if (this.plane.y <= 200) {TURBO = 10} else {TURBO = 0}
+        if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }
 
         if (this.plane.x >= this.plane.maxX - 200 && this.background.x * -1 <= this.background.img.width - 1200) {
             this.background.moveRight();
@@ -192,5 +193,22 @@ class Game {
         //console.log (`movimiento mov_x ${mov_x}`)
 
     }
+
+
+    checkCollisions() {
+
+
+        const norte = this.nortes.some(norte => this.plane.collidesWith(norte));
+        const ship = this.ships.some(ship => this.plane.collidesWith(ship));
+        
+        if (ship) {
+            console.log(`Barco`)
+        }
+        if (norte) {
+            console.log("CRASSHHHH");
+        }
+    }
+
+
 
 }

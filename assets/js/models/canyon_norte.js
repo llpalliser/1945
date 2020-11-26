@@ -1,4 +1,4 @@
-class Canyon {
+class Norte {
 
   constructor(ctx, x, y, h, drawCount) {
     this.ctx = ctx;
@@ -10,14 +10,14 @@ class Canyon {
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/canyons4.png'
-    this.sprite.horizontalFrameIndex = 2; // => posición de reposo de la moneda linea 0
-    this.sprite.verticalFrameIndex = 2; // => posición de reposo de la moneda columna 0
+    this.sprite.src = './assets/img/norte.png'
+    this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
+    this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
     // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
 
     // ahora hemos de decir cuantos frames tiene nuestro sprite: 
-    this.sprite.horizontalFrames = 4; // no son palabras reservadas
-    this.sprite.verticalFrames = 4;
+    this.sprite.horizontalFrames = 1; // no son palabras reservadas
+    this.sprite.verticalFrames = 1;
     this.sprite.isReady = false; // casegurarse que las imágenes están en cache
     this.sprite.onload = () => {
       this.sprite.isReady = true;
@@ -31,9 +31,8 @@ class Canyon {
     this.bullets = [];
     this.sounds = {
       fire: new Audio('./assets/sound/shot.wav')
+
     }
-
-
 
 
   }
@@ -41,15 +40,15 @@ class Canyon {
 
 
   clear() {
-    this.bullets = this.bullets.filter(bullet => bullet.y < 0)
+ this.bullets = this.bullets.filter(bullet => bullet.y < 0)
   }
 
   draw() {
     if (this.sprite.isReady) { // => abans de dibuixar-la ens hem d'assegurar que està pintada
       this.ctx.drawImage(
         this.sprite,
-        this.sprite.horizontalFrameIndex * this.sprite.frameWidth, 
-        this.sprite.verticalFrameIndex * this.sprite.frameHeight, 
+        this.sprite.horizontalFrameIndex * this.sprite.frameWidth,
+        this.sprite.verticalFrameIndex * this.sprite.frameHeight,
         this.sprite.frameWidth,
         this.sprite.frameHeight,
         this.x,
@@ -59,38 +58,28 @@ class Canyon {
         //   this.width,
         //  this.height,
       )
-                  this.bullets.forEach(bullet => bullet.draw());
 
       this.drawCount++;
       this.animate();
+     // this.checkCollisions();
 
 
     }
   }
 
 
+
   shot() {
     if (this.canFire && this.y < 900) {
-      //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
+      this.bullets.push(new Shot(this.ctx, this.x + 7, this.y + 10, 500 + this.height, 0));
+      this.bullets.push(new Shot(this.ctx, this.x + 17, this.y + 10, 500 + this.height, 0));
 
-      this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 500 + this.height));
-
-
-
-      //            this.sounds.fire.currentTime = 0;
-      //          this.sounds.fire.play();
       this.canFire = false;
 
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));    }
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
+  
+    }
   }
-
-
-
-
- 
-
-
-
 
 
   move() {
@@ -102,14 +91,19 @@ class Canyon {
 
 
   animate() {
-    if (this.drawCount % MOVEMENT_FRAMES === 0) {
-      this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-      this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
 
-      this.drawCount = 0;
-    }
     this.shot()
   }
+
+
+  checkCollisions() {
+    const disparo = this.bullets.some(disparo => this.plane.collidesWith(disparo));
+   // const ship = this.ships.some(ship => this.plane.collidesWith(ship));
+    if (disparo) {
+        console.log(`DISPARAT I FERIT`)
+    }
+
+}
 
 
 }

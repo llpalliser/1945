@@ -1,7 +1,6 @@
 class Background {
 
     constructor(ctx) {
-        // 99% contexto con posición
         this.ctx = ctx;
         this.x = -900; // posició d'es background x
         this.vx = +1,
@@ -124,65 +123,23 @@ class Background {
 
     }
 
-    move() { // => moure es background
-
-        //      if (this.movement.down)
-        //      this.y += -10 // => ho he posat dins draw() i em funcionava
-        //     if (this.y + this.height <= 0) {
-        //          this.y = 0
-        //      }
-
-
-
-        // this.y += this.vy // => !!!! DESACTIVAT PER COLOCAR ELEMENTS !!!!!!!!!!!!!!!!!!!!
-
-        //      if (this.movement.up)
-        //      this.y += 10 // => ho he posat dins draw() i em funcionava
-        //     if (this.y + this.height <= 0) {
-        //          this.y = 0
-        //      }
-
-        //      if (this.movement.down)
-        //      this.y += -10 // => ho he posat dins draw() i em funcionava
-        //     if (this.y + this.height <= 0) {
-        //          this.y = 0
-        //      }
+    move() { 
 
         this.y += this.vy + TURBO;
-       
-
-
-
-
-
-
-        // this.y += this.vy // => !!!! DESACTIVAT PER COLOCAR ELEMENTS !!!!!!!!!!!!!!!!!!!!
-
-        // if (this.movement.down)
-        // this.y += this.vy // => ho he posat dins draw() i em funcionava
-        // if (this.y + this.height <= 0) {
-        //     this.y = 0
-        // }
-
-
-        //this.x += this.vx
-
-        // if (this.y >= -14400) {
-        //     { // => moure es background
-        //         if (this.movement.right)
-        //             this.x -= this.vx // => ho he posat dins draw() i em funcionava
-        //         // if (this.x + this.width <= 0) {
-        //         //     this.x = 0
-        //         // 
-
-        //        console.log("Dreta")
-        //     }
-
-        // }
-
-        //  console.log(`Posició background: ${this.y}`)
-
-
+ 
 
     }
+
+    collidesWith(element) {
+        // => si todo esto se cumple, hay una colisión
+        // => es importante que se cumplan todas las condiciones
+        return this.x < element.x + element.width &&
+          this.x + this.width > element.x &&
+          this.y < element.y + element.height &&
+          this.y + this.height > element.y;
+      }
+
+
+
+
 }

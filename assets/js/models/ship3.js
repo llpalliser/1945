@@ -23,6 +23,15 @@ class Ship3 {
             this.height = this.sprite.frameHeight; // => li dic es height de sa moneda
 
         }
+
+        this.levantes = [
+            new Norte(this.ctx, this.x, this.y + 120, 30, 3), // Prova
+            new Norte(this.ctx, this.x, this.y + 160, 30, 3), // Prova
+            new Norte(this.ctx, this.x, this.y + 200, 30, 3), // Prova
+
+        ]
+
+
     }
 
     draw() {

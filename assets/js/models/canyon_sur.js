@@ -1,4 +1,4 @@
-class Levante {
+class Sur {
 
   constructor(ctx, x, y, h, drawCount) {
     this.ctx = ctx;
@@ -10,7 +10,7 @@ class Levante {
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/levante.png'
+    this.sprite.src = './assets/img/sur.png'
     this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
     this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
     // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
@@ -34,11 +34,7 @@ class Levante {
 
     }
 
-
-
-
   }
-
 
 
   clear() {
@@ -49,8 +45,8 @@ class Levante {
     if (this.sprite.isReady) { // => abans de dibuixar-la ens hem d'assegurar que està pintada
       this.ctx.drawImage(
         this.sprite,
-        this.sprite.horizontalFrameIndex * this.sprite.frameWidth, 
-        this.sprite.verticalFrameIndex * this.sprite.frameHeight, 
+        this.sprite.horizontalFrameIndex * this.sprite.frameWidth,
+        this.sprite.verticalFrameIndex * this.sprite.frameHeight,
         this.sprite.frameWidth,
         this.sprite.frameHeight,
         this.x,
@@ -60,7 +56,7 @@ class Levante {
         //   this.width,
         //  this.height,
       )
-                  this.bullets.forEach(bullet => bullet.draw());
+      this.bullets.forEach(bullet => bullet.draw());
 
       this.drawCount++;
       this.animate();
@@ -72,11 +68,9 @@ class Levante {
 
 
   shot() {
-    if (this.canFire) {
-      //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
-
-      this.bullets.push(new Shot(this.ctx, this.x+7, this.y + 10, 500 + this.height, 180));
-      this.bullets.push(new Shot(this.ctx, this.x+17, this.y + 10, 500 + this.height, 180));
+    if (this.canFire && this.y < 900) {
+      this.bullets.push(new Shot(this.ctx, this.x + 7, this.y + 10, 500 + this.height, 180));
+      this.bullets.push(new Shot(this.ctx, this.x + 17, this.y + 10, 500 + this.height, 180));
 
 
 
@@ -84,17 +78,8 @@ class Levante {
       //          this.sounds.fire.play();
       this.canFire = false;
 
-      setTimeout(() => this.canFire = true, 1000);
-    }
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));    }
   }
-
-
-
-
- 
-
-
-
 
 
   move() {
