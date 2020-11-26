@@ -99,9 +99,6 @@ class Background {
                 lateral_move = 0;
             }
 
-
-
-
         
 
     }

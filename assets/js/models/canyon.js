@@ -56,23 +56,9 @@ class Canyon {
   }
 
   move() {
-
     this.y -= - GROUND_SPEED;
-    
-    // if (this.bacg) {this.x = this.x + 2;
-    //    console.log (`mou esquerra`)};
-
-
-
-    // if (move_right) {this.x = this.x - SPEED;
-    // console.log (`mou dreta`)};
-
-     this.x += lateral_move;
-     
-     console.log (lateral_move)
-
-
-}
+    this.x += lateral_move;
+  }
 
 
   animate() {

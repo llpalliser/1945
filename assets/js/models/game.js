@@ -91,8 +91,6 @@ class Game {
         this.plane.onKeyEvent(event); // => s'ha posat dins Mario un onKeyEvent
         this.background.onKeyEvent(event); // => definit dins background
 
-        //  console.log(`Plane X: ${this.plane.x},      Plane Y ${this.plane.y}`)
-        //  console.log(`Ground X: ${this.background.x}, Ground Y ${this.background.y}`)
     }
 
 
@@ -171,22 +169,21 @@ class Game {
         this.plane.move();
         // this.sounds.motor_plane.play(); // => desactivat
 
-        if (this.plane.x >=   800 ) {
+
+
+
+        if (this.plane.x >=  this.plane.maxX - 200 && this.background.x*-1 <= this.background.img.width-1200) {
             this.background.moveRight();
         }
 
-        else if (this.plane.x <= this.plane.minX) {
+        else if (this.plane.x <= this.plane.minX && this.background.x*-1 >=50) {
 
             this.background.moveLeft();
-
-
         }
         else {
-
-          //  this.background.noLateralMove()
-      //    lateral_move = 0
         }
 console.log (lateral_move)
+console.log (this.background.x, this.background.img.width)
         //console.log (`movimiento mov_x ${mov_x}`)
 
     }
