@@ -19,6 +19,7 @@ class Plane {
         this.canFire = true;
         this.bullets = [];
         this.explosiones = [];
+        this.smokes = [];
 
         this.sounds = {
             fire: new Audio('./assets/sound/shot.wav')
@@ -79,17 +80,26 @@ class Plane {
                     //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
 
                     this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 500 + this.height, 270));
-                    this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
+                    //  setTimeout(() => this.explosiones.push (new Explosion(this.ctx, this.x + 32,this.y + -350, 100)), 400);
                     this.bullets.push(new Shot(this.ctx, this.x + 49, this.y + 3, 500 + this.height, 270));
                     this.bullets.push(new Shot(this.ctx, this.x + 80, this.y + 3, 500 + this.height, 270));
+                    //   setTimeout(() => this.explosiones.push (new Explosion(this.ctx, this.x + 80,this.y + -350, 100)), 400);
                     this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 500 + this.height, 270));
+                    this.smokes.push(new Smoke(this.ctx, this.x + 24, this.y + -00, 100));
 
+                    // this.explosiones.push (new Explosion(this.ctx, this.x + 24,this.y + -350, 100));
+                    // this.explosiones.push (new Explosion(this.ctx, this.x + 39,this.y + -350, 100));
+                    // this.explosiones.push (new Explosion(this.ctx, this.x + 70,this.y + -350, 100));
+                    // this.explosiones.push (new Explosion(this.ctx, this.x + 84,this.y + -350, 100));
+                  
+                  
+    
 
                     this.sounds.fire.currentTime = 0;
                     this.sounds.fire.play();
                     this.canFire = false;
 
-                    setTimeout(() => this.canFire = true, 100);
+                    setTimeout(() => this.canFire = true, 200);
 
                 }
 
@@ -98,20 +108,6 @@ class Plane {
 
 
         }
-    }
-
-    explosions () {
-
-this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
-
-
-    }
-
-
-    clear() {
-
-        this.bullets = this.bullets.filter(bullet => bullet.y >= 300)
-
     }
 
 
@@ -142,13 +138,18 @@ this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
                 // this.height
             )
             this.bullets.forEach(bullet => bullet.draw());
-            this.explosiones.forEach(explosion => explosion.draw());
+            // this.bullets.forEach(bullet => console.log(bullet.y));
 
+            this.explosiones.forEach(explosion => explosion.draw());
+            //  this.explosiones.forEach(explosion => console.log(explosion.y));
+
+            this.smokes.forEach(smoke => smoke.draw());
+             this.smokes.forEach(smoke => console.log(smoke.y));
 
             this.drawCount++;
             this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
 
-            this.bullets.forEach(bullet => console.log(bullet.y));
+ 
             this.clear()
 
         }
@@ -157,14 +158,24 @@ this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
 
     }
 
+
+
+    clear() {
+
+        this.bullets = this.bullets.filter(bullet => bullet.y >= 300);
+        this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
+        this.smokes = this.smokes.filter(smoke => smoke.y <= 1200) // es pot baixar a 1000
+    }
     move() {
 
-        
-        
-        
-      
-        
+
+
+
+
+
         this.explosiones.forEach(explosion => explosion.move());
+        this.smokes.forEach(smoke => smoke.move());
+
 
         this.bullets.forEach(bullet => bullet.move());
 
@@ -205,6 +216,8 @@ this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
             this.y = this.minY + 1;
         }
 
+
+
     }
 
     animate() { // => aquí hi van tots els moviments
@@ -236,19 +249,13 @@ this.explosiones.push (new Explosion(this.ctx, this.x,this.y, 100));
 
 
     // Aquest codi ja no es toca, si es vol fer un altre moviment, es posa dins animate()
-    animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
+ 
 
-        // lo primero que se debe hacer es comprobar si el frame está en la posición inicial
-        if (this.sprite.verticalFrameIndex != initialVerticalIndex) { // => si no lo está
-            this.sprite.verticalFrameIndex = initialVerticalIndex; // => colócalo en el frame vertical inicial
-            this.sprite.horizontalFrameIndex = initialHorizontalIndex; // => colócalo en el frame horizontal inicial
-        } else if (this.drawCount % frequency === 0) {// => si ya estaba en el frame inicial (en reposo, por ejemplo)
-            // => cada ciclo completo, muevo el frame
-            // => cuando hayas contado 5, cambia uno de los segmentos del Sprite
-            this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
-            this.drawCount = 0;
-        }
-    }
+
+   
+
+
+
 
     collidesWith(element) {
         // => si todo esto se cumple, hay una colisión

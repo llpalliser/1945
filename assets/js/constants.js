@@ -5,7 +5,7 @@ const KEY_LEFT = 37;
 const KEY_FIRE = 32;
 const TEST = 70;
 
-const MOVEMENT_FRAMES = 30;
+const MOVEMENT_FRAMES = 10;
 let GROUND_SPEED = 2;
 const SPEED = 2;
  

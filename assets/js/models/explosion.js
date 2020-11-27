@@ -1,6 +1,6 @@
 class Explosion {
 
-    constructor(ctx, x, y, maxY) {
+    constructor(ctx, x, y, maxY, delay) {
       this.ctx = ctx;
       this.x = x;
       this.vx = SHOT_SPEED;
@@ -37,10 +37,9 @@ class Explosion {
         this.sprite.frameHeight,
         this.x,
         this.y,
-        //this.width,
-        //this.height
-      10,
-      20
+        this.width,
+        this.height,
+
       
         );
       this.drawCount++;
@@ -50,15 +49,24 @@ class Explosion {
     move() {
     
       
-      this.y -= - GROUND_SPEED - TURBO;
+      this.y -= - GROUND_SPEED  +1  - TURBO;
       this.x += lateral_move;
        }
   
     animate() {
+      
       if (this.drawCount % MOVEMENT_FRAMES === 0) {
         this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-        this.drawCount = 0;
-      }
+          this.drawCount = 0;
+
+      } 
+this.resetAnimation()      }
+    
+
+    resetAnimation() {
+      this.sprite.horizontalFrameIndex = 0;
+      this.sprite.verticalFrameIndex = 0;
     }
+
   }
   
