@@ -78,7 +78,7 @@ class Shot {
 // SUR
         else if (this.direction === 180) {
           this.x -= SHOT_SPEED;
-          this.y = 0;
+          this.y =10;
       }
 
 

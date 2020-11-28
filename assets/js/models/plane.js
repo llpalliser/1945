@@ -81,11 +81,14 @@ class Plane {
                     this.bullets.push(new Shot(this.ctx, this.x + 49, this.y + 3, 440 + this.height, 270)); // cañon 2
                     this.bullets.push(new Shot(this.ctx, this.x + 80, this.y + 3, 440 + this.height, 270)); // cañon 3
                     this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
-
                     // Daños
                     setTimeout(() => this.craters.push(new Crater(this.ctx, this.x + 24, this.y - 420, 1)), 400);
                     setTimeout(() => this.fixedSmokes.push(new FixedSmoke(this.ctx, this.x + 24, this.y + -450)), 400); 
-                       
+                     this.explosiones.push(new Explosion(this.ctx, this.x+32, this.y, 28));
+                     this.explosiones.push(new Explosion(this.ctx, this.x+47, this.y, 28));
+                     this.explosiones.push(new Explosion(this.ctx, this.x+78, this.y, 28));
+                     this.explosiones.push(new Explosion(this.ctx, this.x+92, this.y, 28));
+
                     this.sounds.fire.currentTime = 0;
                     this.sounds.fire.play();
                     this.canFire = false;
@@ -148,7 +151,7 @@ class Plane {
         this.bullets = this.bullets.filter(bullet => bullet.y >= 300);
 
 
-        this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
+       // this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
         this.smokes = this.smokes.filter(smoke => smoke.y <= 1200)
         this.fixedSmokes = this.fixedSmokes.filter(fixedSmokes => fixedSmokes.y <= 1200)
 
@@ -160,7 +163,7 @@ class Plane {
 
 
     move() {
-        this.explosiones.forEach(explosion => explosion.move());
+    //    this.explosiones.forEach(explosion => explosion.move());
         this.smokes.forEach(smoke => smoke.move());
         this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.move());
 

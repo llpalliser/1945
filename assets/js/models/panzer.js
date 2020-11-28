@@ -1,4 +1,4 @@
-class Sur {
+class Panzer {
 
   constructor(ctx, x, y, h, drawCount) {
     this.ctx = ctx;
@@ -6,30 +6,31 @@ class Sur {
     this.y = y;
     this.h = h;
     this.drawCount = drawCount;
+    this.explosion = 100;
 
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/norte.png'
-    this.sprite.horizontalFrameIndex = 0;
-    this.sprite.verticalFrameIndex = 0;
-
-    this.sprite.horizontalFrames = 1;
+    this.sprite.src = './assets/img/panther_levante.png'
+    this.sprite.horizontalFrameIndex = 0; 
+    this.sprite.verticalFrameIndex = 0; 
+    
+    this.sprite.horizontalFrames = 1; 
     this.sprite.verticalFrames = 1;
-    this.sprite.isReady = false;
+    this.sprite.isReady = false; 
     this.sprite.onload = () => {
       this.sprite.isReady = true;
       this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames)
       this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
-      this.width = this.sprite.frameWidth;
-      this.height = this.sprite.frameHeight;
+      this.width = this.sprite.frameWidth; 
+      this.height = this.sprite.frameHeight; 
 
     }
     this.canFire = true;
     this.bullets = [];
-    this.smokes = [];
+    this.explosions = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/shot.wav')
+      fire: new Audio('./assets/sound/panzer_sound.mp3')
 
     }
 
@@ -38,7 +39,7 @@ class Sur {
 
 
   draw() {
-    if (this.sprite.isReady) {
+    if (this.sprite.isReady) { 
       this.ctx.drawImage(
         this.sprite,
         this.sprite.horizontalFrameIndex * this.sprite.frameWidth,
@@ -49,11 +50,10 @@ class Sur {
         this.y,
         this.h,
         this.h
-        //   this.width,
-        //  this.height,
+
       )
       this.bullets.forEach(bullet => bullet.draw());
-      this.smokes.forEach(smoke => smoke.draw())
+      this.explosions.forEach(explosion => explosion.draw())
 
 
       this.drawCount++;
@@ -65,49 +65,47 @@ class Sur {
 
 
   clear() {
-
+   
     this.bullets = this.bullets.filter(bullet => bullet.y >= 900);
-    
-
-
-
 
   }
 
   shot() {
-    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
-      this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 180));
-      this.smokes.push(new Explosion(this.ctx, this.x+30, this.y, 40));
-      this.sounds.fire.currentTime = 0;
-      this.sounds.fire.play();
+    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) { 
 
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
+     this.bullets.push(new Shot(this.ctx, this.x+20 , this.y + 3, 440 + this.height, 90));
+     this.explosions.push(new Explosion(this.ctx, this.x, this.y+40, 40));
+     this.sounds.fire.currentTime = 0;
+     this.sounds.fire.play();
+
+
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 2000));
 
       this.canFire = false;
 
 
-    
-
-
     }
+
 
   }
 
 
   clear() {
 
-    this.bullets = this.bullets.filter(bullet => bullet.x <= 2800);
+    this.bullets = this.bullets.filter(bullet => bullet.y <= Math.floor((Math.random() * 900) + 700));
 
   }
+
 
   move() {
 
     this.bullets.forEach(bullet => bullet.move());
-    this.smokes.forEach(smoke => smoke.move());
-    //this.bullets.forEach(bullet => console.log(`Norte X: ` + bullet.x));
+   //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
 
-    this.y -= - GROUND_SPEED - TURBO;
-    this.x += lateral_move;
+    
+
+    this.y -= - GROUND_SPEED - TURBO+0.1;
+    this.x += lateral_move+0.1;
   }
 
 

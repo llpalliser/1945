@@ -8,7 +8,6 @@ class Crater {
 
 
 
-
     this.sprite = new Image();
 
 
@@ -20,9 +19,10 @@ class Crater {
 
     this.sprite.horizontalFrameIndex = Math.floor((Math.random() * 2) + 0); 
     this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
-    // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
+    this.sounds = {
+      fire: new Audio('./assets/sound/sf_explosion_20.mp3')
 
-    // ahora hemos de decir cuantos frames tiene nuestro sprite: 
+    }
     this.sprite.horizontalFrames = 2; // no son palabras reservadas
     this.sprite.verticalFrames = 1;
     this.sprite.isReady = false; // casegurarse que las imágenes están en cache
@@ -34,6 +34,7 @@ class Crater {
       this.height = this.sprite.frameHeight; // => li dic es height de sa moneda
 
     }
+    this.soundEffect = true;
   }
 
   draw() {
@@ -54,7 +55,10 @@ class Crater {
 
       )
 
+     if(this.soundEffect) {this.sounds.fire.play(); this.soundEffect=false}
+
     }
+
   }
 
   move() {

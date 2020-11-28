@@ -1,13 +1,12 @@
 class Smoke {
 
-  constructor(ctx, x, y, maxY, delay) {
+  constructor(ctx, x, y, h) {
     this.ctx = ctx;
     this.x = x;
     this.vx = SHOT_SPEED;
-
+    this.h = h;
 
     this.y = y;
-    this.maxY = maxY;
     this.vy = SHOT_SPEED;
 
 
@@ -41,8 +40,8 @@ class Smoke {
       this.sprite.frameHeight,
       this.x,
       this.y,
-      this.width,
-      this.height,
+      this.h,
+      this.h,
 
 
     );
@@ -55,10 +54,10 @@ class Smoke {
 
   move() {
     this.y -= - GROUND_SPEED - TURBO;
-    
-    this.x += lateral_move/2;
 
-}
+    this.x += lateral_move / 2;
+
+  }
 
 
   animate() {

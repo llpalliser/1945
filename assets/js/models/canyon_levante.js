@@ -1,6 +1,6 @@
 class Levante {
 
-  constructor(ctx, x, y, h, drawCount, explosion) {
+  constructor(ctx, x, y, h, drawCount) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
@@ -28,9 +28,9 @@ class Levante {
     }
     this.canFire = true;
     this.bullets = [];
-    this.smokes = [];
+    this.explosions = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/shot.wav')
+      fire: new Audio('./assets/sound/anti_aircraft_sound.mp3')
 
     }
 
@@ -50,11 +50,10 @@ class Levante {
         this.y,
         this.h,
         this.h
-        //   this.width,
-        //  this.height,
+
       )
       this.bullets.forEach(bullet => bullet.draw());
-      this.smokes.forEach(smoke => smoke.draw())
+      this.explosions.forEach(explosion => explosion.draw())
 
 
       this.drawCount++;
@@ -73,9 +72,12 @@ class Levante {
 
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) { 
-      this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 90));
 
-   
+     this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 90));
+     this.explosions.push(new Explosion(this.ctx, this.x, this.y+40, 40));
+     this.sounds.fire.currentTime = 0;
+     this.sounds.fire.play();
+
 
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
 
@@ -98,8 +100,7 @@ class Levante {
   move() {
 
     this.bullets.forEach(bullet => bullet.move());
-    this.smokes.forEach(smoke => smoke.move());
-   this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
+   //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
 
     
 

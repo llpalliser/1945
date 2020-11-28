@@ -1,12 +1,11 @@
 class Norte {
 
-  constructor(ctx, x, y, h, drawCount, explosion) {
+  constructor(ctx, x, y, h, drawCount) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.h = h;
     this.drawCount = drawCount;
-    this.explosion = 100;
 
     this.xy = 2;
 
@@ -68,6 +67,7 @@ class Norte {
   clear() {
 
     this.bullets = this.bullets.filter(bullet => bullet.y >= 900);
+    
 
 
 
@@ -77,10 +77,17 @@ class Norte {
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
+      this.smokes.push(new Explosion(this.ctx, this.x+30, this.y, 40));
+      this.sounds.fire.currentTime = 0;
+      this.sounds.fire.play();
 
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
 
       this.canFire = false;
+
+
+    
+
 
     }
 
@@ -97,7 +104,7 @@ class Norte {
 
     this.bullets.forEach(bullet => bullet.move());
     this.smokes.forEach(smoke => smoke.move());
-    this.bullets.forEach(bullet => console.log(`Norte X: ` + bullet.x));
+    //this.bullets.forEach(bullet => console.log(`Norte X: ` + bullet.x));
 
     this.y -= - GROUND_SPEED - TURBO;
     this.x += lateral_move;

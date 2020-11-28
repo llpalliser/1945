@@ -41,16 +41,13 @@ class Ship1 {
     }
 
     draw() {
-        if (this.sprite.isReady) { // => abans de dibuixar-la ens hem d'assegurar que està pintada
+        if (this.sprite.isReady) { 
             this.ctx.drawImage(
-                // => la colocamos dentro de la imagen y luego la posicionamos dentro del canvas
                 this.sprite,
-                this.sprite.horizontalFrameIndex * this.sprite.frameWidth, // posició horitzontal dins s'sprite
-                // vgr si amplada de cada frame és 20, i es vol sa segona, 1*20 = 20
-                this.sprite.verticalFrameIndex * this.sprite.frameHeight, // posició vertical dins s'sprite
+                this.sprite.horizontalFrameIndex * this.sprite.frameWidth, 
+                this.sprite.verticalFrameIndex * this.sprite.frameHeight, 
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
-                // después la posicionamos dentro del canvas
                 this.x,
                 this.y,
           
