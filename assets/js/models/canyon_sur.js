@@ -60,6 +60,7 @@ class Sur {
 
       this.drawCount++;
       this.animate();
+      
 
 
     }

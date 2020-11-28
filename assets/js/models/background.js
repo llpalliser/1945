@@ -92,7 +92,7 @@ class Background {
     moveRight() {
 
         if (this.movement.right) {
-            this.x -= this.vx
+            this.x -= GROUND_SPEED
             lateral_move = -2 }
             else {
                 this.x = this.x;
@@ -108,7 +108,7 @@ class Background {
     moveLeft() {
 
         if (this.movement.left) {
-        this.x += this.vy;
+        this.x += GROUND_SPEED;
         lateral_move = +2 }
         else {
             this.x = this.x;

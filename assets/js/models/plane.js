@@ -20,6 +20,8 @@ class Plane {
         this.bullets = [];
         this.explosiones = [];
         this.smokes = [];
+        this.fixedSmokes = [];
+        this.craters = [];
 
         this.sounds = {
             fire: new Audio('./assets/sound/shot.wav')
@@ -56,11 +58,8 @@ class Plane {
     }
 
     onKeyEvent(event) {
-        const state = event.type === 'keydown' //=> cuando la tecla se pulsa 
+        const state = event.type === 'keydown'
         switch (event.keyCode) {
-            // => hemos creado constantes.js para que queden guardados los códigos de movimiento 
-            // cuando pulsamos las teclas, este diccionario será combinable
-            // diccionario de movimientos con booleanos permite tener varios estados abiertos a la vez
             case KEY_UP:
                 this.movement.up = state;
                 break;
@@ -69,6 +68,8 @@ class Plane {
                 break;
             case KEY_LEFT:
                 this.movement.left = state;
+
+
                 break;
             case KEY_DOWN:
                 this.movement.down = state;
@@ -76,37 +77,24 @@ class Plane {
 
             case KEY_FIRE:
                 if (this.canFire) {
+                    this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
+                    this.bullets.push(new Shot(this.ctx, this.x + 49, this.y + 3, 440 + this.height, 270)); // cañon 2
+                    this.bullets.push(new Shot(this.ctx, this.x + 80, this.y + 3, 440 + this.height, 270)); // cañon 3
+                    this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
 
-                    //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
-
-                    this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 500 + this.height, 270));
-                    //  setTimeout(() => this.explosiones.push (new Explosion(this.ctx, this.x + 32,this.y + -350, 100)), 400);
-                    this.bullets.push(new Shot(this.ctx, this.x + 49, this.y + 3, 500 + this.height, 270));
-                    this.bullets.push(new Shot(this.ctx, this.x + 80, this.y + 3, 500 + this.height, 270));
-                    //   setTimeout(() => this.explosiones.push (new Explosion(this.ctx, this.x + 80,this.y + -350, 100)), 400);
-                    this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 500 + this.height, 270));
-                    this.smokes.push(new Smoke(this.ctx, this.x + 24, this.y + -00, 100));
-
-                    // this.explosiones.push (new Explosion(this.ctx, this.x + 24,this.y + -350, 100));
-                    // this.explosiones.push (new Explosion(this.ctx, this.x + 39,this.y + -350, 100));
-                    // this.explosiones.push (new Explosion(this.ctx, this.x + 70,this.y + -350, 100));
-                    // this.explosiones.push (new Explosion(this.ctx, this.x + 84,this.y + -350, 100));
-                  
-                  
-    
-
+                    // Daños
+                    setTimeout(() => this.craters.push(new Crater(this.ctx, this.x + 24, this.y - 420, 1)), 400);
+                    setTimeout(() => this.fixedSmokes.push(new FixedSmoke(this.ctx, this.x + 24, this.y + -450)), 400); 
+                       
                     this.sounds.fire.currentTime = 0;
                     this.sounds.fire.play();
                     this.canFire = false;
 
-                    setTimeout(() => this.canFire = true, 200);
+                    setTimeout(() => this.canFire = true, 800);
+
 
                 }
-
                 break;
-
-
-
         }
     }
 
@@ -117,8 +105,9 @@ class Plane {
 
     draw() {
 
-
         if (this.sprite.isReady) {
+            this.craters.forEach(crater => crater.draw());
+
             this.ctx.drawImage(
                 // primero la posicionamos dentro del png
                 this.sprite,
@@ -130,26 +119,20 @@ class Plane {
                 // después la posicionamos dentro del canvas
                 this.x,
                 this.y,
-                // this.w,// this.width,
-                // this.h, //this.height,
                 140,
                 120,
                 // this.width,
                 // this.height
             )
             this.bullets.forEach(bullet => bullet.draw());
-            // this.bullets.forEach(bullet => console.log(bullet.y));
-
             this.explosiones.forEach(explosion => explosion.draw());
-            //  this.explosiones.forEach(explosion => console.log(explosion.y));
-
             this.smokes.forEach(smoke => smoke.draw());
-             this.smokes.forEach(smoke => console.log(smoke.y));
+            this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.draw());
 
             this.drawCount++;
             this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
 
- 
+
             this.clear()
 
         }
@@ -163,24 +146,29 @@ class Plane {
     clear() {
 
         this.bullets = this.bullets.filter(bullet => bullet.y >= 300);
+
+
         this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
-        this.smokes = this.smokes.filter(smoke => smoke.y <= 1200) // es pot baixar a 1000
+        this.smokes = this.smokes.filter(smoke => smoke.y <= 1200)
+        this.fixedSmokes = this.fixedSmokes.filter(fixedSmokes => fixedSmokes.y <= 1200)
+
+        this.craters = this.craters.filter(crater => crater.y <= 1200)
+
+
     }
+
+
+
     move() {
-
-
-
-
-
-
         this.explosiones.forEach(explosion => explosion.move());
         this.smokes.forEach(smoke => smoke.move());
+        this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.move());
 
-
+        this.craters.forEach(crater => crater.move());
         this.bullets.forEach(bullet => bullet.move());
 
         if (this.movement.right) {
-            this.vx = + PLANE_SPEED; // => posat a constants.js
+            this.vx = + PLANE_SPEED;
         }
         else if (this.movement.left) {
             this.vx = - PLANE_SPEED;
@@ -249,10 +237,10 @@ class Plane {
 
 
     // Aquest codi ja no es toca, si es vol fer un altre moviment, es posa dins animate()
- 
 
 
-   
+
+
 
 
 

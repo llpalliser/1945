@@ -68,7 +68,7 @@ class Shot {
         // LEVANTE
         else if (this.direction === 90) {
             this.x += 0;
-            this.y += SHOT_SPEED;
+            this.y += 10;
         }
 // PONIENTE
         else if (this.direction === 270) {

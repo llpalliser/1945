@@ -1,6 +1,6 @@
-class Smoke {
+class FixedSmoke {
 
-  constructor(ctx, x, y, maxY, delay) {
+  constructor(ctx, x, y, maxY) {
     this.ctx = ctx;
     this.x = x;
     this.vx = SHOT_SPEED;
@@ -13,7 +13,7 @@ class Smoke {
 
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/smoke_72.png';
+    this.sprite.src = './assets/img/fixedSmoke.png';
     this.sprite.isReady = false;
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
@@ -41,8 +41,8 @@ class Smoke {
       this.sprite.frameHeight,
       this.x,
       this.y,
-      this.width,
-      this.height,
+      120,
+      120
 
 
     );
@@ -54,15 +54,13 @@ class Smoke {
   }
 
   move() {
-    this.y -= - GROUND_SPEED - TURBO;
-    
-    this.x += lateral_move/2;
-
-}
+    this.y -= - GROUND_SPEED + 1 - TURBO;
+    this.x += lateral_move / 2;
+  }
 
 
   animate() {
-    this.animateSprite(0, 0, 0, 8)
+    this.animateSprite(0, 0, 0, 10)
   }
 
 

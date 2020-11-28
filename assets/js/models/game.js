@@ -22,9 +22,9 @@ class Game {
         this.plane = new Plane(this.ctx, 600, 600)
 
         this.ships = [
-            new Ship1(this.ctx, 1088, + 300),
-            new Ship1(this.ctx, 100, + -800),
-            new Ship2(this.ctx, 200, + -1200),
+            // new Ship1(this.ctx, 1088, + 300),
+            // new Ship1(this.ctx, 100, + -800),
+            // new Ship2(this.ctx, 200, + -1200),
         ]
 
 
@@ -46,19 +46,30 @@ class Game {
 
 
         this.levantes = [
-            new Levante(this.ctx, 120, 130, 40, 0), // Prova
-            new Levante(this.ctx, 170, 130, 40, 0), // Prova
-            new Levante(this.ctx, 200, 130, 40, 0), // Prova
-            new Levante(this.ctx, 300, 130, 40, 0), // Prova
-            new Levante(this.ctx, 130, 1790, 40, 0), // Prova
-            new Levante(this.ctx, 130, -1800, 40, 0), // Prova
+           new Levante(this.ctx, 120, 130, 40, 90), // Prova
+            new Levante(this.ctx, 170, 130, 40, 90), // Prova
+            new Levante(this.ctx, 200, 130, 40, 90), // Prova
+            new Levante(this.ctx, 300, 130, 40, 90), // Prova
+            new Levante(this.ctx, 130, 1790, 40, 90), // Prova
+            new Levante(this.ctx, 130, -1800, 40, 90), // Prova
+
+            // new Levante(this.ctx, 120, 130, 40, 90), // Prova
+             
+            // new Levante(this.ctx, 170, -530, 40, 90), // Prova
+            // new Levante(this.ctx, 200, -630, 40, 90), // Prova
+            // new Levante(this.ctx, 300, -930, 40, 90), // Prova
+            // new Levante(this.ctx, 130, -2790, 40, 90), // Prova
+            // new Levante(this.ctx, 130, -1800, 40, 90), // Prova
+
+
+
         ]
 
 
         this.nortes = [
-            new Norte(this.ctx, 500, -200, 40, 3), // Prova
-            new Norte(this.ctx, 500, -100, 40, 3), // Prova
-            new Norte(this.ctx, 500, 0, 40, 3), // Prova
+            new Norte(this.ctx, 500, -200, 40, 0), // Prova
+            new Norte(this.ctx, 500, -100, 40, 0), // Prova
+            new Norte(this.ctx, 500, 0, 40, 0), // Prova
             new Norte(this.ctx, 500, 100, 40, 0), // Prova
             new Norte(this.ctx, 500, 200, 40, 0), // Prova
             new Norte(this.ctx, 190, -1800, 40, 0), // Prova
@@ -74,14 +85,6 @@ class Game {
         }
 
 
-
-
-
-
-
-        //   this.coins = [
-        //     new Coin(this.ctx, this.mario.x + 100, this.mario.y)
-        //    ] // => el juego tiene que saber que hay monedas; cuando haya un conjunto de cosas del mismo tipo =>  array
     }
 
 
@@ -90,9 +93,21 @@ class Game {
         this.plane.onKeyEvent(event); // => s'ha posat dins Mario un onKeyEvent
         this.background.onKeyEvent(event); // => definit dins background
 
+        const state = event.type === 'keydown'
+
+
+
+        
+ 
     }
 
 
+
+
+
+
+
+     
 
 
     // es crea un mètode de start 
@@ -112,7 +127,7 @@ class Game {
 
             this.drawIntervalId = setInterval(() => {
                 this.clear();
-                this.move(); // => move que crida a move background, plane, etc
+                this.move();
                 this.draw();
                 this.checkCollisions();
 
@@ -120,15 +135,12 @@ class Game {
         }
 
     }
-    // en cada ciclo del juego, BORRAMOS - PINTAMOS
 
     clear() {
         // borra tot es canvas de 0,0 a tot weight i tot height 
         // fillRect() rellena una figura automáticamente; por defecto en negro
         // clearRect() rellenar en blanco
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-
     }
 
     stop() {
@@ -138,20 +150,15 @@ class Game {
     }
 
     draw() {
-        // la función del draw del game llamará a todos los demás objetos
-        // pintar el fondo, que será un objeto nuevo
-
-        // ja he creat sa classe background
-        /// => IMPORTANT s'ordre, en capes
+     
         this.background.draw(); // => quiero llamar al draw del background
-        this.tv.draw();
+       // this.tv.draw();
         this.ships.forEach(ship => ship.draw());
         this.canyons.forEach(canyon => canyon.draw());
         this.levantes.forEach(levante => levante.draw());
         this.nortes.forEach(norte => norte.draw());
-        this.plane.draw(); // => dibuixa es plane
         this.bombs.forEach(bomb => bomb.draw());
-        this.tv.draw();
+        this.plane.draw(); // => dibuixa es plane
         this.checkCollisions();
 
 
@@ -172,6 +179,8 @@ class Game {
 
         this.plane.move();
         this.bombs.forEach(bomb => bomb.move());
+
+        
         // this.canyons.forEach(canyon => canyon.shot());
 
 
@@ -189,8 +198,9 @@ class Game {
             this.background.moveLeft();
         }
         else {
+            this.background.noLateralMove();
         }
-        //console.log (`movimiento mov_x ${mov_x}`)
+
 
     }
 

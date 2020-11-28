@@ -6,7 +6,7 @@ class Ship1 {
         this.y = y;
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/ship1.png'
+        this.sprite.src = './assets/img/ship_hd1.png'
         this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
         this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
         // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
@@ -24,16 +24,16 @@ class Ship1 {
         }
 
         this.sures = [
-            new Sur(this.ctx, this.x, this.y + 120, 30, 3), // Prova
-            new Sur(this.ctx, this.x, this.y + 160, 30, 3), // Prova
-            new Sur(this.ctx, this.x, this.y + 200, 30, 3), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 120, 30, 3), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 160, 30, 3), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 200, 30, 3), // Prova
 
         ]
 
         this.nortes = [
-            new Norte(this.ctx, this.x+40, this.y + 120, 30, 3), // Prova
-            new Norte(this.ctx, this.x+40, this.y + 160, 30, 3), // Prova
-            new Norte(this.ctx, this.x+40, this.y + 200, 30, 3), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 120, 30, 3), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 160, 30, 3), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 200, 30, 3), // Prova
 
         ]
 
@@ -53,8 +53,7 @@ class Ship1 {
                 // después la posicionamos dentro del canvas
                 this.x,
                 this.y,
-                // 50,
-                // 200
+          
                 this.width,
                 this.height,
             )
