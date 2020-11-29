@@ -1,13 +1,14 @@
 class Norte {
 
-  constructor(ctx, x, y, h, drawCount, plane_pos) {
+  constructor(ctx, x, y, h, plane_pos, plane) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.h = h;
-    this.drawCount = drawCount;
-this.plane_pos=plane_pos * -1;
+    this.drawCount = 0;
+    this.plane_pos = plane_pos * -1;
     this.xy = 2;
+    this.plane = plane;
 
     this.sprite = new Image();
     this.sprite.src = './assets/img/norte.png'
@@ -59,6 +60,7 @@ this.plane_pos=plane_pos * -1;
       this.drawCount++;
       this.animate();
       this.clear()
+      this.checkCollisions()
 
     }
   }
@@ -67,7 +69,7 @@ this.plane_pos=plane_pos * -1;
   clear() {
 
     this.bullets = this.bullets.filter(bullet => bullet.y >= 900);
-    
+
 
 
 
@@ -77,7 +79,7 @@ this.plane_pos=plane_pos * -1;
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane_pos > this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
-      this.smokes.push(new Explosion(this.ctx, this.x+30, this.y, 40));
+      this.smokes.push(new Explosion(this.ctx, this.x + 30, this.y, 40));
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
 
@@ -85,8 +87,8 @@ this.plane_pos=plane_pos * -1;
 
       this.canFire = false;
 
-console.log(this.plane_pos)
-    
+      console.log(this.plane_pos)
+
 
 
     }
@@ -121,5 +123,21 @@ console.log(this.plane_pos)
     this.shot()
   }
 
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+      this.x + this.width > element.x &&
+      this.y < element.y + element.height &&
+      this.y + this.height > element.y;
+  }
+
+
+
+  checkCollisions() {
+    const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+    if (dispars) {
+      console.log("NORTE")
+      DAMAGES -= 1
+    }
+  }
 
 }

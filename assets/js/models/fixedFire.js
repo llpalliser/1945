@@ -1,4 +1,4 @@
-class FixedSmoke {
+class FixedFire {
 
   constructor(ctx, x, y, h) {
     this.ctx = ctx;
@@ -13,11 +13,11 @@ class FixedSmoke {
 
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/fixedSmoke.png';
+    this.sprite.src = './assets/img/fixedFireH.png';
     this.sprite.isReady = false;
-    this.sprite.horizontalFrameIndex = 0;
+    this.sprite.horizontalFrameIndex = 0
     this.sprite.verticalFrameIndex = 0;
-    this.sprite.horizontalFrames = 41.5 // 38 smoke_h
+    this.sprite.horizontalFrames = 20 // 38 smoke_h
     this.sprite.verticalFrames = 1;
     this.sprite.onload = () => {
       this.isReady = true;
@@ -60,7 +60,7 @@ class FixedSmoke {
 
 
   animate() {
-    this.animateSprite(0, 0, 0, 10)
+    this.animateSprite(0,0, 0, 20)
   }
 
 
@@ -79,9 +79,20 @@ class FixedSmoke {
       this.drawCount = 0;
 
     }
+    // animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalSegments, frequency) {
+    //   if (this.sprite.verticalFrameIndex != initialVerticalIndex) {
+    //     this.sprite.verticalFrameIndex = initialVerticalIndex;
+    //     this.sprite.horizontalFrameIndex = initialHorizontalIndex;
+    //   } else if (this.sprite.drawCount % frequency === 0) {
+    //     this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
+    //     this.sprite.drawCount = 0;
+    //   }
+    // }
 
 
   }
+
+
 
 
 

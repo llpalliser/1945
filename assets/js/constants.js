@@ -3,6 +3,7 @@ const KEY_RIGHT = 39;
 const KEY_DOWN = 40;
 const KEY_LEFT = 37;
 const KEY_FIRE = 32;
+const KEY_BURST = 88;
 const TEST = 70;
 
 const MOVEMENT_FRAMES = 10;
@@ -16,13 +17,14 @@ const SHOT_SPEED = 10;
 
 let lateral_move = 0
 
-const NORTES = 10;
-const SURES = 10;
-const LEVANTES = 10;
-const ENEMYPLANES = 10;
-const TANKS = 100;
+const NORTES = 30;
+const SURES = 30;
+const LEVANTES = 30;
+const ENEMYPLANES = 0;
+const TANKS = 30;
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
 const CAMPO_TIRO_MAX = 900; // HASTA DONDE LOS ENEMIGOS PUEDEN DISPARAR
 
 let LIFES = 10;
+let DAMAGES = 1000;
