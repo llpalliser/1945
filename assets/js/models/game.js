@@ -21,6 +21,7 @@ class Game {
 
         this.mapped = false;
 
+        this.damages= DAMAGES;
         this.plane_destroyed = false;
         this.planeExplosions = [];
         this.enemyPlanes = [
@@ -44,6 +45,8 @@ class Game {
 
         this.bombs = [
             new Bomb(this.ctx, 700, -700),
+            new Bomb(this.ctx, 700, -600),
+            new Bomb(this.ctx, 400, -700),
             // new Bomb(this.ctx, 700, -400),
             // new Bomb(this.ctx, 700, -200),
         ]
@@ -143,6 +146,8 @@ class Game {
             let posX = Math.floor((Math.random() * 1900) + -600);
             let posY = Math.floor((Math.random() * -8000) + -3400);
             this.panzers.push(new Panzer(this.ctx, posX, posY, 40, this.plane))
+            this.panzers.push(new Panzer(this.ctx, posX + 40, posY + 20, 40, this.plane))
+
         }
     }
 
@@ -151,6 +156,9 @@ class Game {
             let posX = Math.floor((Math.random() * 1800) + -600);
             let posY = Math.floor((Math.random() * -8000) + -3400);
             this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane.x * -1, this.plane))
+            this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
+            this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
+
         }
     }
 
@@ -172,13 +180,12 @@ class Game {
             let posX = Math.floor((Math.random() * 2000) + -640);
             let posY = Math.floor((Math.random() * -14000) + -400);
 
+            this.enemyPlanes.push(new enemyPlane(this.ctx, posX  -300, posY, 120, this.plane.x * -1, this.plane.Y * -1))
+            this.enemyPlanes.push(new enemyPlane(this.ctx, posX + 300, posY, 120, this.plane.x * -1, this.plane.Y * -1))
 
-            this.enemyPlanes.push(new enemyPlane(this.ctx, posX - 150, posY, 120, this.plane.x * -1, this.plane.Y * -1))
-            this.enemyPlanes.push(new enemyPlane(this.ctx, posX + 150, posY, 120, this.plane.x * -1, this.plane.Y * -1))
-
-            this.enemyPlanes.push(new enemyPlaneJapo(this.ctx, posX - 150, posY + 500, 120, this.plane.x * -1, this.plane.Y * -1))
-            this.enemyPlanes.push(new enemyPlaneJapo(this.ctx, posX, posY + 500, 120, this.plane.x * -1, this.plane.Y * -1))
-            this.enemyPlanes.push(new enemyPlaneJapo(this.ctx, posX + 150, posY + 500, 120, this.plane.x * -1, this.plane.Y * -1))
+            this.enemyPlanes.push(new enemyPlaneJapo(this.ctx, posX - 150, posY + 200, 120, this.plane.x * -1, this.plane.Y * -1))
+            this.enemyPlanes.push(new enemyPlaneJapo(this.ctx, posX, posY + 300, 120, this.plane.x * -1, this.plane.Y * -1))
+            this.enemyPlanes.push(new enemyPlaneJapo(this.ctx, posX + 150, posY + 200, 120, this.plane.x * -1, this.plane.Y * -1))
 
 
         }
@@ -271,15 +278,26 @@ class Game {
         this.panzers.filter(panzer => panzer.y > 0).forEach(panzer => panzer.draw())
         this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => enemyPlane.draw())
 
-        // this.panzers.forEach(panzer => panzer.draw());
 
         this.bombs.forEach(bomb => bomb.draw());
         this.plane.draw();
         this.planeExplosions.filter(planeExplosion => planeExplosion.y > 0).forEach(planeExplosion => planeExplosion.draw())
+ 
+        
 
-        this.tv.draw();
 
-      //  this.checkCollisions();
+     
+        this.ctx.font = "80px Advent Pro";
+        this.ctx.fillText(DAMAGES, 30, 100);
+
+
+
+
+
+
+
+
+        this.checkCollisions();
 
     }
 
@@ -332,32 +350,26 @@ class Game {
         const llevants = this.levantes.some(levante => this.plane.collidesWith(levante));
         const tanks = this.panzers.some(panzer => this.plane.collidesWith(panzer));
         const nords = this.nortes.some(norte => this.plane.collidesWith(norte));
+        const bomb = this.bombs.some(bomb => this.plane.collidesWith(bomb));
 
 
-
-
-
-        // const plane_collision = this.enemyPlanes.some(enemy => this.enemy.collidesWith(enemy));
-
-        //     // const bala = this.bales.some(bala => this.plane.collidesWith(bala));
-
-        //    // const norbaleste = this.nortes.some(norte => this.plane.collidesWith(norte));
-
-
-        // if (norte) {
-        //     console.log(`Barco`)
-        // }
-
-if (!this.plane_destroyed){
-        if (planes || tanks || nords ||llevants) {
-            console.log("TE L'HAS PIGADA AMB UN LEVANTE");
-            this.planeExplosions.push(new PlaneExplosion(this.ctx, this.plane.x, this.plane.y, 100))
-            this.plane_destroyed = true;
+        if (bomb) {DAMAGES = 10000;
         }
+
+
+
+
+// if (!this.plane_destroyed){
+//         if (planes || tanks || nords ||llevants) {
+//             console.log("TE L'HAS PIGADA AMB UN LEVANTE");
+//             this.planeExplosions.push(new PlaneExplosion(this.ctx, this.plane.x, this.plane.y, 100))
+//             this.plane_destroyed = true;
+//         }
   
-    }
+//     }
+
     }
 
-
+ 
 
 }

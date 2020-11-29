@@ -20,7 +20,7 @@ let lateral_move = 0
 const NORTES = 30;
 const SURES = 30;
 const LEVANTES = 30;
-const ENEMYPLANES = 0;
+const ENEMYPLANES = 5;
 const TANKS = 30;
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
