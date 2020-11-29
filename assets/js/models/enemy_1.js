@@ -1,21 +1,22 @@
-class Levante {
+class enemyPlane {
 
-  constructor(ctx, x, y, h, drawCount, plane) {
+  constructor(ctx, x, y, h, planex, planey) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.h = h;
-    this.plane = plane;
-    this.drawCount = drawCount;
-    this.explosion = 100;
+    this.planex=planex;
+    this.planey=planey
+    //this.explosion = 100;
+
+    //this.plane = plane;
 
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/levante.png'
+    this.sprite.src = './assets/img/enemy_bf109.png'
     this.sprite.horizontalFrameIndex = 0; 
     this.sprite.verticalFrameIndex = 0; 
-    
     this.sprite.horizontalFrames = 1; 
     this.sprite.verticalFrames = 1;
     this.sprite.isReady = false; 
@@ -25,19 +26,14 @@ class Levante {
       this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
       this.width = this.sprite.frameWidth; 
       this.height = this.sprite.frameHeight; 
-
     }
     this.canFire = true;
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/anti_aircraft_sound.mp3')
-
+      fire: new Audio('./assets/sound/squadron_sound.mp3')
     }
-
   }
-
-
 
   draw() {
     if (this.sprite.isReady) { 
@@ -51,20 +47,15 @@ class Levante {
         this.y,
         this.h,
         this.h
-
       )
       this.bullets.forEach(bullet => bullet.draw());
       this.explosions.forEach(explosion => explosion.draw())
-
-
       this.drawCount++;
       this.animate();
       this.clear()
-
-
-
-    }
+      this.sounds.fire.play();
   }
+}
 
 
   clear() {
@@ -75,15 +66,17 @@ class Levante {
 
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) { 
-    //  if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane_pos > this.x) {
 
-     this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 90));
-     this.explosions.push(new Explosion(this.ctx, this.x, this.y+40, 40));
+     this.bullets.push(new Shot(this.ctx, this.x+25 , this.y +100, 440 + this.height, 90));
+     this.bullets.push(new Shot(this.ctx, this.x+82 , this.y +100, 440 + this.height, 90));
+
+    this.explosions.push(new Explosion(this.ctx, this.x+15, this.y+104, 30));
+    this.explosions.push(new Explosion(this.ctx, this.x+70, this.y+104, 30));
+
+
      this.sounds.fire.currentTime = 0;
-     this.sounds.fire.play();
 
-
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
+     setTimeout(() => this.canFire = true, Math.floor((Math.random() * 100) + 50));
 
       this.canFire = false;
 
@@ -104,52 +97,26 @@ class Levante {
   move() {
 
     this.bullets.forEach(bullet => bullet.move());
-   //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
 
     
 
-    this.y -= - GROUND_SPEED - TURBO;
-    this.x += lateral_move;
+    this.y += 4
+    
+    //- GROUND_SPEED - TURBO+0.1;
+     this.x += lateral_move;
   }
 
 
   animate() {
-    // if (this.drawCount % MOVEMENT_FRAMES === 0) {
-    //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-    //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
 
-    //   this.drawCount = 0;
-    // }
     this.shot()
   }
-
-  collidesWith(element) {
-    return this.x < element.x + element.width &&
-        this.x + this.width > element.x &&
-        this.y < element.y + element.height &&
-        this.y + this.height > element.y;
-}
+  checkCollisions() {
 
 
+    // const bullet = this.bullets.some(bullet => this.plane.collidesWith(bullet));
 
-checkCollisions() {
-
-
-  const bullet = this.bullets.some(bullet => this.plane.collidesWith(bullet));
-  
-//     // const bala = this.bales.some(bala => this.plane.collidesWith(bala));
-
-//    // const norbaleste = this.nortes.some(norte => this.plane.collidesWith(norte));
-
-
-  if (bullet) {
-  console.log(`FERIT PER UN LEVANTE`)
-}
+    }
 
   
-}
-
-
-
-
 }

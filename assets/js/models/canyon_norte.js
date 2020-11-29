@@ -1,12 +1,12 @@
 class Norte {
 
-  constructor(ctx, x, y, h, drawCount) {
+  constructor(ctx, x, y, h, drawCount, plane_pos) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.h = h;
     this.drawCount = drawCount;
-
+this.plane_pos=plane_pos * -1;
     this.xy = 2;
 
     this.sprite = new Image();
@@ -75,7 +75,7 @@ class Norte {
   }
 
   shot() {
-    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
+    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane_pos > this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
       this.smokes.push(new Explosion(this.ctx, this.x+30, this.y, 40));
       this.sounds.fire.currentTime = 0;
@@ -85,7 +85,7 @@ class Norte {
 
       this.canFire = false;
 
-
+console.log(this.plane_pos)
     
 
 

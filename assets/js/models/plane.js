@@ -1,12 +1,11 @@
 class Plane {
 
-    constructor(ctx, x, y) { // => pasamos las coordenadas iniciales de Mario
+    constructor(ctx, x, y, ships) { // => pasamos las coordenadas iniciales de Mario
 
         this.ctx = ctx;
         this.x = x;
         //this.maxX = Math.floor(this.ctx.canvas.width / 2)
         //this.minX = 10;
-
         this.minX = 100;
         this.maxX = Math.floor(this.ctx.canvas.width - 600); // 600
         this.minY = 100;
@@ -16,6 +15,10 @@ class Plane {
         this.y = y;
         this.vy = 0;
 
+
+        this.ships = ships; // PROVA
+
+
         this.canFire = true;
         this.bullets = [];
         this.explosiones = [];
@@ -23,13 +26,12 @@ class Plane {
         this.fixedSmokes = [];
         this.craters = [];
 
+
+
+
         this.sounds = {
             fire: new Audio('./assets/sound/shot.wav')
         }
-
-
-        // => una IMAGEN se pinta entera
-        // => un SPRITE se pinta en distintos FRAMES 
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/bombers.png';
@@ -59,6 +61,7 @@ class Plane {
 
     onKeyEvent(event) {
         const state = event.type === 'keydown'
+
         switch (event.keyCode) {
             case KEY_UP:
                 this.movement.up = state;
@@ -77,23 +80,26 @@ class Plane {
 
             case KEY_FIRE:
                 if (this.canFire) {
-                    this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
-                    this.bullets.push(new Shot(this.ctx, this.x + 49, this.y + 3, 440 + this.height, 270)); // cañon 2
-                    this.bullets.push(new Shot(this.ctx, this.x + 80, this.y + 3, 440 + this.height, 270)); // cañon 3
-                    this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
+
+                    this.bullets.push(new Missile(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
+                    this.bullets.push(new Missile(this.ctx, this.x + 49, this.y + 3, 440 + this.height, 270)); // cañon 2
+                    this.bullets.push(new Missile(this.ctx, this.x + 80, this.y + 3, 440 + this.height, 270)); // cañon 3
+                    this.bullets.push(new Missile(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
                     // Daños
                     setTimeout(() => this.craters.push(new Crater(this.ctx, this.x + 24, this.y - 420, 1)), 400);
-                    setTimeout(() => this.fixedSmokes.push(new FixedSmoke(this.ctx, this.x + 24, this.y + -450)), 400); 
-                     this.explosiones.push(new Explosion(this.ctx, this.x+32, this.y, 28));
-                     this.explosiones.push(new Explosion(this.ctx, this.x+47, this.y, 28));
-                     this.explosiones.push(new Explosion(this.ctx, this.x+78, this.y, 28));
-                     this.explosiones.push(new Explosion(this.ctx, this.x+92, this.y, 28));
+                    setTimeout(() => this.fixedSmokes.push(new FixedSmoke(this.ctx, this.x + 24, this.y + -450)), 400);
+
+                    this.explosiones.push(new Explosion(this.ctx, this.x + 32, this.y, 28));
+                    this.explosiones.push(new Explosion(this.ctx, this.x + 47, this.y, 28));
+                    this.explosiones.push(new Explosion(this.ctx, this.x + 78, this.y, 28));
+                    this.explosiones.push(new Explosion(this.ctx, this.x + 92, this.y, 28));
 
                     this.sounds.fire.currentTime = 0;
                     this.sounds.fire.play();
                     this.canFire = false;
 
                     setTimeout(() => this.canFire = true, 800);
+
 
 
                 }
@@ -119,25 +125,28 @@ class Plane {
                 this.sprite.frameHeight * this.sprite.verticalFrameIndex, // posició vertical dins s'sprite
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
-                // después la posicionamos dentro del canvas
                 this.x,
                 this.y,
                 140,
                 120,
-                // this.width,
-                // this.height
+
             )
             this.bullets.forEach(bullet => bullet.draw());
             this.explosiones.forEach(explosion => explosion.draw());
             this.smokes.forEach(smoke => smoke.draw());
             this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.draw());
 
+
+
+
+
+
             this.drawCount++;
             this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
 
 
-            this.clear()
 
+            this.clear()
         }
 
 
@@ -148,10 +157,10 @@ class Plane {
 
     clear() {
 
-        this.bullets = this.bullets.filter(bullet => bullet.y >= 300);
+        //  this.bullets = this.bullets.filter(bullet => bullet.y >= 300);
 
-
-       // this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
+        this.bullets = this.bullets.filter(bullet => bullet.y >= this.y - 300);
+        // this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
         this.smokes = this.smokes.filter(smoke => smoke.y <= 1200)
         this.fixedSmokes = this.fixedSmokes.filter(fixedSmokes => fixedSmokes.y <= 1200)
 
@@ -163,7 +172,10 @@ class Plane {
 
 
     move() {
-    //    this.explosiones.forEach(explosion => explosion.move());
+        //    this.explosiones.forEach(explosion => explosion.move());
+
+
+
         this.smokes.forEach(smoke => smoke.move());
         this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.move());
 
@@ -243,19 +255,40 @@ class Plane {
 
 
 
+    damaged() {
+        LIFES -= 1;
 
+        console.log(LIFES)
+    }
 
 
 
 
     collidesWith(element) {
-        // => si todo esto se cumple, hay una colisión
-        // => es importante que se cumplan todas las condiciones
         return this.x < element.x + element.width &&
             this.x + this.width > element.x &&
             this.y < element.y + element.height &&
             this.y + this.height > element.y;
     }
+
+
+    checkCollisions() {
+
+
+
+        const missille = this.bullets.some(bullet => this.ship.collidesWith(bullet));
+        //  const ship = this.ships.some(ship => this.plane.collidesWith(ship));
+
+        if (missille) {
+            console.log(`Barco ferit`)
+        }
+
+
+
+    }
+
+
+
 
 
 

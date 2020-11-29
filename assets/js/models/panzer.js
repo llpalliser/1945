@@ -8,6 +8,8 @@ class Panzer {
     this.drawCount = drawCount;
     this.explosion = 100;
 
+    //this.plane = plane;
+
     this.xy = 2;
 
     this.sprite = new Image();
@@ -61,6 +63,7 @@ class Panzer {
       this.clear()
 
     }
+
   }
 
 
@@ -118,6 +121,12 @@ class Panzer {
     // }
     this.shot()
   }
+  checkCollisions() {
 
 
+    // const bullet = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+
+    }
+
+  
 }

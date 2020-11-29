@@ -71,26 +71,12 @@ class Canyon {
 
   shot() {
     if (this.canFire && this.y < 900) {
-      //     this.bullets.push(new Shot(this.ctx, this.x + this.width, this.y + 3, this.maxY + this.height));
 
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 500 + this.height));
-
-
-
-      //            this.sounds.fire.currentTime = 0;
-      //          this.sounds.fire.play();
       this.canFire = false;
 
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));    }
   }
-
-
-
-
- 
-
-
-
 
 
   move() {
@@ -110,6 +96,13 @@ class Canyon {
     }
     this.shot()
   }
+
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+        this.x + this.width > element.x &&
+        this.y < element.y + element.height &&
+        this.y + this.height > element.y;
+}
 
 
 }

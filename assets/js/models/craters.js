@@ -18,21 +18,20 @@ class Crater {
     this.h = Math.floor((Math.random() * 70) + 50)
 
     this.sprite.horizontalFrameIndex = Math.floor((Math.random() * 2) + 0); 
-    this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
+    this.sprite.verticalFrameIndex = 0;
     this.sounds = {
       fire: new Audio('./assets/sound/sf_explosion_20.mp3')
 
     }
-    this.sprite.horizontalFrames = 2; // no son palabras reservadas
+    this.sprite.horizontalFrames = 2; 
     this.sprite.verticalFrames = 1;
-    this.sprite.isReady = false; // casegurarse que las imágenes están en cache
+    this.sprite.isReady = false; 
     this.sprite.onload = () => {
       this.sprite.isReady = true;
       this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames)
       this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
-      this.width = this.sprite.frameWidth; // => li dic es width de sa moneda
-      this.height = this.sprite.frameHeight; // => li dic es height de sa moneda
-
+      this.width = this.sprite.frameWidth; 
+      this.height = this.sprite.frameHeight; 
     }
     this.soundEffect = true;
   }
@@ -45,13 +44,11 @@ class Crater {
         this.sprite.verticalFrameIndex * this.sprite.frameHeight,
         this.sprite.frameWidth,
         this.sprite.frameHeight,
-        // después la posicionamos dentro del canvas
         this.x,
         this.y,
         this.h,
         this.h,
-        //this.width,
-        //this.height,
+
 
       )
 

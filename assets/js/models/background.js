@@ -36,6 +36,12 @@ class Background {
     }
 
     onKeyEvent(event) { // => hem de pensar posar-ho dins onKeyEvent de game.js
+
+        setInterval
+
+
+
+
         const state = event.type === 'keydown' //=> cuando la tecla se pulsa 
         switch (event.keyCode) {
             // => hemos creado constantes.js para que queden guardados los códigos de movimiento 

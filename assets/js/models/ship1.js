@@ -24,16 +24,16 @@ class Ship1 {
         }
 
         this.sures = [
-            new Sur(this.ctx, this.x-4, this.y + 120, 30, 3), // Prova
-            new Sur(this.ctx, this.x-4, this.y + 160, 30, 3), // Prova
-            new Sur(this.ctx, this.x-4, this.y + 200, 30, 3), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 120, 30, 180), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 160, 30, 180), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 200, 30, 180), // Prova
 
         ]
 
         this.nortes = [
-            new Norte(this.ctx, this.x+35, this.y + 120, 30, 3), // Prova
-            new Norte(this.ctx, this.x+35, this.y + 160, 30, 3), // Prova
-            new Norte(this.ctx, this.x+35, this.y + 200, 30, 3), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 120, 30, 0), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 160, 30, 0), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 200, 30, 0), // Prova
 
         ]
 
@@ -71,6 +71,14 @@ class Ship1 {
 
       }
     
+
+
+      collidesWith(element) {
+        return this.x < element.x + element.width &&
+            this.x + this.width > element.x &&
+            this.y < element.y + element.height &&
+            this.y + this.height > element.y;
+    }
 
 
 }
