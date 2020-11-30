@@ -31,7 +31,7 @@ class enemyPlane {
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/squadron_sound.mp3')
+      squadron: new Audio('./assets/sound/squadron_sound.mp3')
     }
   }
 
@@ -53,7 +53,7 @@ class enemyPlane {
       this.drawCount++;
       this.animate();
       this.clear()
-      this.sounds.fire.play();
+      this.sounds.squadron.play();
   }
 }
 
@@ -74,7 +74,7 @@ class enemyPlane {
     this.explosions.push(new Explosion(this.ctx, this.x+70, this.y+104, 30));
 
 
-     this.sounds.fire.currentTime = 0;
+     this.sounds.squadron.currentTime = 0;
 
      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 100) + 50));
 

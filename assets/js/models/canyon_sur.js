@@ -29,7 +29,7 @@ class Sur {
     this.bullets = [];
     this.smokes = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/shot.wav')
+      fire: new Audio('./assets/sound/anti_aircraft_short.mp3')
 
     }
 
@@ -81,7 +81,7 @@ class Sur {
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
 
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 1000));
 
       this.canFire = false;
 

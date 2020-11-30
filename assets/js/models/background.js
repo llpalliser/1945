@@ -3,7 +3,6 @@ class Background {
     constructor(ctx) {
         this.ctx = ctx;
         this.x = -900; // posició d'es background x
-        this.vx = +1,
 
 
         this.y = -14400; // que son 0
@@ -99,7 +98,10 @@ class Background {
 
         if (this.movement.right) {
             this.x -= GROUND_SPEED
-            lateral_move = -2 }
+         //   lateral_move = -1 }
+
+         lateral_move = GROUND_SPEED * -1}
+
             else {
                 this.x = this.x;
                 lateral_move = 0;
@@ -115,7 +117,8 @@ class Background {
 
         if (this.movement.left) {
         this.x += GROUND_SPEED;
-        lateral_move = +2 }
+    //    lateral_move = +1 }
+    lateral_move = GROUND_SPEED}
         else {
             this.x = this.x;
             lateral_move = 0;

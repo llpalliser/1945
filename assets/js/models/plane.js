@@ -1,6 +1,6 @@
 class Plane {
 
-    constructor(ctx, x, y, ships) { // => pasamos las coordenadas iniciales de Mario
+    constructor(ctx, x, y, nortes=[]) { // => pasamos las coordenadas iniciales de Mario
 
         this.ctx = ctx;
         this.x = x;
@@ -14,25 +14,25 @@ class Plane {
         this.vx = 0;
         this.y = y;
         this.vy = 0;
+        this.damages = DAMAGES;
 
 
-        this.ships = ships; // PROVA
+        this.nortes= nortes; // PRUEBA
 
 
         this.canFire = true;
         this.bullets = [];
         this.explosiones = [];
-        this.smokes = [];
+        this.smokes = []; //?
         this.fixedSmokes = [];
         this.fixedFires = [];
-
         this.craters = [];
-
+        this.averies1 = [];
 
 
 
         this.sounds = {
-            fire: new Audio('./assets/sound/shot.wav')
+            fire: new Audio('./assets/sound/shot.wav'),
         }
 
         this.sprite = new Image();
@@ -84,22 +84,10 @@ class Plane {
             case KEY_BURST:
 
                 this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
-                // this.bullets.push(new Missile(this.ctx, this.x + 49, this.y + 3, 440 + this.height, 270)); // cañon 2
-                // this.bullets.push(new Missile(this.ctx, this.x + 80, this.y + 3, 440 + this.height, 270)); // cañon 3
-                this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
-                // Daños
-                // setTimeout(() => this.craters.push(new Crater(this.ctx, this.x + 24, this.y - 420, 1)), 400);
-                // setTimeout(() => this.fixedSmokes.push(new FixedSmoke(this.ctx, this.x + 24, this.y + -450, 140)), 400);
-                // setTimeout(() => this.fixedFires.push(new FixedFire(this.ctx, this.x + 28, this.y + -420, 80)), 400);
-
-                // this.explosiones.push(new Explosion(this.ctx, this.x + 32, this.y, 28));
-                // this.explosiones.push(new Explosion(this.ctx, this.x + 47, this.y, 28));
-                // this.explosiones.push(new Explosion(this.ctx, this.x + 78, this.y, 28));
-                // this.explosiones.push(new Explosion(this.ctx, this.x + 92, this.y, 28));
-
+                 this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
+  
                 this.sounds.fire.currentTime = 0;
                 this.sounds.fire.play();
-                // this.canFire = false;
 
                 setTimeout(() => this.canFire = true, 100);
 
@@ -130,6 +118,7 @@ class Plane {
 
                     setTimeout(() => this.canFire = true, 800);
 
+                //    this.checkMissileCollission();
 
 
                 }
@@ -143,6 +132,9 @@ class Plane {
 
 
     draw() {
+
+
+        this.fixedFires.forEach(fixedFire => fixedFire.draw());
 
         if (this.sprite.isReady) {
             this.craters.forEach(crater => crater.draw());
@@ -163,24 +155,20 @@ class Plane {
             )
             this.bullets.forEach(bullet => bullet.draw());
             this.explosiones.forEach(explosion => explosion.draw());
-
-
             this.smokes.forEach(smoke => smoke.draw());
-            this.fixedFires.forEach(fixedFire => fixedFire.draw());
-
             this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.draw());
-
-
-
+            this.averies1.forEach(averia1 => averia1.draw());
 
 
 
             this.drawCount++;
             this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
-
-
-
             this.clear()
+
+            this.checkCollisions()
+
+         
+
         }
 
 
@@ -190,15 +178,11 @@ class Plane {
 
 
     clear() {
-
-        //  this.bullets = this.bullets.filter(bullet => bullet.y >= 300);
-
         this.bullets = this.bullets.filter(bullet => bullet.y >= this.y - 300);
         // this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
         this.smokes = this.smokes.filter(smoke => smoke.y <= 1200)
         this.fixedSmokes = this.fixedSmokes.filter(fixedSmokes => fixedSmokes.y <= 1200)
         this.fixedFires = this.fixedFires.filter(fixedFires => fixedFires.y <= 1200)
-
         this.craters = this.craters.filter(crater => crater.y <= 1200)
 
 
@@ -291,10 +275,12 @@ class Plane {
 
 
 
-    damaged() {
+    damaged(element) {
         LIFES -= 1;
 
-        console.log(LIFES)
+        this.sounds.damaged.currentTime = 0;
+        this.damaged.fire.play();
+        console.log("rebut a plane")
     }
 
 
@@ -308,21 +294,45 @@ class Plane {
     }
 
 
+
+
+
+    // checkCollisions() {
+
+        checkMissileCollission() {
+
+
+        const dispars = this.bullets.some(bullet => this.norte.collidesWith(bullet));
+        const dispars2 = this.norte.some(nord=> this.bullets.collidesWith(nord));
+        if (dispars || dispars2) {
+         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+          DAMAGES += 1
+       //   this.sounds.ferit.play();
+        }
+      }
+
+        
+
+
+
+
+
     checkCollisions() {
 
+      //  const crateres = this.craters.some(crater => this.norte.collidesWith(crater));
+
+   //     const disparos = this.bullets.some(bullet => this.craters.forEach(crater =>  crater.collidesWith(bullet))); // NO DONA EROR
+    
+    // const disparos = this.bullets.some(bullet => this.craters.some(crater =>  crater.collidesWith(bullet))); // FUNCIONAA
+     const disparos = this.bullets.some(bullet => this.nortes.some(norte =>  norte.collidesWith(bullet))); // FUNCIONAA
 
 
-        const missille = this.bullets.some(bullet => this.ship.collidesWith(bullet));
-        //  const ship = this.ships.some(ship => this.plane.collidesWith(ship));
-
-        if (missille) {
-            console.log(`Barco ferit`)
+        if (disparos) {
+         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+          DAMAGES += 1
+       //   this.sounds.ferit.play();
         }
-
-
-
-    }
-
+      }
 
 
 

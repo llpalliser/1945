@@ -15,14 +15,16 @@ class Crater {
     this.sprite.src = './assets/img/craters.png'
 
     this.r = Math.floor((Math.random() * this.horizontalFrameIndex-1) + 0 )
-    this.h = Math.floor((Math.random() * 70) + 50)
+    this.h = Math.floor((Math.random() * 80) + 50)
 
     this.sprite.horizontalFrameIndex = Math.floor((Math.random() * 2) + 0); 
     this.sprite.verticalFrameIndex = 0;
+
     this.sounds = {
       fire: new Audio('./assets/sound/sf_explosion_20.mp3')
 
     }
+    
     this.sprite.horizontalFrames = 2; 
     this.sprite.verticalFrames = 1;
     this.sprite.isReady = false; 
@@ -59,12 +61,16 @@ class Crater {
   }
 
   move() {
-    this.y -= - GROUND_SPEED + 1 - TURBO;
+    this.y -= - GROUND_SPEED + GROUND_SPEED/2 - TURBO;
     this.x += lateral_move / 2;
   }
 
-
- 
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+      this.x + this.width > element.x &&
+      this.y < element.y + element.height &&
+      this.y + this.height > element.y;
+  }
 
 
 

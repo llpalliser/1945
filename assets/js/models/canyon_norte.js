@@ -30,8 +30,8 @@ class Norte {
     this.bullets = [];
     this.smokes = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/shot.wav')
-
+      fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
+      ferit: new Audio('./assets/sound/prova.wav')
     }
 
   }
@@ -80,14 +80,14 @@ class Norte {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane_pos > this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
       this.smokes.push(new Explosion(this.ctx, this.x + 30, this.y, 40));
-      this.sounds.fire.currentTime = 0;
+     // this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
 
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 1000));
 
       this.canFire = false;
 
-      console.log(this.plane_pos)
+     // console.log(this.plane_pos)
 
 
 
@@ -135,8 +135,9 @@ class Norte {
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
-      console.log("NORTE")
+      // console.log("NORTE")
       DAMAGES -= 1
+      this.sounds.ferit.play();
     }
   }
 

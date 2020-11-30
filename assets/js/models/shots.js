@@ -81,6 +81,11 @@ class Shot {
           this.y =10;
       }
 
+      else if (this.direction === 135) {
+        this.x -= SHOT_SPEED-5;
+        this.y += SHOT_SPEED-5;
+    }
+
 
       }
 
@@ -93,7 +98,12 @@ class Shot {
       }
     }
 
-    
+    collidesWith(element) {
+      return this.x < element.x + element.width &&
+        this.x + this.width > element.x &&
+        this.y < element.y + element.height &&
+        this.y + this.height > element.y;
+    }
 
 
 

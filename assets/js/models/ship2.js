@@ -1,9 +1,10 @@
 class Ship2 {
 
-    constructor(ctx, x, y) {
+    constructor(ctx, x, y, plane) {
         this.ctx = ctx; 
         this.x = x; 
         this.y = y;
+        this.plane = plane;
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/ship2.png'

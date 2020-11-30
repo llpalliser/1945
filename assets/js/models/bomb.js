@@ -1,12 +1,13 @@
 class Bomb {
 
-    constructor(ctx, x, y) {
+    constructor(ctx, x, y, h) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
+        this.h = h,
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/bomb.png'
+        this.sprite.src = './assets/img/star.png'
         this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
         this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
         // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
@@ -38,8 +39,8 @@ class Bomb {
                 // después la posicionamos dentro del canvas
                  this.x,
                  this.y,
-                 40,
-                 40,
+                 this.h,
+                 this.h
                 //this.width,
                 //this.height,
             )
@@ -47,7 +48,7 @@ class Bomb {
     }
 
     move() {
-        this.y -= - GROUND_SPEED - TURBO;
+        this.y -= - GROUND_SPEED - TURBO + 0.1;
         this.x += lateral_move;
       }
     

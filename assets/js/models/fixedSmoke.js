@@ -54,10 +54,9 @@ class FixedSmoke {
   }
 
   move() {
-    this.y -= - GROUND_SPEED + 1 - TURBO;
+    this.y -= - GROUND_SPEED + GROUND_SPEED/2 - 0.1   - TURBO;
     this.x += lateral_move / 2;
   }
-
 
   animate() {
     this.animateSprite(0, 0, 0, 10)

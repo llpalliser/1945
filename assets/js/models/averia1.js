@@ -1,23 +1,23 @@
-class FixedFire {
+class Averia1 {
 
-  constructor(ctx, x, y, h) {
+  constructor(ctx, x, y) {
     this.ctx = ctx;
     this.x = x;
     this.vx = SHOT_SPEED;
 
 
     this.y = y;
-    this.h = h;
-    this.vy = SHOT_SPEED;
+    //this.h = h;
+
 
 
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/fixedFireH.png';
+    this.sprite.src = './assets/img/averia1.png';
     this.sprite.isReady = false;
-    this.sprite.horizontalFrameIndex = 0
+    this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
-    this.sprite.horizontalFrames = 20 // 38 smoke_h
+    this.sprite.horizontalFrames = 6;
     this.sprite.verticalFrames = 1;
     this.sprite.onload = () => {
       this.isReady = true;
@@ -26,7 +26,6 @@ class FixedFire {
       this.width = this.sprite.frameWidth;
       this.height = this.sprite.frameHeight;
     }
-    this.explosion_draw = 0;
 
     this.drawCount = 0;
   }
@@ -41,9 +40,10 @@ class FixedFire {
       this.sprite.frameHeight,
       this.x,
       this.y,
-      this.h,
-      this.h
-
+      this.width,
+      this.height
+// 40,
+// 40
 
     );
     this.drawCount++;
@@ -54,18 +54,12 @@ class FixedFire {
   }
 
   move() {
-    // this.y -= - GROUND_SPEED + 1 - TURBO;
-    // this.x += lateral_move / 2;
-
-    this.y -= - GROUND_SPEED + GROUND_SPEED/2 - TURBO;
+    this.y -= - GROUND_SPEED + GROUND_SPEED/2 - 0.1   - TURBO;
     this.x += lateral_move / 2;
-
-
   }
 
-
   animate() {
-    this.animateSprite(0,0, 0, 20)
+    this.animateSprite(0, 0, 0, 10)
   }
 
 
@@ -77,27 +71,15 @@ class FixedFire {
       this.sprite.verticalFrameIndex = initialVerticalIndex; // => colócalo en el frame vertical inicial
       this.sprite.horizontalFrameIndex = initialHorizontalIndex; // => colócalo en el frame horizontal inicial
 
-    } else if (this.drawCount % frequency === 0) {// => si ya estaba en el frame inicial (en reposo, por ejemplo)
-      // => cada ciclo completo, muevo el frame
-      // => cuando hayas contado 5, cambia uno de los segmentos del Sprite
+    } else if (this.drawCount % frequency === 0) {
+
       this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
       this.drawCount = 0;
 
     }
-    // animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalSegments, frequency) {
-    //   if (this.sprite.verticalFrameIndex != initialVerticalIndex) {
-    //     this.sprite.verticalFrameIndex = initialVerticalIndex;
-    //     this.sprite.horizontalFrameIndex = initialHorizontalIndex;
-    //   } else if (this.sprite.drawCount % frequency === 0) {
-    //     this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-    //     this.sprite.drawCount = 0;
-    //   }
-    // }
 
 
   }
-
-
 
 
 
@@ -107,11 +89,4 @@ class FixedFire {
     this.sprite.verticalFrameIndex = 0;
   }
 
-
-  collidesWith(element) {
-    return this.x < element.x + element.width &&
-        this.x + this.width > element.x &&
-        this.y < element.y + element.height &&
-        this.y + this.height > element.y;
-}
 }

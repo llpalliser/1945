@@ -30,7 +30,7 @@ class Levante {
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/anti_aircraft_sound.mp3')
+      fire: new Audio('./assets/sound/anti_aircraft_short.mp3')
 
     }
 
@@ -76,7 +76,7 @@ class Levante {
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
 
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 500));
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 1000));
 
       this.canFire = false;
 
@@ -128,7 +128,7 @@ class Levante {
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
-      console.log("LEVANTE")
+     // console.log("LEVANTE")
       DAMAGES -= 1
     }
   }

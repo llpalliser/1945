@@ -1,22 +1,24 @@
 class Panzer {
 
-  constructor(ctx, x, y, h, plane) {
+  constructor(ctx, x, y, h, t, plane) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
-    this.h = h;
+    this.h = 40;
+    this.t = t;
     this.drawCount = 0;
     this.explosion = 100;
+    //this.plane = plane;
     this.plane = plane;
 
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/tank.png'
-    this.sprite.horizontalFrameIndex = 0;
+    this.sprite.src = './assets/img/tanks.png'
+    this.sprite.horizontalFrameIndex = 3;
     this.sprite.verticalFrameIndex = 0;
 
-    this.sprite.horizontalFrames = 1;
+    this.sprite.horizontalFrames = 4;
     this.sprite.verticalFrames = 1;
     this.sprite.isReady = false;
     this.sprite.onload = () => {
@@ -31,8 +33,8 @@ class Panzer {
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/panzer_sound.mp3'),
-      damaged: new Audio('/assets/sound/42PS_00010.wav')
+      fire: new Audio('./assets/sound/panzer_sound.mp3')
+
     }
 
   }
@@ -74,31 +76,50 @@ class Panzer {
 
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
-      this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 3, 440 + this.height, 135));
+
+      this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 3, 440 + this.height, 90));
       this.explosions.push(new Explosion(this.ctx, this.x, this.y + 40, 40));
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
+
+
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 2000));
+
       this.canFire = false;
+
+
     }
+
+
   }
 
+
   clear() {
+
     this.bullets = this.bullets.filter(bullet => bullet.y <= Math.floor((Math.random() * 900) + 700));
+
   }
 
 
   move() {
+
     this.bullets.forEach(bullet => bullet.move());
-    this.y -= - GROUND_SPEED - TURBO + 0.05;
-    this.x += lateral_move + 0.05;
+    //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
+
+
+
+    this.y -= - GROUND_SPEED - TURBO + 0.1;
+    this.x += lateral_move //+ 0.1;
   }
 
 
   animate() {
-    this.shot()
+    this.sprite.horizontalFrameIndex = this.t;
+    this.sprite.verticalFrameIndex = 0;
+   this.shot()
   }
 
+  
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {

@@ -3,12 +3,12 @@ class Missile {
     constructor(ctx, x, y, maxY, direction) {
       this.ctx = ctx;
       this.x = x;
-      this.vx = SHOT_SPEED;
+      this.vx = MISSILE_SPEED;
      
       this.direction = direction;
       this.y = y;
       this.maxY = maxY;
-      this.vy = SHOT_SPEED;
+      this.vy = MISSILE_SPEED;
       
       this.sprite = new Image();
       this.sprite.src = './assets/img/missile.png';
@@ -60,7 +60,7 @@ class Missile {
 
       // NORTE
         if (this.direction === 0) {
-            this.x += SHOT_SPEED;
+            this.x += MISSILE_SPEED;
             this.y +=0;
         }
         // LEVANTE
@@ -71,11 +71,11 @@ class Missile {
 // PONIENTE
         else if (this.direction === 270) {
             this.x += 0;
-            this.y -= SHOT_SPEED;
+            this.y -= MISSILE_SPEED;
         }
 // SUR
         else if (this.direction === 180) {
-          this.x -= SHOT_SPEED;
+          this.x -= MISSILE_SPEED;
           this.y =10;
       }
 
@@ -92,13 +92,17 @@ class Missile {
     }
 
     
-    collidesWith(element) {
-        return this.x < element.x + element.width &&
-            this.x + this.width > element.x &&
-            this.y < element.y + element.height &&
-            this.y + this.height > element.y;
-    }
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+      this.x + this.width > element.x &&
+      this.y < element.y + element.height &&
+      this.y + this.height > element.y;
+  }
 
+
+
+
+  
 
   }
   

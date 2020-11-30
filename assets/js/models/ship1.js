@@ -1,10 +1,10 @@
 class Ship1 {
 
-    constructor(ctx, x, y) {
+    constructor(ctx, x, y, plane) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-
+this.plane = plane;
         this.sprite = new Image();
         this.sprite.src = './assets/img/ship_hd1.png'
         this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
@@ -24,16 +24,16 @@ class Ship1 {
         }
 
         this.sures = [
-            new Sur(this.ctx, this.x-4, this.y + 120, 30, 180), // Prova
-            new Sur(this.ctx, this.x-4, this.y + 160, 30, 180), // Prova
-            new Sur(this.ctx, this.x-4, this.y + 200, 30, 180), // Prova
+            // new Sur(this.ctx, this.x-4, this.y + 120, 30, 180), // Prova
+            // new Sur(this.ctx, this.x-4, this.y + 160, 30, 180), // Prova
+            // new Sur(this.ctx, this.x-4, this.y + 200, 30, 180), // Prova
 
         ]
 
         this.nortes = [
-            new Norte(this.ctx, this.x+35, this.y + 120, 30, 0), // Prova
-            new Norte(this.ctx, this.x+35, this.y + 160, 30, 0), // Prova
-            new Norte(this.ctx, this.x+35, this.y + 200, 30, 0), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 120, 30, this.plane.x * -1, this.plane), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 160, 30, this.plane.x * -1, this.plane), // Prova
+            new Norte(this.ctx, this.x+35, this.y + 200, 30, this.plane.x * -1, this.plane), // Prova
 
         ]
 
