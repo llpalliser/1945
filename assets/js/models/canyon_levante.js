@@ -57,7 +57,7 @@ class Levante {
       this.drawCount++;
       this.animate();
       this.clear()
-      this.checkCollisions()
+      // this.checkCollisions()
     }
   }
 

@@ -60,7 +60,7 @@ class Norte {
       this.drawCount++;
       this.animate();
       this.clear()
-      this.checkCollisions()
+      // this.checkCollisions()
 
     }
   }
@@ -141,4 +141,4 @@ class Norte {
     }
   }
 
-}
+}   

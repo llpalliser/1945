@@ -61,8 +61,15 @@ class Crater {
   }
 
   move() {
-    this.y -= - GROUND_SPEED + GROUND_SPEED/2 - TURBO;
-    this.x += lateral_move / 2;
+    // this.y -= - GROUND_SPEED + GROUND_SPEED/2 - TURBO;
+    // this.x += lateral_move / 2;
+
+    this.y -= - GROUND_SPEED - TURBO;
+    this.x += lateral_move
+
+
+
+    
   }
 
   collidesWith(element) {

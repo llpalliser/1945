@@ -111,6 +111,18 @@ class Sur {
   }
 
 
+
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+      this.x + this.width > element.x &&
+      this.y < element.y + element.height &&
+      this.y + this.height > element.y;
+  }
+
+
+
+
+  
   animate() {
     // if (this.drawCount % MOVEMENT_FRAMES === 0) {
     //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;

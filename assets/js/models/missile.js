@@ -66,12 +66,12 @@ class Missile {
         // LEVANTE
         else if (this.direction === 90) {
             this.x += 0;
-            this.y += 10;
+            this.y += MISSILE_SPEED;
         }
 // PONIENTE
         else if (this.direction === 270) {
             this.x += 0;
-            this.y -= MISSILE_SPEED;
+            this.y -= 15;
         }
 // SUR
         else if (this.direction === 180) {

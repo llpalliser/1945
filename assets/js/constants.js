@@ -30,17 +30,17 @@ const SPEED = 2; // 4 no s'empra?
 const PLANE_SPEED = 2; // 5 no s'empra?
 let TURBO = 1;
 const SHOT_SPEED = 10; // 10
-const MISSILE_SPEED= 6;
+const MISSILE_SPEED= 9;
 
 let lateral_move = 1
 
-const NORTES = 30;
-const SURES = 0;
-const LEVANTES = 0;
+const NORTES = 20;
+const SURES = 20;
+const LEVANTES = 20;
 const ENEMYPLANES = 0;
-const TANKS = 0;
+const TANKS = 20;
 
-const STARS = 20;
+const STARS = 10;
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
 const CAMPO_TIRO_MAX = 900; // HASTA DONDE LOS ENEMIGOS PUEDEN DISPARAR

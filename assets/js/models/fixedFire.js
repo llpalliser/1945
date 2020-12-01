@@ -57,9 +57,12 @@ class FixedFire {
     // this.y -= - GROUND_SPEED + 1 - TURBO;
     // this.x += lateral_move / 2;
 
-    this.y -= - GROUND_SPEED + GROUND_SPEED/2 - TURBO;
-    this.x += lateral_move / 2;
+    // this.y -= - GROUND_SPEED + GROUND_SPEED/2 - TURBO;
+    // this.x += lateral_move / 2;
 
+    this.y -= - GROUND_SPEED    - TURBO;
+    this.x += lateral_move 
+ 
 
   }
 
@@ -70,7 +73,36 @@ class FixedFire {
 
 
 
+  // animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
+
+  //   // lo primero que se debe hacer es comprobar si el frame está en la posición inicial
+  //   if (this.sprite.verticalFrameIndex != initialVerticalIndex) { // => si no lo está
+  //     this.sprite.verticalFrameIndex = initialVerticalIndex; // => colócalo en el frame vertical inicial
+  //     this.sprite.horizontalFrameIndex = initialHorizontalIndex; // => colócalo en el frame horizontal inicial
+
+  //   } else if (this.drawCount % frequency === 0) {// => si ya estaba en el frame inicial (en reposo, por ejemplo)
+  //     // => cada ciclo completo, muevo el frame
+  //     // => cuando hayas contado 5, cambia uno de los segmentos del Sprite
+  //     this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
+  //     this.drawCount = 0;
+
+  //   }
+  //   // animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalSegments, frequency) {
+  //   //   if (this.sprite.verticalFrameIndex != initialVerticalIndex) {
+  //   //     this.sprite.verticalFrameIndex = initialVerticalIndex;
+  //   //     this.sprite.horizontalFrameIndex = initialHorizontalIndex;
+  //   //   } else if (this.sprite.drawCount % frequency === 0) {
+  //   //     this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
+  //   //     this.sprite.drawCount = 0;
+  //   //   }
+  //   // }
+
+
+  // }
+
   animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
+
+    let subiendo = true
 
     // lo primero que se debe hacer es comprobar si el frame está en la posición inicial
     if (this.sprite.verticalFrameIndex != initialVerticalIndex) { // => si no lo está
@@ -78,24 +110,34 @@ class FixedFire {
       this.sprite.horizontalFrameIndex = initialHorizontalIndex; // => colócalo en el frame horizontal inicial
 
     } else if (this.drawCount % frequency === 0) {// => si ya estaba en el frame inicial (en reposo, por ejemplo)
-      // => cada ciclo completo, muevo el frame
-      // => cuando hayas contado 5, cambia uno de los segmentos del Sprite
-      this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
-      this.drawCount = 0;
+
+
+
+
+
+
+      if (subiendo && this.sprite.horizontalFrameIndex <= 20 ) {
+        this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
+      }
+
+      if (this.sprite.horizontalFrameIndex === 20) { subiendo = false 
+      }
+
+      if (!subiendo ) {
+        this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex - 10) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
+      }
+
+       this.drawCount = 0;
+
 
     }
-    // animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalSegments, frequency) {
-    //   if (this.sprite.verticalFrameIndex != initialVerticalIndex) {
-    //     this.sprite.verticalFrameIndex = initialVerticalIndex;
-    //     this.sprite.horizontalFrameIndex = initialHorizontalIndex;
-    //   } else if (this.sprite.drawCount % frequency === 0) {
-    //     this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-    //     this.sprite.drawCount = 0;
-    //   }
-    // }
 
+    // console.log(this.sprite.horizontalFrameIndex)
 
   }
+
+
+
 
 
 
