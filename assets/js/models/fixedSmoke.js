@@ -16,7 +16,7 @@ class FixedSmoke {
 
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/fixedSmoke.png';
+   this.sprite.src = './assets/img/fixedSmoke.png';
     this.sprite.isReady = false;
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
@@ -57,7 +57,7 @@ class FixedSmoke {
   }
 
   move() {
-    this.y -= - GROUND_SPEED - TURBO;
+    this.y -= - GROUND_SPEED - TURBO ;
     this.x += lateral_move
 
 

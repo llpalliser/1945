@@ -37,16 +37,16 @@ class Plane {
         this.sprite = new Image();
         this.sprite.src = './assets/img/bombers.png';
         this.sprite.isReady = false;
-        this.sprite.horizontalFrames = 2; // => es diu quants frames horitzontals i verticals te s'sprite
+        this.sprite.horizontalFrames = 2; 
         this.sprite.verticalFrames = 2;
-        this.sprite.verticalFrameIndex = 0; // diu quina posició inicial té en Mario dins es frame
-        this.sprite.horizontalFrameIndex = 0; // "" "" ""
+        this.sprite.verticalFrameIndex = 0; 
+        this.sprite.horizontalFrameIndex = 0; 
         this.sprite.onload = () => {
             this.sprite.isReady = true
             this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames);
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames);
-            this.width = this.sprite.frameWidth;
-            this.height = this.sprite.frameHeight;
+            this.width = 140,  // this.sprite.frameWidth;
+            this.height = 120 //this.sprite.frameHeight;
         }
 
         // matriz de movimiento
@@ -57,7 +57,7 @@ class Plane {
             down: false,
         }
 
-        this.drawCount = 0; // => comptador que es té en compte cada vegada que es pinta (draw)
+        this.drawCount = 0; 
     }
 
     onKeyEvent(event) {
@@ -133,7 +133,7 @@ class Plane {
     draw() {
 
 
-        this.fixedFires.forEach(fixedFire => fixedFire.draw());
+       // this.fixedFires.forEach(fixedFire => fixedFire.draw());
 
         if (this.sprite.isReady) {
             this.craters.forEach(crater => crater.draw());
@@ -148,14 +148,14 @@ class Plane {
                 this.sprite.frameHeight,
                 this.x,
                 this.y,
-                140,
-                120,
+                this.width,
+                this.height
 
             )
             this.bullets.forEach(bullet => bullet.draw());
             this.explosiones.forEach(explosion => explosion.draw());
             this.smokes.forEach(smoke => smoke.draw());
-            this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.draw());
+         //   this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.draw());
             this.averies1.forEach(averia1 => averia1.draw());
 
 
@@ -202,10 +202,10 @@ class Plane {
         this.bullets.forEach(bullet => bullet.move());
 
         if (this.movement.right) {
-            this.vx = + PLANE_SPEED;
+            this.vx = + PLANE_SPEED+2;
         }
         else if (this.movement.left) {
-            this.vx = - PLANE_SPEED;
+            this.vx = - PLANE_SPEED-2;
         }
 
         else if (this.movement.up) {
@@ -284,13 +284,21 @@ class Plane {
 
 
 
-
     collidesWith(element) {
         return this.x < element.x + element.width &&
-            this.x + this.width > element.x &&
+            this.x + 140 > element.x &&
             this.y < element.y + element.height &&
-            this.y + this.height > element.y;
+            this.y + 120 > element.y;
     }
+
+
+
+    // collidesWith(element) {
+    //     return this.x < element.x + element.width &&
+    //         this.x + this.width > element.x &&
+    //         this.y < element.y + element.height &&
+    //         this.y + this.height > element.y;
+    // }
 
 
 

@@ -57,7 +57,7 @@ class Levante {
       this.drawCount++;
       this.animate();
       this.clear()
-      // this.checkCollisions()
+      this.checkCollisions()
     }
   }
 
@@ -94,7 +94,7 @@ class Levante {
   }
 
 
-  move() {
+  move() { 
 
     this.bullets.forEach(bullet => bullet.move());
     //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));

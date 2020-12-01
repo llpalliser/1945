@@ -60,7 +60,7 @@ class Norte {
       this.drawCount++;
       this.animate();
       this.clear()
-      // this.checkCollisions()
+      this.checkCollisions()
 
     }
   }
@@ -82,6 +82,7 @@ class Norte {
       this.smokes.push(new Explosion(this.ctx, this.x + 30, this.y, 40));
      // this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
+      this.sounds.volume = 0.2;
 
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 1000));
 
@@ -137,7 +138,7 @@ class Norte {
     if (dispars) {
       // console.log("NORTE")
       DAMAGES -= 1
-      this.sounds.ferit.play();
+ //     this.sounds.ferit.play();
     }
   }
 
