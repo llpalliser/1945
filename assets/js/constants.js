@@ -35,13 +35,13 @@ const MISSILE_SPEED= 9;
 let lateral_move = 1
 
 // ENEMIES 
-const NORTES = 40;
+const NORTES = 0;
 const SURES = 0;
-const LEVANTES = 10;
+const LEVANTES = 20;
 const ENEMYPLANES = 0;
 const TANKS = 5;
 
-const STARS = 100;
+const STARS = 30;
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
 const CAMPO_TIRO_MAX = 900; // HASTA DONDE LOS ENEMIGOS PUEDEN DISPARAR

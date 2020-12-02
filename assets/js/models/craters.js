@@ -1,8 +1,9 @@
 class Crater {
-  constructor(ctx, x, y) {
+  constructor(ctx, x, y, h) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
+    this.h = h;
 
 
 
@@ -12,12 +13,12 @@ class Crater {
 
 
 
-    this.sprite.src = './assets/img/craters.png'
+    this.sprite.src = './assets/img/craters_r.png'
 
     this.r = Math.floor((Math.random() * this.horizontalFrameIndex-1) + 0 )
-    this.h = Math.floor((Math.random() * 80) + 50)
+   // this.h = Math.floor((Math.random() * 80) + 80)
 
-    this.sprite.horizontalFrameIndex = Math.floor((Math.random() * 2) + 0); 
+    this.sprite.horizontalFrameIndex = Math.floor((Math.random() * 6) + 0); 
     this.sprite.verticalFrameIndex = 0;
 
     this.sounds = {
@@ -25,7 +26,7 @@ class Crater {
 
     }
     
-    this.sprite.horizontalFrames = 2; 
+    this.sprite.horizontalFrames = 6; 
     this.sprite.verticalFrames = 1;
     this.sprite.isReady = false; 
     this.sprite.onload = () => {

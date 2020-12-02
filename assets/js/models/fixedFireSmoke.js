@@ -1,6 +1,6 @@
 class FixedFireSmoke {
 
-  constructor(ctx, x, y, h, background, plane) {
+  constructor(ctx, x, y, h) {
     this.ctx = ctx;
     this.x = x;
     this.vx = SHOT_SPEED;
@@ -8,8 +8,8 @@ class FixedFireSmoke {
 
     this.y = y;
     this.h = h;
-    this.background = background;
-    this.plane = plane;
+   // this.background = background;
+   // this.plane = plane;
 
     this.vy = SHOT_SPEED;
 
