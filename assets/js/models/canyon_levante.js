@@ -129,7 +129,7 @@ class Levante {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
      // console.log("LEVANTE")
-      DAMAGES -= 1
+      DAMAGES += 1
     }
   }
 

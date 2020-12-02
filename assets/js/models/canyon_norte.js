@@ -11,7 +11,8 @@ class Norte {
     this.plane = plane;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/norte.png'
+   this.sprite.src = './assets/img/norte.png'
+  //  this.sprite.src = './assets/img/antiaereo.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 
@@ -137,7 +138,7 @@ class Norte {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
       // console.log("NORTE")
-      DAMAGES -= 1
+      DAMAGES += 1
  //     this.sounds.ferit.play();
     }
   }

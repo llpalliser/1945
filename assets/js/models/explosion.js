@@ -81,7 +81,7 @@ class Explosion {
 
     } else if (this.drawCount % frequency === 0) {
 
-      this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
+      this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; 
       this.drawCount = 0;
 
 

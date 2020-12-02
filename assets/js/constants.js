@@ -35,11 +35,11 @@ const MISSILE_SPEED= 9;
 let lateral_move = 1
 
 // ENEMIES 
-const NORTES = 0;
+const NORTES = 40;
 const SURES = 0;
-const LEVANTES = 20;
+const LEVANTES = 50;
 const ENEMYPLANES = 0;
-const TANKS = 5;
+const TANKS = 30;
 
 const STARS = 30;
 

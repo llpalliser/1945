@@ -13,6 +13,8 @@ class Panzer {
 
     this.sprite = new Image();
     this.sprite.src = './assets/img/tank.png'
+    this.sprite.src = './assets/img/tank2.png'
+
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 
@@ -114,7 +116,7 @@ class Panzer {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
       console.log("TANK")
-      DAMAGES -= 1
+      DAMAGES += 1
     }
   }
 

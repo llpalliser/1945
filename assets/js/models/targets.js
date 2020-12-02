@@ -1,18 +1,16 @@
-class Bomb {
+class Target {
 
-    constructor(ctx, x, y, h) {
+    constructor(ctx, x, y, fr) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-        this.h = h,
-
         this.sprite = new Image();
-        this.sprite.src = './assets/img/star.png'
-        this.sprite.horizontalFrameIndex = 0; //
+        this.sprite.src = './assets/img/target.png'
+        this.sprite.horizontalFrameIndex = fr; //
         this.sprite.verticalFrameIndex = 0;
        
 
-        this.sprite.horizontalFrames = 1; 
+        this.sprite.horizontalFrames = 3; 
         this.sprite.verticalFrames = 1;
         this.sprite.isReady = false; 
         this.sprite.onload = () => {
@@ -36,18 +34,27 @@ class Bomb {
                 this.sprite.frameHeight,
                  this.x,
                  this.y,
-                 this.h,
-                 this.h
+           
+                this.width,
+                this.height
        
             )
         }
     }
 
     move() {
-        this.y -= - GROUND_SPEED - TURBO + 0.1;
+      if (this.sprite.horizontalFrameIndex === 2) {
+
+        this.y -= - GROUND_SPEED - TURBO + 0.05;
+        this.x += lateral_move + 0.05;
+
+        
+      }
+      
+      else {this.y -= - GROUND_SPEED - TURBO + 0.001;
         this.x += lateral_move;
       }
     
-
+    }
 
 }
