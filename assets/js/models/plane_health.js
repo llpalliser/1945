@@ -7,12 +7,12 @@ class PlaneHealth {
         
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/plane_status_sprite.png'
+        this.sprite.src = './assets/img/plane_health.png'
         this.sprite.horizontalFrameIndex = Math.floor(DAMAGES/100);
         this.sprite.verticalFrameIndex = 0;
 
 
-        this.sprite.horizontalFrames = 6
+        this.sprite.horizontalFrames = 5
         this.sprite.verticalFrames = 1;
         this.sprite.isReady = false;
         this.sprite.onload = () => {
@@ -39,7 +39,7 @@ class PlaneHealth {
                 this.sprite.frameHeight,
                 this.x,
                 this.y,
-                200, // 124,
+                240, // 124,
                 70, // 40
                 
             )

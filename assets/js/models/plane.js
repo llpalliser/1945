@@ -4,10 +4,8 @@ class Plane {
 
         this.ctx = ctx;
         this.x = x;
-        //this.maxX = Math.floor(this.ctx.canvas.width / 2)
-        //this.minX = 10;
         this.minX = 100;
-        this.maxX = Math.floor(this.ctx.canvas.width - 600); // 600
+        this.maxX = Math.floor(this.ctx.canvas.width - 500); // 600
         this.minY = 100;
         this.maxY = Math.floor(this.ctx.canvas.height - 200)
 
@@ -80,21 +78,6 @@ class Plane {
                 break;
             
 
-            
-
-
-            // case KEY_BURST:
-
-            //     this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
-            //      this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
-  
-            //     this.sounds.fire.currentTime = 0;
-            //     this.sounds.fire.play();
-
-            //     setTimeout(() => this.canFire = true, 100);
-
-
-            //     break;
 
         }
     }
@@ -135,7 +118,7 @@ class Plane {
 
 
             this.drawCount++;
-            this.animate(); // sería lo mismo hacerlo con un SetimeOut, però millor així
+            this.animate(); 
             this.clear()
 
           //  this.checkCollisions()
@@ -151,12 +134,12 @@ class Plane {
 
 
     clear() {
-        this.bullets = this.bullets.filter(bullet => bullet.y >= this.y - 300);
-        // this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
-        this.smokes = this.smokes.filter(smoke => smoke.y <= 1200)
-        this.fixedSmokes = this.fixedSmokes.filter(fixedSmokes => fixedSmokes.y <= 1200)
-        this.fixedFires = this.fixedFires.filter(fixedFires => fixedFires.y <= 1200)
-        this.craters = this.craters.filter(crater => crater.y <= 1200)
+        // this.bullets = this.bullets.filter(bullet => bullet.y >= this.y - 300);
+        // // this.explosiones = this.explosiones.filter(explosion => explosion.y <= 1200) // es pot baixar a 1000
+        // this.smokes = this.smokes.filter(smoke => smoke.y <= 1200)
+        // this.fixedSmokes = this.fixedSmokes.filter(fixedSmokes => fixedSmokes.y <= 1200)
+        // this.fixedFires = this.fixedFires.filter(fixedFires => fixedFires.y <= 1200)
+        // this.craters = this.craters.filter(crater => crater.y <= 1200)
 
 
     }

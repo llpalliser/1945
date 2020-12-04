@@ -6,7 +6,7 @@ class Game {
 
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        this.canvas.width = 1425;
+        this.canvas.width = 1600;
         this.canvas.height = 900;
         this.ctx = this.canvas.getContext('2d');
 
@@ -22,10 +22,12 @@ class Game {
 
         this.plane = new Plane(this.ctx, 600, 600)
 
-        this.healthPlane = new PlaneHealth(this.ctx, 1200, 20)
+        this.healthPlane = new PlaneHealth(this.ctx, 120, 735)
 
         this.paused = false;
 
+        this.frontPointer = 0;
+        this.rearPointer = 2;
 
 
         // MAP
@@ -56,6 +58,8 @@ class Game {
 
         this.shotX = 0;
         this.shotY = 0;
+        this.burstX = 0;
+        this.burstY = 0;
 
 
         this.layers = [
@@ -76,14 +80,8 @@ class Game {
         this.craters = [];
         this.collissions = [];
 
-
-        this.miradors = [
-            // new Mirador(this.ctx, this.plane.x + this.plane.width / 2, this.plane.y - 420, 50, this.plane),
-            // new Mirador(this.ctx, this.plane.x + this.plane.width / 2, this.plane.y +20, 50, this.plane)
-            new Mirador(this.ctx, this.plane, -420),
-            new Mirador(this.ctx, this.plane, +200),
-
-        ]
+        this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, this.frontPointer);
+        this.miradorTrasero = new Mirador(this.ctx, this.plane, +200, this.rearPointer);
 
         this.ships = [
             new Ship1(this.ctx, 700, + 300, this.plane),
@@ -202,6 +200,9 @@ class Game {
 
         const state = event.type === 'keydown'
 
+        let posx = this.plane.x
+        let posy = this.plane.y
+
         switch (event.keyCode) {
 
             case PAUSE:
@@ -229,6 +230,9 @@ class Game {
 
             case KEY_BURST:
 
+                this.burstX = posx + 24;
+                this.burstX = posy - 500;
+
                 this.bullets.push(new Shot(this.ctx, this.plane.x + 34, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 1
                 this.bullets.push(new Shot(this.ctx, this.plane.x + 94, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 4
 
@@ -238,27 +242,25 @@ class Game {
 
                 setTimeout(() => this.canFire = true, 100);
 
-                console.log("Burst")
                 break;
 
             case KEY_FIRE:
 
                 if (this.canFire) {
-                    let posx = this.plane.x
-                    let posy = this.plane.y
-                    this.missiles.push(new Missile(this.ctx, this.plane.x + 34, this.plane.y + 3, 440 + this.plane.height, 270));
-                    this.missiles.push(new Missile(this.ctx, this.plane.x + 49, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 2
-                    this.missiles.push(new Missile(this.ctx, this.plane.x + 80, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 3
-                    this.missiles.push(new Missile(this.ctx, this.plane.x + 94, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 4
+
+                    this.missiles.push(new Missile(this.ctx, this.plane.x + 34, this.plane.y + 3, 340 + this.plane.height, 270));
+                    this.missiles.push(new Missile(this.ctx, this.plane.x + 49, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 2
+                    this.missiles.push(new Missile(this.ctx, this.plane.x + 80, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 3
+                    this.missiles.push(new Missile(this.ctx, this.plane.x + 94, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 4
                     // Daños
-                    setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 24, posy - 420, 70, 70)), 400);
+                    setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 24, posy - 320, 70, 70)), 400);
                     setTimeout(() => this.collissions.pop(this.craters), 410);
                     this.shotX = posx + 24;
-                    this.shotY = posy - 420;
-                    this.burstX = posx + 24
-                    this.burstY = posy - 500
-                    setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 34, posy + -450, 90)), 400);
-                    setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 30, posy + -440, 90)), 400);
+                    this.shotY = posy - 320;
+                    this.burstX = this.plane.x + 24
+                    this.burstY = posy - 400
+                    setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 34, posy + -350, 90)), 400);
+                    setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 30, posy + -340, 90)), 400);
                     this.explosiones.push(new Explosion(this.ctx, this.plane.x + 24, this.plane.y, 28));
                     this.explosiones.push(new Explosion(this.ctx, this.plane.x + 47, this.plane.y, 28));
                     this.explosiones.push(new Explosion(this.ctx, this.plane.x + 78, this.plane.y, 28));
@@ -277,15 +279,15 @@ class Game {
                     let posy = this.plane.y
 
                     this.shotX = posx + 24;
-                    this.shotY = posy +150;
+                    this.shotY = posy + 150;
 
-                 
-                    setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)),100);
+
+                    setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 100);
                     setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + -3, 440 + this.plane.height)), 200);
-                    setTimeout(() =>  this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 300);
+                    setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 300);
                     setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 400);
 
-                    setTimeout(() => this.collissions.push(new Collission(this.ctx, posx, posy  +150, 90, 90)), 2000);
+                    setTimeout(() => this.collissions.push(new Collission(this.ctx, posx, posy + 150, 90, 90)), 2000);
                     setTimeout(() => this.collissions.pop(this.craters), 2010);
 
 
@@ -354,7 +356,7 @@ class Game {
         this.stars = this.stars.filter(star => star.y <= 1000)
         this.points = this.points.filter(point => point.y <= 1000)
         this.targets = this.targets.filter(target => target.y <= 1000)
-
+        //this.frontPointer;
 
         // PLANE -------
         //  this.bullets = this.bullets.filter(bullet => bullet.y >= this.y - 300);
@@ -368,14 +370,14 @@ class Game {
 
 
 
-        this.bullets = this.bullets.filter(bullet => bullet.y >= this.plane.y - 500);
+        this.bullets = this.bullets.filter(bullet => bullet.y >= this.plane.y - 400);
 
         this.fixedClouds = this.fixedClouds.filter(fixedSmoke => fixedSmoke.y <= 1200)
         this.fixedFires = this.fixedFires.filter(fixedFires => fixedFires.y <= 1200)
         this.craters = this.craters.filter(crater => crater.y <= 1200)
 
         this.healthPlane
-
+        this.miradorFrontal
 
 
 
@@ -449,18 +451,18 @@ class Game {
         this.healthPlane.draw();
         this.plane.draw();
 
-        this.miradors.forEach(mira => mira.draw());
+        this.miradorFrontal.draw();
+        this.miradorTrasero.draw();
 
         //   this.planeExplosions.filter(planeExplosion => planeExplosion.y > 0).forEach(missile => planeExplosion.draw())
 
-        this.ctx.font = "30px Saira Stencil One";
+        this.ctx.font = "26px Saira Stencil One";
+        this.ctx.fillStyle = "rgba(51, 0, 25)"
 
-
-        this.ctx.fillText(`SCORE: ` + this.score, 30, 60);
-        this.ctx.fillText(`DAMAGES: ` + DAMAGES, 230, 60);
-        this.ctx.fillText(`DISTANCE hm: ` + (this.background.y * 47 / 28000).toFixed(2), 500, 60);
-        this.ctx.fillText(`SPEED kmh: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), 900, 60);
-        // console.log (this.background.y)
+        this.ctx.fillText(`DAMAGES: ` + DAMAGES, 360, 800);
+        this.ctx.fillText(`DISTANCE hm: ` + (this.background.y * 47 / 28000).toFixed(2), 135, 100);
+        this.ctx.fillText(`kmh: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), 400, 100);
+        this.ctx.fillText(`SCORE: ` + this.score, 1020, 100);
 
 
 
@@ -483,7 +485,7 @@ class Game {
 
 
 
-        //   this.tv.draw();
+        //     this.tv.draw();
 
         //   this.status();
 
@@ -527,8 +529,9 @@ class Game {
         this.fixedClouds.forEach(fixedSmoke => fixedSmoke.move());
         this.fixedFires.forEach(fixedFire => fixedFire.move());
         this.craters.forEach(crater => crater.move());
-        this.miradors.forEach(mira => mira.move());
 
+        this.miradorFrontal.move();
+        this.miradorTrasero.move();
 
 
 
@@ -538,13 +541,13 @@ class Game {
         //  this.sounds.motorPlane.play();
 
 
-     //   if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }
+        //   if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }
 
         if (this.plane.x >= this.plane.maxX - 200 && this.background.x * -1 <= this.background.img.width - 1200) {
             this.background.moveRight();
         }
 
-        else if (this.plane.x <= this.plane.minX && this.background.x * -1 >= 50) {
+        else if (this.plane.x <= this.plane.minX + 100 && this.background.x * -1 >= 50) {
 
             this.background.moveLeft();
         }
@@ -573,17 +576,30 @@ class Game {
         const tankColl = this.collissions.some(bullet => this.panzers.some(norte => norte.collidesWith(bullet)));
         const shipColl = this.collissions.some(bullet => this.ships.some(norte => norte.collidesWith(bullet)));
 
-
-        const enemy1Coll = this.collissions.some(bullet => this.enemyPlanes.some(enemyPlane => enemyPlane.collidesWith(bullet)));
-
-
+        const enemy1Coll = this.bullets.some(bullet => this.enemyPlanes.some(enemyPlane => enemyPlane.collidesWith(bullet)));
 
         const stars = this.stars.some(star => this.plane.collidesWith(star));
 
         //  const prova = this.nortes.some(norte => this.collissions.collidesWith(norte));
 
+        const punterom = this.nortes.some(norte => this.miradorFrontal.collidesWith(norte)) 
+        || this.levantes.some(levante => this.miradorFrontal.collidesWith(levante)) 
+        || this.sures.some(sur => this.miradorFrontal.collidesWith(sur)) 
+        || this.panzers.some(panzer => this.miradorFrontal.collidesWith(panzer)) 
+        || this.enemyPlanes.some(enemyPlane => this.miradorFrontal.collidesWith(enemyPlane)) 
 
 
+
+        if (punterom) {
+            this.frontPointer = 1;
+
+            this.miradorFrontal.pop
+            this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, 1);
+        } else if (!punterom) {
+
+            this.miradorFrontal.pop
+            this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, 0);
+        }
 
         if (stars) {
             this.stars = this.stars.filter(star => !this.plane.collidesWith(star));
@@ -628,19 +644,16 @@ class Game {
 
 
 
+
         if (enemy1Coll) {
             this.enemyPlanes = this.enemyPlanes.filter(enemyPlane => !this.collissions.some(collission => collission.collidesWith(enemyPlane)))
             this.points.push(new Point(this.ctx, this.shotX, this.shotY - 50, 100, 3))
             this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX, this.shotY, 100))
             setTimeout(() => this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX, this.shotY + 50, 100)), 300);
             this.fixedSmoke.push(new FixedSmoke(this.ctx, this.shotX - 20, this.shotY - 20, 100))
-
             this.sounds.bomb.play();
-            this.score += 1000;
+            this.score += 100;
         }
-
-
-        //    this.levantes.filter(levante => !this.collissions.some(collission => collission.collidesWith(levante)))
 
 
 

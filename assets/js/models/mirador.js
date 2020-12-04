@@ -2,7 +2,7 @@ class Mirador {
 
     // constructor(ctx, x, y, h, plane) {
 
-    constructor(ctx, plane, position) {
+    constructor(ctx, plane, position, pointer) {
         this.ctx = ctx;
         this.plane = plane;
 
@@ -10,11 +10,11 @@ class Mirador {
 
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/puntero.png'
-        this.sprite.horizontalFrameIndex = 0;
+        this.sprite.src = './assets/img/punteros.png'
+        this.sprite.horizontalFrameIndex = pointer;
         this.sprite.verticalFrameIndex = 0;
 
-        this.sprite.horizontalFrames = 1;
+        this.sprite.horizontalFrames = 4;
         this.sprite.verticalFrames = 1;
         this.sprite.isReady = false;
         this.sprite.onload = () => {
@@ -49,6 +49,13 @@ class Mirador {
         this.x = this.plane.x + 45;
     }
 
+
+    collidesWith(element) {
+        return this.x < element.x + element.width &&
+            this.x + this.width > element.x &&
+            this.y + this.position < element.y + element.height &&
+            this.y + this. position + this.height > element.y;
+    }
 
 
 }
