@@ -33,18 +33,18 @@ class Plane {
         }
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/bombers.png';
+        this.sprite.src = './assets/img/b17.png';
         this.sprite.isReady = false;
-        this.sprite.horizontalFrames = 2; 
-        this.sprite.verticalFrames = 2;
+        this.sprite.horizontalFrames = 1; 
+        this.sprite.verticalFrames = 1;
         this.sprite.verticalFrameIndex = 0; 
         this.sprite.horizontalFrameIndex = 0; 
         this.sprite.onload = () => {
             this.sprite.isReady = true
             this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames);
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames);
-            this.width = 140,  // this.sprite.frameWidth;
-            this.height = 120 //this.sprite.frameHeight;
+            this.width = 220,  // this.sprite.frameWidth;
+            this.height = 140 //this.sprite.frameHeight;
         }
 
         // matriz de movimiento
@@ -159,10 +159,10 @@ class Plane {
         this.bullets.forEach(bullet => bullet.move());
 
         if (this.movement.right) {
-            this.vx = + PLANE_SPEED+2;
+            this.vx = + PLANE_SPEED+1;
         }
         else if (this.movement.left) {
-            this.vx = - PLANE_SPEED-2;
+            this.vx = - PLANE_SPEED-1;
         }
 
         else if (this.movement.up) {

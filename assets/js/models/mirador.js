@@ -2,12 +2,12 @@ class Mirador {
 
     // constructor(ctx, x, y, h, plane) {
 
-    constructor(ctx, plane, position, pointer) {
+    constructor(ctx, plane, position, pointer, h) {
         this.ctx = ctx;
         this.plane = plane;
 
        this.position = position
-
+this.h = h;
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/punteros.png'
@@ -37,7 +37,8 @@ class Mirador {
                 this.sprite.frameHeight,
                 this.plane.x + this.plane.width/2 - 20,
                 this.plane.y + this.position,
-                40, 40
+                this.h, 
+                this.h
 
 
             )

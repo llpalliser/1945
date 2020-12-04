@@ -45,13 +45,13 @@ class Target {
     move() {
       if (this.sprite.horizontalFrameIndex === 2) {
 
-        this.y -= - GROUND_SPEED - TURBO + 0.05;
-        this.x += lateral_move + 0.05;
+        this.y -= - GROUND_SPEED - TURBO + 0;
+        this.x += lateral_move + 0;
 
         
       }
       
-      else {this.y -= - GROUND_SPEED - TURBO + 0.001;
+      else {this.y -= - GROUND_SPEED - TURBO + 0;
         this.x += lateral_move;
       }
     
