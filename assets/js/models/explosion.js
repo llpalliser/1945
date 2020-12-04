@@ -72,7 +72,6 @@ class Explosion {
 
   }
 
-
   animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
 
     if (this.sprite.verticalFrameIndex != initialVerticalIndex) { 

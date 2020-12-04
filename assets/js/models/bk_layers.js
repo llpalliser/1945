@@ -2,14 +2,14 @@ class Layer {
 
   constructor(ctx, x, y, w, h, image) {
     this.ctx = ctx;
-    this.x = x; 
+    this.x = x;
 
 
     this.y = y;
     this.width = w;
     this.height = h;
     this.image = image;
-    this.vy = GROUND_SPEED; 
+    this.vy = GROUND_SPEED;
     this.vx = PLANE_SPEED;
     this.move_left = false;
     this.move_right = false;
@@ -24,7 +24,7 @@ class Layer {
       this.img.isReady = true;
       this.img.width = this.width;
       this.img.height = this.height;
-      this.width = 5000, 
+      this.width = 5000,
         this.height = 14000
     }
     this.movement = {
@@ -33,11 +33,6 @@ class Layer {
       down: false,
       up: false
     }
-
-
-
-
-
 
   }
 
@@ -50,7 +45,6 @@ class Layer {
         this.width,
         this.height,
       )
-
     }
   }
 

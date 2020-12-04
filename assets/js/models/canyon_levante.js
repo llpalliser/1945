@@ -129,9 +129,9 @@ class Levante {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
       this.bullets.pop(this.plane);
-          this.sounds.ferit.play();
+     //     this.sounds.ferit.play();
 
-      DAMAGES += 1
+      DAMAGES += 10
      }
   }
 

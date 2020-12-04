@@ -10,7 +10,7 @@ class Sur {
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/norte.png'
+    this.sprite.src = './assets/img/sur.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 

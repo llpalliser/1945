@@ -115,8 +115,8 @@ class Panzer {
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
-      DAMAGES += 1
-      this.sounds.ferit.play();
+      DAMAGES += 10
+    //  this.sounds.ferit.play();
       this.bullets.pop(this.plane);
       
     }

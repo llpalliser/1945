@@ -24,9 +24,9 @@ this.plane = plane;
         }
 
         this.sures = [
-            // new Sur(this.ctx, this.x-4, this.y + 120, 30, 180), // Prova
-            // new Sur(this.ctx, this.x-4, this.y + 160, 30, 180), // Prova
-            // new Sur(this.ctx, this.x-4, this.y + 200, 30, 180), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 120, 30, 180), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 160, 30, 180), // Prova
+            new Sur(this.ctx, this.x-4, this.y + 200, 30, 180), // Prova
 
         ]
 
