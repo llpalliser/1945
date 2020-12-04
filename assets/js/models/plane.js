@@ -78,50 +78,24 @@ class Plane {
             case KEY_DOWN:
                 this.movement.down = state;
                 break;
+            
+
+            
 
 
-            case KEY_BURST:
+            // case KEY_BURST:
 
-                this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
-                 this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
+            //     this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
+            //      this.bullets.push(new Shot(this.ctx, this.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
   
-                this.sounds.fire.currentTime = 0;
-                this.sounds.fire.play();
+            //     this.sounds.fire.currentTime = 0;
+            //     this.sounds.fire.play();
 
-                setTimeout(() => this.canFire = true, 100);
-
-
-                break;
+            //     setTimeout(() => this.canFire = true, 100);
 
 
-            // case KEY_FIRE:
-            //     if (this.canFire) {
-
-            //         this.bullets.push(new Missile(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 270)); // cañon 1
-            //         this.bullets.push(new Missile(this.ctx, this.x + 49, this.y + 3, 440 + this.height, 270)); // cañon 2
-            //         this.bullets.push(new Missile(this.ctx, this.x + 80, this.y + 3, 440 + this.height, 270)); // cañon 3
-            //         this.bullets.push(new Missile(this.ctx, thi s.x + 94, this.y + 3, 440 + this.height, 270)); // cañon 4
-            //         // Daños
-            //         setTimeout(() => this.craters.push(new Crater(this.ctx, this.x + 24, this.y - 420, 1)), 400);
-            //         setTimeout(() => this.fixedSmokes.push(new FixedSmoke(this.ctx, this.x + 24, this.y + -450, 140)), 400);
-            //         setTimeout(() => this.fixedFires.push(new FixedFire(this.ctx, this.x + 28, this.y + -420, 80)), 400);
-
-            //         this.explosiones.push(new Explosion(this.ctx, this.x + 32, this.y, 28));
-            //         this.explosiones.push(new Explosion(this.ctx, this.x + 47, this.y, 28));
-            //         this.explosiones.push(new Explosion(this.ctx, this.x + 78, this.y, 28));
-            //         this.explosiones.push(new Explosion(this.ctx, this.x + 92, this.y, 28));
-
-            //         this.sounds.fire.currentTime = 0;
-            //         this.sounds.fire.play();
-            //         this.canFire = false;
-
-            //         setTimeout(() => this.canFire = true, 800);
-
-            //     //    this.checkMissileCollission();
-
-
-            //     }
             //     break;
+
         }
     }
 

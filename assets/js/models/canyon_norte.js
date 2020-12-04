@@ -137,9 +137,9 @@ class Norte {
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
-      // console.log("NORTE")
       DAMAGES += 1
- //     this.sounds.ferit.play();
+      this.bullets.pop(this.plane);
+    this.sounds.ferit.play();
     }
   }
 

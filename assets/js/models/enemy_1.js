@@ -67,11 +67,11 @@ class enemyPlane {
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) { 
 
-     this.bullets.push(new Shot(this.ctx, this.x+25 , this.y +100, 440 + this.height, 90));
-     this.bullets.push(new Shot(this.ctx, this.x+82 , this.y +100, 440 + this.height, 90));
+     this.bullets.push(new Shot(this.ctx, this.x+17 , this.y +100, 440 + this.height, 90));
+     this.bullets.push(new Shot(this.ctx, this.x+70 , this.y +100, 440 + this.height, 90));
 
-    this.explosions.push(new Explosion(this.ctx, this.x+15, this.y+104, 30));
-    this.explosions.push(new Explosion(this.ctx, this.x+70, this.y+104, 30));
+    this.explosions.push(new Explosion(this.ctx, this.x+10, this.y+104, 30));
+    this.explosions.push(new Explosion(this.ctx, this.x+61, this.y+104, 30));
 
 
      this.sounds.squadron.currentTime = 0;
@@ -100,7 +100,7 @@ class enemyPlane {
 
     
 
-    this.y += 4
+    this.y += 2
     
     //- GROUND_SPEED - TURBO+0.1;
      this.x += lateral_move;
@@ -111,12 +111,26 @@ class enemyPlane {
 
     this.shot()
   }
+
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+      this.x + this.width > element.x &&
+      this.y < element.y + element.height &&
+      this.y + this.height > element.y;
+  }
+
+
+
+
   checkCollisions() {
-
-
-    // const bullet = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+    const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+    if (dispars) {
+      DAMAGES += 1
+      this.sounds.ferit.play();
+      this.bullets.pop(this.plane);
 
     }
+  }
 
   
 }

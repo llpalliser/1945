@@ -104,12 +104,11 @@ class FixedFire {
 
     let subiendo = true
 
-    // lo primero que se debe hacer es comprobar si el frame está en la posición inicial
-    if (this.sprite.verticalFrameIndex != initialVerticalIndex) { // => si no lo está
-      this.sprite.verticalFrameIndex = initialVerticalIndex; // => colócalo en el frame vertical inicial
-      this.sprite.horizontalFrameIndex = initialHorizontalIndex; // => colócalo en el frame horizontal inicial
+    if (this.sprite.verticalFrameIndex != initialVerticalIndex) { 
+      this.sprite.verticalFrameIndex = initialVerticalIndex;
+      this.sprite.horizontalFrameIndex = initialHorizontalIndex;
 
-    } else if (this.drawCount % frequency === 0) {// => si ya estaba en el frame inicial (en reposo, por ejemplo)
+    } else if (this.drawCount % frequency === 0) {
 
 
 
@@ -132,7 +131,6 @@ class FixedFire {
 
     }
 
-    // console.log(this.sprite.horizontalFrameIndex)
 
   }
 

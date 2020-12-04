@@ -5,24 +5,23 @@ class Background {
         this.x = -900; // posició d'es background x
 
 
-        this.y = -14400; // que son 0
+        this.y = 0// 28000; // que son 0
         this.vy = GROUND_SPEED; // => es moviment d'es background, X (velocitat negativa cap a la dreta)
         this.vx = PLANE_SPEED;
         this.move_left = false;
         this.move_right = false;
 
-        // creamos un "objeto imagen", una clase en si de Javascript, como date() etc
-        // es una etiqueta de html el image
+
         this.img = new Image();
-        this.img.src = './assets/img/background.jpg' // 224 x 2144 px
+        this.img.src = './assets/img/background60.jpg' // 224 x 2144 px
 
         this.img.isReady = false;
-        this.img.onload = () => { // => se carga en cache, para evitar problemas de ejecución
-            this.img.isReady = true; // => luego ya se puede retocar, etc
-            this.img.width = 2800,// 2850 //this.ctx.canvas.width;
-                this.img.height = 14400 // this.ctx.canvas.height;
-            this.width = 2850,// this.ctx.canvas.width; // => es defineix com a width s'amplada de tot es canvas
-                this.height = 14400// this.ctx.canvas.height; // => es defineix com a height s'altura de tot es canvas
+        this.img.onload = () => {
+            this.img.isReady = true; 
+            this.img.width = 5000,// 2800,// 2850 //this.ctx.canvas.width;
+            this.img.height = 28000,//14400 // this.ctx.canvas.height;
+            this.width = 5000, //2850,// this.ctx.canvas.width; // => es defineix com a width s'amplada de tot es canvas
+            this.height = 28000//14400// this.ctx.canvas.height; // => es defineix com a height s'altura de tot es canvas
         }
         // matriz de movimiento
         this.movement = {
@@ -41,21 +40,18 @@ class Background {
 
 
 
-        const state = event.type === 'keydown' //=> cuando la tecla se pulsa 
+        const state = event.type === 'keydown' 
         switch (event.keyCode) {
-            // => hemos creado constantes.js para que queden guardados los códigos de movimiento 
-            // cuando pulsamos las teclas, este diccionario será combinable
-            // diccionario de movimientos con booleanos permite tener varios estados abiertos a la vez
 
 
-            case KEY_UP: // => per colocar elements
+            case KEY_UP: 
                 this.movement.up = state;
 
                 break;
             case KEY_DOWN:
                 this.movement.down = state;
                 break;
-            case KEY_LEFT: // => per colocar elements
+            case KEY_LEFT: 
                 this.movement.left = state;
                 break;
             case KEY_RIGHT:
@@ -69,28 +65,18 @@ class Background {
 
 
     draw() {
-        // drawImage permet que es dibuixi segons posició i/o quadrant. D'aquesta manera amb un 
-        // sprite es poden agafar dinstintes imatges
-        // hem de dir posició, ample y alt
-        if (this.img.isReady) { // => preguntamos si la imagen está lista para ejecutarse (descargada)
-            this.ctx.drawImage(
-                this.img, // la imagen que se quiere pintar
-                this.x, // this.x, // la coordenada x donde se va a pintar
-                this.y + 1800,
-                this.width,
-                this.height,
-            )
+   
+        // if (this.img.isReady) { 
+        //     this.ctx.drawImage(
+        //         this.img, 
+        //         this.x, 
+        //         this.y + 1800,
+        //         this.width,
+        //         this.height,
+        //     )
 
-            // this.ctx.drawImage(
-            //     this.img, // la imagen que se quiere pintar
-            //     this.x, //+ this.width, // => es col·loca una segona imatge per donar efecte de moviment
-            //     this.y + this.height, // => es col·loca una segona imatge per donar efecte de moviment
-            //     this.width,
-            //     this.height,
-            // )
-
-            // if (this.x === -this.img.width) { this.x = 0 } // ell ho mou a move
-        }
+          
+        // }
 
     }
 
@@ -100,7 +86,7 @@ class Background {
             this.x -= GROUND_SPEED
          //   lateral_move = -1 }
 
-         lateral_move = GROUND_SPEED * -1}
+         lateral_move = GROUND_SPEED * -4}
 
             else {
                 this.x = this.x;
@@ -116,9 +102,9 @@ class Background {
     moveLeft() {
 
         if (this.movement.left) {
-        this.x += GROUND_SPEED;
+        this.x += GROUND_SPEED+2;
     //    lateral_move = +1 }
-    lateral_move = GROUND_SPEED}
+    lateral_move = GROUND_SPEED+2}
         else {
             this.x = this.x;
             lateral_move = 0;

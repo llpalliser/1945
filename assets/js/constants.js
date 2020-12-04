@@ -9,6 +9,7 @@ const PAUSE = 80;
 const RESTART = 82;
 const SPEED1 = 49;
 const SPEED2 = 50;
+const SPEED3 = 51;
 
 
 const MOVEMENT_FRAMES = 5; // 10 no s'empra?
@@ -18,16 +19,16 @@ const MOVEMENT_FRAMES = 5; // 10 no s'empra?
 
 
 
-let GROUND_SPEED = 1; // 2
+let GROUND_SPEED = 0.5; // 2
 
 
 
-let GROUND_LATERAL_SPEED = 4; // 4 no s'empra?
+let GROUND_LATERAL_SPEED = 5; // 4 no s'empra?
 
 
 const SPEED = 2; // 4 no s'empra?
   
-const PLANE_SPEED = 2; // 5 no s'empra?
+const PLANE_SPEED = 3; // 5 no s'empra?
 let TURBO = 1;
 const SHOT_SPEED = 10; // 10
 const MISSILE_SPEED= 9;
@@ -35,13 +36,13 @@ const MISSILE_SPEED= 9;
 let lateral_move = 1
 
 // ENEMIES 
-const NORTES = 40;
-const SURES = 0;
-const LEVANTES = 50;
-const ENEMYPLANES = 0;
-const TANKS = 30;
+const NORTES = 0;
+const SURES = 100;
+const LEVANTES = 0;
+const ENEMYPLANES = 20;
+const TANKS = 40;
 
-const STARS = 30;
+const STARS = 50;
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
 const CAMPO_TIRO_MAX = 900; // HASTA DONDE LOS ENEMIGOS PUEDEN DISPARAR
