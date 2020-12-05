@@ -47,10 +47,10 @@ class Intro {
       if (this.img.isReady) { // => preguntamos si la imagen está lista para ejecutarse (descargada)
           this.ctx.drawImage(
               this.img, // la imagen que se quiere pintar
-              -10, // this.x, // la coordenada x donde se va a pintar
-              -40,
-              1650,
-              1000,
+              0, // this.x, // la coordenada x donde se va a pintar
+              0,
+              this.canvas.width,
+              whis.canvas.height,
           )
       }
 

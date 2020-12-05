@@ -39,10 +39,10 @@ const BOMB_SPEED = 2;
 let lateral_move = 1
 
 // ENEMIES 
-const NORTES = 20;
+const NORTES = 50;
 const SURES = 50;
 const LEVANTES = 40;
-const ENEMYPLANES = 2;
+const ENEMYPLANES = 22;
 const ENEMYSQUADRONS = 20;
 const TANKS = 40;
 

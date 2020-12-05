@@ -6,8 +6,11 @@ class Game {
 
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        this.canvas.width = 1600;
-        this.canvas.height = 900;
+        // this.canvas.width = 1600;
+        // this.canvas.height = 900;
+        this.canvas.width = window.innerWidth ;
+        this.canvas.height = window.innerHeight - 50;
+
         this.ctx = this.canvas.getContext('2d');
 
         this.fps = 1000 / 60; // => 60 fps
@@ -23,7 +26,7 @@ class Game {
 
         this.plane = new Plane(this.ctx, 600, 600)
 
-        this.healthPlane = new PlaneHealth(this.ctx, 120, 735)
+        this.healthPlane = new PlaneHealth(this.ctx, this.canvas.width - 280, 100)
 
         this.paused = true;
         this.frontPointer = 0;
@@ -32,7 +35,7 @@ class Game {
 
         // MAP
         this.mapImg = new Image();
-        this.mapImg.src = './assets/img/backgroundMap.jpg' // 224 x 2144 px
+        this.mapImg.src = './assets/img/map.jpg' // 224 x 2144 px
         this.mapImg.isReady = false;
         this.mapImg.onload = () => {
             this.mapImg.isReady = true;
@@ -41,6 +44,14 @@ class Game {
                 this.width = 54,
                 this.height = 255
         }
+
+        this.opbg = new Image();
+        this.opbg.src = './assets/img/bg80.mpg' // 224 x 2144 px
+        this.opbg.isReady = false;
+        this.opbg.onload = () => {
+            this.opbg.isReady = true;
+        }
+
 
 
 
@@ -320,7 +331,7 @@ class Game {
     startIntro() {
 
         this.introIntervalId = setInterval(() => {
-                this.intro.draw();
+          //      this.intro.draw();
 
 
         }, this.fps);
@@ -475,10 +486,10 @@ class Game {
         this.ctx.font = "26px Saira Stencil One";
         this.ctx.fillStyle = "rgba(51, 0, 25)"
 
-        this.ctx.fillText(`DAMAGES: ` + DAMAGES, 360, 800);
-        this.ctx.fillText(`DISTANCE hm: ` + (this.background.y * 47 / 28000).toFixed(2), 135, 100);
-        this.ctx.fillText(`kmh: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), 400, 100);
-        this.ctx.fillText(`SCORE: ` + this.score, 1020, 100);
+        this.ctx.fillText(`DAMAGES: ` + DAMAGES, this.canvas.width - 280, 200);
+        this.ctx.fillText(`DISTANCE hm: ` + (this.background.y * 47 / 28000).toFixed(2), this.canvas.width - 280, 230);
+        this.ctx.fillText(`kmh: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), this.canvas.width - 280, 260);
+        this.ctx.fillText(`SCORE: ` + this.score, this.canvas.width - 300, 50);
 
 
 
@@ -486,22 +497,30 @@ class Game {
 
         //     console.log ( (this.background.y * 47 / 28000).toFixed(2))
 
-        // MAPA
-        // if (this.mapImg.isReady) { 
-        //     this.ctx.drawImage(
-        //         this.mapImg,
-        //         100, 
-        //         700,
-        //         55,//this.width,
-        //         255//this.height,
-        //     )
-        //     }
+  
+        if (this.mapImg.isReady) { 
+            this.ctx.drawImage(
+                this.mapImg,
+                this.canvas.width-200, 
+                this.canvas.height - 270,
+                55,//this.width,
+                255//this.height,
+            )
+            }
+
+            if (this.opbg.isReady) { 
+                this.ctx.drawImage(
+                    this.opbg,
+                    this.canvas.width-200, 
+                    20,
+                    280,//this.width,
+                    800//this.height,
+                )
+                }
 
 
 
-
-
-        this.intro.draw();
+       // this.intro.draw();
 
         //   this.status();
 
