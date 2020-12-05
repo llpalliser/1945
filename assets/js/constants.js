@@ -12,7 +12,7 @@ const START = 83;
 const SPEED1 = 49;
 const SPEED2 = 50;
 const SPEED3 = 51;
-
+let WIND = 0.0;
 
 const MOVEMENT_FRAMES = 5; // 10 no s'empra?
 
@@ -38,10 +38,19 @@ const BOMB_SPEED = 2;
 
 let lateral_move = 1
 
+
+// PLANE
+
+let ENGINE1 = 100;
+let ENGINE2 = 100;
+let ENGINE3 = 100;
+let ENGINE4 = 100;
+
+
 // ENEMIES 
-const NORTES = 50;
+const NORTES = 100;
 const SURES = 50;
-const LEVANTES = 40;
+const LEVANTES = 100;
 const ENEMYPLANES = 22;
 const ENEMYSQUADRONS = 20;
 const TANKS = 40;

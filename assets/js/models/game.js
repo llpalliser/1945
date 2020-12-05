@@ -8,7 +8,7 @@ class Game {
         this.canvas = document.getElementById(canvasId);
         // this.canvas.width = 1600;
         // this.canvas.height = 900;
-        this.canvas.width = window.innerWidth ;
+        this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight - 50;
 
         this.ctx = this.canvas.getContext('2d');
@@ -26,7 +26,7 @@ class Game {
 
         this.plane = new Plane(this.ctx, 600, 600)
 
-        this.healthPlane = new PlaneHealth(this.ctx, this.canvas.width - 280, 100)
+        this.healthPlane = new PlaneHealth(this.ctx, this.canvas.width - 280, 80)
 
         this.paused = true;
         this.frontPointer = 0;
@@ -39,19 +39,27 @@ class Game {
         this.mapImg.isReady = false;
         this.mapImg.onload = () => {
             this.mapImg.isReady = true;
-            this.mapImg.width = 54,
-                this.mapImg.height = 255,
-                this.width = 54,
-                this.height = 255
+            // this.mapImg.width = 54,
+            //     this.mapImg.height = 255,
+            //     this.width = 54,
+            //     this.height = 255
         }
 
         this.opbg = new Image();
-        this.opbg.src = './assets/img/bg80.mpg' // 224 x 2144 px
+        this.opbg.src = './assets/img/bg80.png' // 224 x 2144 px
         this.opbg.isReady = false;
         this.opbg.onload = () => {
             this.opbg.isReady = true;
+
         }
 
+        this.positionMark = new Image();
+        this.positionMark.src = './assets/img/sur.png' // 224 x 2144 px
+        this.positionMark.isReady = false;
+        this.positionMark.onload = () => {
+            this.positionMark.isReady = true;
+
+        }
 
 
 
@@ -128,7 +136,9 @@ class Game {
 
     }
 
-
+    randomWind() {
+        WIND = (Math.random() * 0.02) + 0.05 * (Math.round(Math.random()) ? 1 : -1)
+    }
     randomStars
         () {
         for (let i = 0; i <= STARS; i++) {
@@ -318,8 +328,8 @@ class Game {
 
                     // this.sounds.fire.currentTime = 0;
                     this.sounds.missileSound.play();
-                    this.canFire = false;
-                    setTimeout(() => this.canFire = true, 2000);
+                    this.canBomb = false;
+                    setTimeout(() => this.canBomb = true, 1100);
                 }
                 break;
 
@@ -331,7 +341,7 @@ class Game {
     startIntro() {
 
         this.introIntervalId = setInterval(() => {
-          //      this.intro.draw();
+            //      this.intro.draw();
 
 
         }, this.fps);
@@ -347,6 +357,7 @@ class Game {
             this.randomLevantes()
             this.randomEnemyPlanes()
             this.randomeEnemySquadrons()
+            this.randomWind();
 
             this.mapped = true;
 
@@ -359,6 +370,7 @@ class Game {
                 this.move();
                 this.draw();
                 this.checkCollisions();
+                this.checkEngineStatus();
 
 
             }, this.fps);
@@ -454,6 +466,30 @@ class Game {
 
         //  this.bombs.forEach(bomb => bomb.draw()); // OJO
 
+        if (this.opbg.isReady) {
+            this.ctx.drawImage(
+                this.opbg,
+                this.canvas.width - 330,
+                20,
+                320,
+                700
+            )
+        }
+
+
+
+
+        if (this.positionMark.isReady) {
+            this.ctx.drawImage(
+                this.positionMark,
+                20,
+                20 + (this.background.y*100 / 26000).toFixed(0),
+                20,
+                20
+            )
+        }
+
+
 
         // PLANE ---------xx
 
@@ -484,43 +520,46 @@ class Game {
         //   this.planeExplosions.filter(planeExplosion => planeExplosion.y > 0).forEach(missile => planeExplosion.draw())
 
         this.ctx.font = "26px Saira Stencil One";
-        this.ctx.fillStyle = "rgba(51, 0, 25)"
+        this.ctx.fillStyle = "White"
 
-        this.ctx.fillText(`DAMAGES: ` + DAMAGES, this.canvas.width - 280, 200);
-        this.ctx.fillText(`DISTANCE hm: ` + (this.background.y * 47 / 28000).toFixed(2), this.canvas.width - 280, 230);
-        this.ctx.fillText(`kmh: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), this.canvas.width - 280, 260);
+        this.ctx.fillText(`DAMAGES: ` + DAMAGES, this.canvas.width - 310, 200);
+        this.ctx.fillText(`DISTANCE hm: ` + (this.background.y * 47 / 28000).toFixed(2), this.canvas.width - 310, 240);
+        this.ctx.fillText(`PLANE SPEED: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), this.canvas.width - 310, 280);
         this.ctx.fillText(`SCORE: ` + this.score, this.canvas.width - 300, 50);
+        this.ctx.fillText(`WIND SPEED: ${(WIND * 100).toFixed(2)} m/s`, this.canvas.width - 310, 320);
+        this.ctx.fillText(`ENGINE 1: ${ENGINE1} %`, this.canvas.width - 310, 360);
+        this.ctx.fillText(`ENGINE 2: ${ENGINE2} %`, this.canvas.width - 310, 400);
+        this.ctx.fillText(`ENGINE 3: ${ENGINE3} %`, this.canvas.width - 310, 440);
+        this.ctx.fillText(`ENGINE 4: ${GROUND_SPEED} %`, this.canvas.width - 310, 480);
+        this.ctx.fillText(`ENGINES: ${this.engines} %`, this.canvas.width - 310, 520);
 
 
 
 
 
-        //     console.log ( (this.background.y * 47 / 28000).toFixed(2))
+        //   console.log ( (this.background.y * 47 / 28000).toFixed(2))
+        console.log((this.background.y*100  / 26000).toFixed(2))
+        //  console.log ( (this.background.y).toFixed(2))
 
-  
-        if (this.mapImg.isReady) { 
+
+        if (this.mapImg.isReady) {
             this.ctx.drawImage(
                 this.mapImg,
-                this.canvas.width-200, 
+                this.canvas.width - 200,
                 this.canvas.height - 270,
+
+
+
                 55,//this.width,
                 255//this.height,
             )
-            }
-
-            if (this.opbg.isReady) { 
-                this.ctx.drawImage(
-                    this.opbg,
-                    this.canvas.width-200, 
-                    20,
-                    280,//this.width,
-                    800//this.height,
-                )
-                }
+        }
 
 
 
-       // this.intro.draw();
+
+
+        // this.intro.draw();
 
         //   this.status();
 
@@ -601,8 +640,21 @@ class Game {
 
 
     }
+    checkEngineStatus() {
+        let engineDamages = DAMAGES / 100
+        ENGINE1 = 100 - (DAMAGES / 4).toFixed(0)
+        ENGINE2 = 100 - (DAMAGES / 4).toFixed(0)
+        ENGINE3 = 100 - (DAMAGES / 4).toFixed(0)
+        ENGINE4 = 100 - (DAMAGES / 4).toFixed(0)
 
-    checkCollisions(x, y) {
+        this.engines = 100 - DAMAGES / 10
+
+
+        if (this.engines > 80) { GROUND_SPEED = GROUND_SPEED }
+        if (this.engines < 50) { GROUND_SPEED = 0.5 }
+
+    }
+    checkCollisions() {
 
         this.planeStatus()
 

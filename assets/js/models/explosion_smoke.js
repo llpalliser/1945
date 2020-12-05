@@ -80,17 +80,17 @@ class ExplosionSmoke {
  
     if (this.direction === 90) {
     this.y -= - GROUND_SPEED - TURBO - 0.2 ;
-    this.x += lateral_move;}
+    this.x += lateral_move + WIND;}
 
     else if (this.direction === 135) {
 
       this.y -= - GROUND_SPEED - TURBO - 0.2 ;
-      this.x += lateral_move - 0.2;}
+      this.x += lateral_move - 0.2 + WIND;}
 
 
     else {
     this.y -= - GROUND_SPEED - TURBO - 0.2 ;
-    this.x += lateral_move + 0.2;
+    this.x += lateral_move + 0.2 + WIND;
   }
 
 

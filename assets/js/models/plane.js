@@ -148,7 +148,7 @@ class Plane {
 
     move() {
         //    this.explosiones.forEach(explosion => explosion.move());
-
+        this.x = this.x + WIND
 
 
         this.smokes.forEach(smoke => smoke.move());

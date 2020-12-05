@@ -59,7 +59,7 @@ class FixedFireSmoke {
 
   move() {
     this.y -= - GROUND_SPEED - TURBO ;
-    this.x += lateral_move
+    this.x += lateral_move + WIND
   }
 
   animate() {
