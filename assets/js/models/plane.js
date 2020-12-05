@@ -240,13 +240,12 @@ class Plane {
     }
 
 
-
     collidesWith(element) {
         return this.x < element.x + element.width &&
-            this.x + 140 > element.x &&
-            this.y < element.y + element.height &&
-            this.y + 120 > element.y;
-    }
+          this.x + this.width > element.x &&
+          this.y + 30 < element.y + element.height &&
+          this.y + this.height > element.y;
+      }
 
 
 

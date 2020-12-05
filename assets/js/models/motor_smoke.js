@@ -1,24 +1,23 @@
-class Explosion {
+class MotorSmoke {
 
-  constructor(ctx, x, y, h) {
+  constructor(ctx, x, y, h, plane) {
     this.ctx = ctx;
     this.x = x;
-    this.vx = SHOT_SPEED;
 
     this.y = y;
     this.h = h
-    
+    this.plane = plane;
      
 
 
     this.vy = SHOT_SPEED;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/explosions.png';
+    this.sprite.src = './assets/img/motor_smoke.png';
     this.sprite.isReady = false;
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
-    this.sprite.horizontalFrames = 6;
+    this.sprite.horizontalFrames = 8;
     this.sprite.verticalFrames = 1;
     this.sprite.onload = () => {
       this.isReady = true;
@@ -41,7 +40,7 @@ class Explosion {
       this.sprite.frameWidth,
       this.sprite.frameHeight,
       this.x,
-      this.y,
+      this.y + 50,
       this.h,
       this.h,
 
@@ -54,20 +53,22 @@ class Explosion {
   }
 
   move() {
+ 
+    this.y = this.plane.y + 0.2 ;
+    this.x  = this.plane.x;
 
 
-    this.y -= - GROUND_SPEED - TURBO;
 
-    this.x += lateral_move / 2;
   }
 
-  animate() {
+    animate() {
 
-    if (this.drawCount < 6) {
-    this.animateSprite(0, 0, 0, 13);
-  }
-  else
-  { this.resetAnimation()}
+  //   if (this.drawCount < 10) {
+  //   this.animateSprite(0, 0, 0, 10);
+  // }
+  // else
+  // { this.resetAnimation()}
+  this.animateSprite(0, 0, 0, 10);
 
 
   }

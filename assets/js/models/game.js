@@ -12,11 +12,12 @@ class Game {
 
         this.fps = 1000 / 60; // => 60 fps
 
-        this.checkColl = 1000;
 
         this.drawIntervalId = undefined;
+        this.introIntervalId = undefined;
 
         this.tv = new Tv(this.ctx)
+        this.intro = new Tv(this.ctx)
 
         this.background = new Background(this.ctx)
 
@@ -24,8 +25,7 @@ class Game {
 
         this.healthPlane = new PlaneHealth(this.ctx, 120, 735)
 
-        this.paused = false;
-
+        this.paused = true;
         this.frontPointer = 0;
         this.rearPointer = 2;
 
@@ -97,6 +97,7 @@ class Game {
         this.nortes = []
         this.sures = []
         this.missiles = []
+        this.motorSmokes = []
 
         //  motorAudio.volume = 0.9;
 
@@ -111,10 +112,7 @@ class Game {
 
         }
 
-
-
         this.score = 0;
-
 
 
     }
@@ -157,7 +155,10 @@ class Game {
             let posX = Math.floor((Math.random() * 5000) + 0);
             let posY = Math.floor((Math.random() * -26000) + 200); // -8000) + -3400);
             //       this.levantes.push(new Levante(this.ctx, posX, posY, 40, this.plane))
+            this.levantes.push(new Levante(this.ctx, posX, posY, 40, this.plane))
             this.levantes.push(new Levante(this.ctx, posX + 100, posY, 40, this.plane))
+
+            this.targets.push(new Target(this.ctx, posX, posY - 50, 1))
             this.targets.push(new Target(this.ctx, posX + 103, posY - 50, 1))
 
 
@@ -210,13 +211,13 @@ class Game {
                 break;
 
             case RESTART: this.clear();
+                break;
 
-
+            case START: this.start();
                 break;
 
             case SPEED1: GROUND_SPEED = 0.5;
                 console.log(GROUND_SPEED);
-
                 break;
 
             case SPEED2: GROUND_SPEED = 1;
@@ -252,6 +253,9 @@ class Game {
                     this.missiles.push(new Missile(this.ctx, this.plane.x + 85, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 2
                     this.missiles.push(new Missile(this.ctx, this.plane.x + 130, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 3
                     this.missiles.push(new Missile(this.ctx, this.plane.x + 150, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 4
+                    this.motorSmokes.push(new MotorSmoke(this.ctx, this.plane.x + 70, this.plane.y, 60, this.plane));
+
+
                     // Daños
                     setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 70, posy - 320, 80, 80)), 400);
                     setTimeout(() => this.collissions.pop(this.craters), 410);
@@ -313,6 +317,14 @@ class Game {
     }
 
 
+    startIntro() {
+
+        this.introIntervalId = setInterval(() => {
+                this.intro.draw();
+
+
+        }, this.fps);
+    }
 
     start() {
 
@@ -340,7 +352,7 @@ class Game {
 
             }, this.fps);
         }
-        //  }
+
 
     }
 
@@ -356,12 +368,14 @@ class Game {
         this.stars = this.stars.filter(star => star.y <= 1000)
         this.points = this.points.filter(point => point.y <= 1000)
         this.targets = this.targets.filter(target => target.y <= 1000)
+
         //this.frontPointer;
 
         // PLANE -------
         //  this.bullets = this.bullets.filter(bullet => bullet.y >= this.y - 300);
 
         this.missiles = this.missiles.filter(missile => missile.y >= this.plane.y - 300);
+        this.motorSmokes = this.motorSmokes.filter(motorSmoke => motorSmoke.y <= 1000)
 
 
 
@@ -399,7 +413,9 @@ class Game {
         // amb pause lo mismo; stop start (si no lo has limpiado)
     }
 
-
+    drawIntro() {
+        this.intro.draw();
+    }
 
     draw() {
 
@@ -432,6 +448,7 @@ class Game {
 
 
         this.explosiones.forEach(explosion => explosion.draw());
+        this.motorSmokes.forEach(motorSmoke => motorSmoke.draw());
 
         this.missiles.forEach(missile => missile.draw());
         this.bombs.forEach(bomb => bomb.draw());
@@ -484,7 +501,7 @@ class Game {
 
 
 
-     this.tv.draw();
+        this.intro.draw();
 
         //   this.status();
 
@@ -522,6 +539,7 @@ class Game {
         // Plane ---------------------------
         this.missiles.forEach(missile => missile.move());
         this.bombs.forEach(bomb => bomb.move());
+        this.motorSmokes.forEach(motorSmoke => motorSmoke.move());
 
         this.bullets.forEach(bullet => bullet.move());
 
@@ -581,15 +599,15 @@ class Game {
 
         //  const prova = this.nortes.some(norte => this.collissions.collidesWith(norte));
 
-        const frontPointer = this.nortes.some(norte => this.miradorFrontal.collidesWith(norte)) 
-        || this.levantes.some(levante => this.miradorFrontal.collidesWith(levante)) 
-        || this.sures.some(sur => this.miradorFrontal.collidesWith(sur)) 
-        || this.panzers.some(panzer => this.miradorFrontal.collidesWith(panzer)) 
+        const frontPointer = this.nortes.some(norte => this.miradorFrontal.collidesWith(norte))
+            || this.levantes.some(levante => this.miradorFrontal.collidesWith(levante))
+            || this.sures.some(sur => this.miradorFrontal.collidesWith(sur))
+            || this.panzers.some(panzer => this.miradorFrontal.collidesWith(panzer))
 
-        const rearPointer = this.nortes.some(norte => this.miradorTrasero.collidesWith(norte)) 
-        || this.levantes.some(levante => this.miradorTrasero.collidesWith(levante)) 
-        || this.sures.some(sur => this.miradorTrasero.collidesWith(sur)) 
-        || this.panzers.some(panzer => this.miradorTrasero.collidesWith(panzer)) 
+        const rearPointer = this.nortes.some(norte => this.miradorTrasero.collidesWith(norte))
+            || this.levantes.some(levante => this.miradorTrasero.collidesWith(levante))
+            || this.sures.some(sur => this.miradorTrasero.collidesWith(sur))
+            || this.panzers.some(panzer => this.miradorTrasero.collidesWith(panzer))
 
         if (frontPointer) {
             this.miradorFrontal.pop
@@ -616,7 +634,7 @@ class Game {
 
         }
         if (nordColl) {
-            this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX+40, this.shotY-20, 100))
+            this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX + 40, this.shotY - 20, 100))
             this.points.push(new Point(this.ctx, this.shotX, this.shotY, 100, 0))
             this.nortes = this.nortes.filter(norte => !this.collissions.some(collission => collission.collidesWith(norte)))
             this.targets = this.targets.filter(target => !this.collissions.some(collission => collission.collidesWith(target)))
@@ -625,20 +643,22 @@ class Game {
             this.score += 100;
         }
         if (levColl) {
-            this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX+40, this.shotY-20, 100))
+            this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX + 40, this.shotY - 20, 100))
             this.points.push(new Point(this.ctx, this.shotX, this.shotY, 100, 1))
             this.levantes = this.levantes.filter(levante => !this.collissions.some(collission => collission.collidesWith(levante)))
             this.targets = this.targets.filter(target => !this.collissions.some(collission => collission.collidesWith(target)))
 
             this.sounds.bomb.play();
-            this.score += 100;
+            this.score += 200;
         }
         if (tankColl) {
-            this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX+40, this.shotY-20, 100))
+            this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX + 40, this.shotY - 20, 100))
             this.points.push(new Point(this.ctx, this.shotX, this.shotY, 100, 2))
             this.panzers = this.panzers.filter(panzer => !this.collissions.some(collission => collission.collidesWith(panzer)))
+            this.targets = this.targets.filter(target => !this.collissions.some(collission => collission.collidesWith(target)))
+
             this.sounds.bomb.play();
-            this.score += 100;
+            this.score += 500;
         }
         // if (levColl) {
         //     this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX, this.shotY, 100))

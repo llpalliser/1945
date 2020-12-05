@@ -10,8 +10,8 @@ class Norte {
     this.plane = plane;
 
     this.sprite = new Image();
-   this.sprite.src = './assets/img/norte.png'
-  //  this.sprite.src = './assets/img/antiaereo.png'
+    this.sprite.src = './assets/img/norte.png'
+    //  this.sprite.src = './assets/img/antiaereo.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 
@@ -28,7 +28,9 @@ class Norte {
     }
     this.canFire = true;
     this.bullets = [];
-    this.smokes = [];
+    this.explosions = [];
+    this.explosions_smoke = [];
+
     this.sounds = {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
       ferit: new Audio('./assets/sound/prova.wav')
@@ -50,12 +52,10 @@ class Norte {
         this.y,
         this.h,
         this.h
-        //   this.width,
-        //  this.height,
       )
       this.bullets.forEach(bullet => bullet.draw());
-      this.smokes.forEach(smoke => smoke.draw())
-
+      this.explosions.forEach(explosion => explosion.draw())
+      this.explosions_smoke.forEach(explosion => explosion.draw())
 
       this.drawCount++;
       this.animate();
@@ -68,77 +68,70 @@ class Norte {
 
   clear() {
 
-    this.bullets = this.bullets.filter(bullet => bullet.y >= 900);
-
-
-
-
-
-  }
+     this.bullets = this.bullets.filter(bullet => bullet.y <= 900);
+    // this.bullets = this.bullets.filter(bullet => bullet.x <= 2800);
+     this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= 900);
+ 
+   
+ }
 
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane.x > this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
-      this.smokes.push(new Explosion(this.ctx, this.x + 30, this.y, 40));
-     // this.sounds.fire.currentTime = 0;
+      this.explosions.push(new Explosion(this.ctx, this.x + 30, this.y, 40));
+      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 30, this.y , 40, 0));
+
+      // this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
       this.sounds.volume = 0.2;
-
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 1000));
-
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1000));
       this.canFire = false;
 
-
-
-
     }
-
-  }
-
-
-  clear() {
-
-    this.bullets = this.bullets.filter(bullet => bullet.x <= 2800);
-
-  }
-
-  move() {
-
-    this.bullets.forEach(bullet => bullet.move());
-    this.smokes.forEach(smoke => smoke.move());
-    //this.bullets.forEach(bullet => console.log(`Norte X: ` + bullet.x));
-
-    this.y -= - GROUND_SPEED - TURBO;
-    this.x += lateral_move;
-  }
-
-
-  animate() {
-    // if (this.drawCount % MOVEMENT_FRAMES === 0) {
-    //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-    //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
-
-    //   this.drawCount = 0;
-    // }
-    this.shot()
-  }
-
-  collidesWith(element) {
-    return this.x < element.x + element.width &&
-      this.x + this.width > element.x &&
-      this.y < element.y + element.height &&
-      this.y + this.height > element.y;
   }
 
 
 
-  checkCollisions() {
-    const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
-    if (dispars) {
-      DAMAGES += 1
-      this.bullets.pop(this.plane);
+
+move() {
+
+  this.bullets.forEach(bullet => bullet.move());
+  this.explosions.forEach(explosion => explosion.move());
+  //this.bullets.forEach(bullet => console.log(`Norte X: ` + bullet.x));
+  this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
+
+
+  this.y -= - GROUND_SPEED - TURBO;
+  this.x += lateral_move;
+}
+
+
+animate() {
+  // if (this.drawCount % MOVEMENT_FRAMES === 0) {
+  //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
+  //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
+
+  //   this.drawCount = 0;
+  // }
+  this.shot()
+}
+
+collidesWith(element) {
+  return this.x < element.x + element.width &&
+    this.x + this.width > element.x &&
+    this.y < element.y + element.height &&
+    this.y + this.height > element.y;
+}
+
+
+
+checkCollisions() {
+  const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+  if (dispars) {
+    DAMAGES += 10
+    this.bullets.pop(this.plane);
     this.sounds.ferit.play();
-    }
   }
+}
 
 }   

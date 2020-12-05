@@ -8,6 +8,7 @@ const KEY_BURST = 88;
 const TEST = 70;
 const PAUSE = 80;
 const RESTART = 82;
+const START = 83;
 const SPEED1 = 49;
 const SPEED2 = 50;
 const SPEED3 = 51;
@@ -38,14 +39,14 @@ const BOMB_SPEED = 2;
 let lateral_move = 1
 
 // ENEMIES 
-const NORTES = 400;
-const SURES = 100;
-const LEVANTES = 100;
+const NORTES = 20;
+const SURES = 50;
+const LEVANTES = 40;
 const ENEMYPLANES = 2;
 const ENEMYSQUADRONS = 20;
 const TANKS = 40;
 
-const STARS = 400;
+const STARS = 40;
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
 const CAMPO_TIRO_MAX = 1000; // HASTA DONDE LOS ENEMIGOS PUEDEN DISPARAR

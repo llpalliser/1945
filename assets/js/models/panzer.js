@@ -32,6 +32,9 @@ class Panzer {
     this.canFire = true;
     this.bullets = [];
     this.explosions = [];
+    this.explosions_smoke = [];
+
+
     this.sounds = {
       fire: new Audio('./assets/sound/panzer_sound.mp3'),
       damaged: new Audio('/assets/sound/42PS_00010.wav')
@@ -57,6 +60,7 @@ class Panzer {
       )
       this.bullets.forEach(bullet => bullet.draw());
       this.explosions.forEach(explosion => explosion.draw())
+      this.explosions_smoke.forEach(explosion => explosion.draw())
 
 
       this.drawCount++;
@@ -71,6 +75,7 @@ class Panzer {
   clear() {
 
     this.bullets = this.bullets.filter(bullet => bullet.y >= 900);
+    this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= 900);
 
   }
 
@@ -78,6 +83,8 @@ class Panzer {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
       this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 3, 440 + this.height, 135));
       this.explosions.push(new Explosion(this.ctx, this.x, this.y + 40, 40));
+      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y +15, 40, 135));
+
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 2000));
@@ -94,6 +101,8 @@ class Panzer {
     this.bullets.forEach(bullet => bullet.move());
     this.y -= - GROUND_SPEED - TURBO + 0.05;
     this.x += lateral_move + 0.05;
+    this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
+
   }
 
 

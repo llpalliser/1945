@@ -5,13 +5,13 @@ class Levante {
     this.x = x;
     this.y = y;
     this.h = h;
-    this.plane = plane;
-    this.explosion = 100;
     this.drawCount = 0;
     this.xy = 2;
+    this.plane = plane;
 
     this.sprite = new Image();
     this.sprite.src = './assets/img/levante.png'
+    //  this.sprite.src = './assets/img/antiaereo.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 
@@ -29,9 +29,11 @@ class Levante {
     this.canFire = true;
     this.bullets = [];
     this.explosions = [];
-    this.sounds = {
-      fire: new Audio('./assets/sound/anti_aircraft_short.mp3')
+    this.explosions_smoke = [];
 
+    this.sounds = {
+      fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
+      ferit: new Audio('./assets/sound/prova.wav')
     }
 
   }
@@ -53,51 +55,46 @@ class Levante {
       )
       this.bullets.forEach(bullet => bullet.draw());
       this.explosions.forEach(explosion => explosion.draw())
+      this.explosions_smoke.forEach(explosion => explosion.draw())
 
       this.drawCount++;
       this.animate();
       this.clear()
       this.checkCollisions()
+
     }
   }
 
 
   clear() {
 
-    this.bullets = this.bullets.filter(bullet => bullet.y >= 900);
-
+    this.bullets = this.bullets.filter(bullet => bullet.y <= 900);
+    this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= 900);
+    //    this.explosions = this.explosions.filter(explosion => explosion.y >= 900);
   }
 
   shot() {
-    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
-
-      this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 90));
+    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.y < this.plane.y) {
+      this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 3, 440 + this.height, 90));
       this.explosions.push(new Explosion(this.ctx, this.x, this.y + 40, 40));
+      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 10, this.y + 30, 40, 90));
+
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
-
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 3000) + 1000));
-
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1000));
       this.canFire = false;
 
-
     }
-
-
   }
 
 
-  clear() {
-
-    this.bullets = this.bullets.filter(bullet => bullet.y <= Math.floor((Math.random() * 900) + 700));
-
-  }
 
 
-  move() { 
+  move() {
 
     this.bullets.forEach(bullet => bullet.move());
     //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
+    this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
 
 
 
@@ -128,11 +125,12 @@ class Levante {
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
-      this.bullets.pop(this.plane);
-     //     this.sounds.ferit.play();
-
       DAMAGES += 10
-     }
+      this.bullets.pop(this.plane);
+      
+      //     this.sounds.ferit.play();
+
+    }
   }
 
 

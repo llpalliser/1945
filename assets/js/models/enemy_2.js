@@ -66,7 +66,7 @@ class enemyPlaneJapo {
   }
 
   shot() {
-    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
+    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.y < this.plane.y) {
 
       this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 100, 440 + this.height, 90));
       this.bullets.push(new Shot(this.ctx, this.x + 73, this.y + 100, 440 + this.height, 90));

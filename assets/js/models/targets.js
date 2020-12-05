@@ -1,11 +1,11 @@
 class Target {
 
-    constructor(ctx, x, y, fr) {
+    constructor(ctx, x, y, fr,) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.sprite = new Image();
-        this.sprite.src = './assets/img/target.png'
+        this.sprite.src = './assets/img/targets.png'
         this.sprite.horizontalFrameIndex = fr; //
         this.sprite.verticalFrameIndex = 0;
        
@@ -45,8 +45,11 @@ class Target {
     move() {
       if (this.sprite.horizontalFrameIndex === 2) {
 
-        this.y -= - GROUND_SPEED - TURBO + 0;
-        this.x += lateral_move + 0;
+        this.y -= - GROUND_SPEED - TURBO + 0.05;
+        this.x += lateral_move + 0.05;
+
+        // this.y -= - GROUND_SPEED - TURBO + 0;
+        // this.x += lateral_move + 0;
 
         
       }
