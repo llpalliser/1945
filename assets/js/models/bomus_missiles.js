@@ -1,4 +1,4 @@
-class Star {
+class BonusMissile {
 
     constructor(ctx, x, y, h) {
         this.ctx = ctx;
@@ -7,7 +7,7 @@ class Star {
         this.h = h,
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/star.png'
+        this.sprite.src = './assets/img/bonusMissile.png'
         this.sprite.horizontalFrameIndex = 0; 
         this.sprite.verticalFrameIndex = 0;
        

@@ -12,7 +12,6 @@ class Plane {
         this.vx = 0;
         this.y = y;
         this.vy = 0;
-        this.damages = DAMAGES;
 
 
 

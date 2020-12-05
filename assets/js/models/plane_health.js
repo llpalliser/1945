@@ -8,7 +8,7 @@ class PlaneHealth {
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/plane_health.png'
-        this.sprite.horizontalFrameIndex = Math.floor(DAMAGES/100);
+    //    this.sprite.horizontalFrameIndex = Math.floor(DAMAGES/100);
         this.sprite.verticalFrameIndex = 0;
 
 
