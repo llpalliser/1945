@@ -35,7 +35,7 @@ this.h = h;
                 this.sprite.verticalFrameIndex * this.sprite.frameHeight,
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
-                this.plane.x + this.plane.width/2 - 20,
+                this.plane.x + this.plane.width/2 - 18,
                 this.plane.y + this.position,
                 this.h, 
                 this.h

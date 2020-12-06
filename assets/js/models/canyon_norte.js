@@ -1,13 +1,13 @@
 class Norte {
 
-  constructor(ctx, x, y, h, plane) {
+  constructor(ctx, x, y, h, plane, canvas) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.h = h;
     this.drawCount = 0;
-    this.xy = 2;
     this.plane = plane;
+    this.canvas = canvas;
 
     this.sprite = new Image();
     this.sprite.src = './assets/img/norte.png'
@@ -68,9 +68,9 @@ class Norte {
 
   clear() {
 
-     this.bullets = this.bullets.filter(bullet => bullet.y <= 900);
+     this.bullets = this.bullets.filter(bullet => bullet.x <= this.x+450);
     // this.bullets = this.bullets.filter(bullet => bullet.x <= 2800);
-     this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= 900);
+     this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
  
    
  }
@@ -78,12 +78,18 @@ class Norte {
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane.x > this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
-      this.explosions.push(new Explosion(this.ctx, this.x + 30, this.y, 40));
-      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 30, this.y , 40, 0));
+      this.explosions.push(new Explosion(this.ctx, this.x + 40, this.y, 40));
+      setTimeout(() => this.explosions.pop(), 90);
+      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 20, this.y , 20, 90));
 
-      // this.sounds.fire.currentTime = 0;
+      setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x + 450, this.y -50, 90)), 580)
+      setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x +450, this.y -90, 90, 90)), 580);
+      setTimeout(() => this.explosions.pop(), 800);
+
+
+
+
       this.sounds.fire.play();
-      this.sounds.volume = 0.2;
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1000));
       this.canFire = false;
 
@@ -126,11 +132,13 @@ collidesWith(element) {
 
 
 checkCollisions() {
-  const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
-  if (dispars) {
-    DAMAGES += 10
-    this.bullets.pop(this.plane);
-    this.sounds.ferit.play();
+  const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.collidesWith(aerialExplosion));
+  if (aerialExplosion) {
+    DAMAGES += 100
+ //   this.bullets.pop(this.plane);
+
+    //     this.sounds.ferit.play();
+
   }
 }
 

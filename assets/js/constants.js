@@ -20,7 +20,6 @@ const MOVEMENT_FRAMES = 5; // 10 no s'empra?
 
 
 
-
 let GROUND_SPEED = 0.5; // 2
 
 
@@ -48,12 +47,12 @@ let ENGINE4 = 100;
 
 
 // ENEMIES 
-const NORTES = 30;
-const SURES = 30;
-const LEVANTES = 30;
-const ENEMYPLANES = 20;
+const NORTES = 100;
+const SURES = 100;
+const LEVANTES =1;
+const ENEMYPLANES = 0;
 const ENEMYSQUADRONS = 0;
-const TANKS = 30;
+const TANKS = 0;
 
 const STARS = 30;
 const BONUSBOMBS= 30;

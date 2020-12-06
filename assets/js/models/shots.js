@@ -11,11 +11,17 @@ class Shot {
     this.vy = SHOT_SPEED;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/shots.png';
+
+    if (this.direction === 0 || this.direction === 180) {
+      this.sprite.src = './assets/img/shots_h.png';
+    }
+    else 
+    {this.sprite.src = './assets/img/shots.png'}
+
     this.sprite.isReady = false;
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
-    this.sprite.horizontalFrames = 4;
+    this.sprite.horizontalFrames = 1;
     this.sprite.verticalFrames = 1;
     this.sprite.onload = () => {
       this.isReady = true;
@@ -77,7 +83,7 @@ class Shot {
     // SUR
     else if (this.direction === 180) {
       this.x -= SHOT_SPEED;
-      this.y = 10;
+      this.y += 0;
     }
 
     else if (this.direction === 135) {

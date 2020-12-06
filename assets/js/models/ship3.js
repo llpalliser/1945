@@ -6,7 +6,7 @@ class Ship3 {
         this.y = y;
 
         this.sprite = new Image();
-        this.sprite.src = './assets/img/ship3.png'
+        this.sprite.src = './assets/img/ship2.png'
         this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
         this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
         // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
