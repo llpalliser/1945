@@ -99,6 +99,7 @@ class Background {
 
     moveLeft() {
 
+        
         if (this.movement.left) {
         this.x += GROUND_SPEED;
     //    lateral_move = +1 }

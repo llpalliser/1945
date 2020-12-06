@@ -13,7 +13,7 @@ class enemyPlane3 {
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/enemy3.png'
+    this.sprite.src = './assets/img/enemy_bf109_100.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
     this.sprite.horizontalFrames = 1;
@@ -111,11 +111,21 @@ class enemyPlane3 {
 
   }
 
+
+  // collidesWith(element) {
+  //   return this.x < element.x + element.width &&
+  //     this.x + this.width > element.x &&
+  //     this.y < element.y + element.height &&
+  //     this.y + this.height > element.y;
+  // }
+
   collidesWith(element) {
     return this.x < element.x + element.width &&
       this.x + this.width > element.x &&
-      this.y < element.y + element.height &&
-      this.y + this.height > element.y;
+      this.x + this.width > element.x &&
+
+      this.y - 440 < element.y + element.height &&
+      this.y - 440 + this.height > element.y;
   }
 
 
@@ -125,7 +135,7 @@ class enemyPlane3 {
     if (dispars) {
       DAMAGES += 1
       //   this.sounds.ferit.play();
-      this.bullets.pop(this.plane);
+      this.bullets.pop(this.plane.y+100);
     }
   }
 

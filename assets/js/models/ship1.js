@@ -63,10 +63,10 @@ this.plane = plane;
 
     move() {
 
-        this.y -= - GROUND_SPEED - TURBO;
-        this.x += lateral_move;
-        this.nortes.forEach(norte => norte.move());
-        this.sures.forEach(sur => sur.move());
+        // this.y -= - GROUND_SPEED - TURBO;
+        // this.x += lateral_move;
+        // this.nortes.forEach(norte => norte.move());
+        // this.sures.forEach(sur => sur.move());
 
 
       }

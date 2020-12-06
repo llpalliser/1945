@@ -21,12 +21,14 @@ class Layer {
 
     this.img.isReady = false;
     this.img.onload = () => {
+
       this.img.isReady = true;
       this.img.width = this.width;
       this.img.height = this.height;
       this.width = 5000,
         this.height = 14000
     }
+
     this.movement = {
       right: false,
       left: false,

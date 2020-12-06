@@ -47,8 +47,8 @@ class Ship2 {
         }
     }
     move() {
-        this.y -= - GROUND_SPEED - TURBO;
-        this.x += lateral_move;
+        // this.y -= - GROUND_SPEED - TURBO;
+        // this.x += lateral_move;
       }
 
 

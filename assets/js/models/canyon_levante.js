@@ -93,23 +93,13 @@ class Levante {
   move() {
 
     this.bullets.forEach(bullet => bullet.move());
-    //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
     this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
-
-
-
     this.y -= - GROUND_SPEED - TURBO;
     this.x += lateral_move;
   }
 
 
   animate() {
-    // if (this.drawCount % MOVEMENT_FRAMES === 0) {
-    //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-    //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
-
-    //   this.drawCount = 0;
-    // }
     this.shot()
   }
 

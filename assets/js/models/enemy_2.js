@@ -13,7 +13,7 @@ class enemyPlaneJapo {
     this.xy = 2;
 
     this.sprite = new Image();
-    this.sprite.src = './assets/img/enemy_japo.png'
+    this.sprite.src = './assets/img/enemy_japo_100.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
     this.sprite.horizontalFrames = 1;
@@ -121,7 +121,7 @@ class enemyPlaneJapo {
     if (dispars) {
       DAMAGES += 1
       //   this.sounds.ferit.play();
-      this.bullets.pop(this.plane);
+      this.bullets.pop(this.plane.y+100);
     }
   }
 
