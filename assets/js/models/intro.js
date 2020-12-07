@@ -3,15 +3,19 @@ class IntroPage {
     constructor(ctx, canvas) {
         this.ctx = ctx;
         this.canvas = canvas;
-        this.b17 = new Image();
-        this.b17.src = './assets/img/intro.jpg'
-        this.b17.isReady = false;
-        this.b17.onload = () => {
-            this.b17.isReady = true;
+
+        this.img = new Image();
+        this.img.src = './assets/img/intro_bg.jpg'
+        this.img.isReady = false;
+        this.img.onload = () => {
+            this.img.isReady = true;
 
         }
         this.ctx.font = "100px Saira Stencil One";
         this.ctx.fillStyle = "red"
+
+
+        this.fontRatio = this.canvas.width / 3840
 
 
 
@@ -19,6 +23,8 @@ class IntroPage {
             music: new Audio('./assets/sound/intro_Enola_Gay.mp3'),
 
         }
+
+        this.playMusic = false;
 
 
 
@@ -30,36 +36,88 @@ class IntroPage {
 
 
 
-            case KEY_RIGHT: // => es background només es mou cap a la dreta
-                this.movement.right = state;
+            case KEY_RIGHT:
+
+                //     if (!this.playMusic) {
+                //         this.sounds.music.play();
+                //         this.playMusic = true;
+                //         console.log(this.playMusic)
+                //         break;
+
+                //     }
+
+                //    else if (this.playMusic) {
+                //         this.sounds.music.pause();
+                //         this.playMusic = false;
+                //         console.log(this.playMusic)
+                //         break;
+
+                //     }
                 break;
+
+
+
+
+
             case KEY_DOWN: // => es background només es mou cap a la dreta
                 this.movement.down = state;
                 break;
         }
     }
+    // 3840 =>  100
+    // this.canvas.height  =>  x
 
 
 
 
     draw() {
- //       this.sounds.music.play();
+        //       this.sounds.music.play();
 
-
-        if (this.b17.isReady) {
-            this.ctx.drawImage(
-                this.b17,
-                0,
-                0,
-                1000, 500
-            )
-
-            this.ctx.fillText(`SCORE: `, 300, 50);
-
-
+        if (this.img.isReady) {
+            this.ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height,     // source rectangle
+                0, 0, this.canvas.width, this.canvas.height); // destination rectangle
         }
 
+        // TITLE
+        this.ctx.font = `${140 * this.fontRatio}px Saira Stencil One`;
+        this.ctx.shadowColor = "Black"
+        this.ctx.shadowBlur = 7;
+        this.ctx.lineWidth = 5;
+        this.ctx.fillStyle = "rgb(153, 0, 0)"
+        this.ctx.strokeText(`1945`, 50, 200 * this.fontRatio)
+        this.ctx.strokeText(`LIBERATION OF MENORCA`, 50, 340 * this.fontRatio)
+       // this.ctx.shadowBlur = 0;
+        this.ctx.fillText(`1945`, 50, 200 * this.fontRatio)
+        this.ctx.fillText(`LIBERATION OF MENORCA`, 50, 340 * this.fontRatio)
+
+
+
+        // SUBTITLE
+        this.ctx.font = `${50 * this.fontRatio}px Saira Stencil One`;
+        this.ctx.fillStyle = "rgb(153, 0, 0)"
+        this.ctx.strokeText(`40km - 5.000 enemies - one objective`, 50, 400 * this.fontRatio)
+        this.ctx.fillText(`40km - 5.000 enemies - one objective`, 50, 400 * this.fontRatio)
+
+        // CREDITS
+        this.ctx.font = `${48 * this.fontRatio}px Saira Stencil One`;
+        this.ctx.fillStyle = "rgb(153, 0, 0)"
+        this.ctx.strokeText(`American flight cartography over Menorca 1956`, this.canvas.width - 1100 * this.fontRatio, this.canvas.height - 100 * this.fontRatio)
+        this.ctx.strokeText(`Original sounds from the bombings of London and Paris during WWII`, this.canvas.width - 1570 * this.fontRatio, this.canvas.height - 30 * this.fontRatio)
+        this.ctx.fillText(`American flight cartography over Menorca 1956`, this.canvas.width - 1100 * this.fontRatio, this.canvas.height - 100 * this.fontRatio)
+        this.ctx.fillText(`Original sounds from the bombings of London and Paris during WWII`, this.canvas.width - 1570 * this.fontRatio, this.canvas.height - 30 * this.fontRatio)
+
+        // PALLISER LABS
+        this.ctx.font = `${48 * this.fontRatio}px Saira Stencil One`;
+        this.ctx.fillStyle = "white"
+
+        // this.ctx.fillStyle = "rgb(25, 51, 0)"
+        this.ctx.strokeText(`PALLISER LABS 2020`, 50, this.canvas.height - 30 * this.fontRatio)
+
+        this.ctx.fillText(`PALLISER LABS 2020`, 50, this.canvas.height - 30 * this.fontRatio)
+
     }
+
+
 
 
 }

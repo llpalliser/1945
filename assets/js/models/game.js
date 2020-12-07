@@ -276,9 +276,7 @@ class Game {
 
 
 
-        this.plane.onKeyEvent(event);
-
-        this.background.onKeyEvent(event);
+     
 
         const state = event.type === 'keydown'
 
@@ -286,6 +284,8 @@ class Game {
         let posy = this.plane.y
 
         if (this.showIntro) {
+
+            this.intro.onKeyEvent(event);
 
             switch (event.keyCode) {
 
@@ -304,6 +304,10 @@ class Game {
             }
         }
         else if (!this.showIntro) {
+
+            this.plane.onKeyEvent(event);
+
+            this.background.onKeyEvent(event);
 
             switch (event.keyCode) {
 
