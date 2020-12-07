@@ -6,8 +6,8 @@ class Mirador {
         this.ctx = ctx;
         this.plane = plane;
 
-       this.position = position
-this.h = h;
+        this.position = position
+        this.h = h;
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/punteros.png'
@@ -35,9 +35,9 @@ this.h = h;
                 this.sprite.verticalFrameIndex * this.sprite.frameHeight,
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
-                this.plane.x + this.plane.width/2 - 18,
+                this.plane.x + this.plane.width / 2 - 18,
                 this.plane.y + this.position,
-                this.h, 
+                this.h,
                 this.h
 
 
@@ -55,7 +55,7 @@ this.h = h;
         return this.x < element.x + element.width &&
             this.x + this.width > element.x &&
             this.y + this.position < element.y + element.height &&
-            this.y + this. position + this.height > element.y;
+            this.y + this.position + this.height > element.y;
     }
 
 

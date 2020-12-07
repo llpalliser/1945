@@ -37,7 +37,7 @@ class Panzer {
 
     this.sounds = {
       fire: new Audio('./assets/sound/panzer_sound.mp3'),
-      damaged: new Audio('/assets/sound/42PS_00010.wav')
+    //  damaged: new Audio('/assets/sound/42PS_00010.wav')
     }
 
   }

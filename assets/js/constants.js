@@ -49,12 +49,12 @@ let ENGINE4 = 100;
 // ENEMIES 
 const NORTES = 100;
 const SURES = 100;
-const LEVANTES =1;
-const ENEMYPLANES = 0;
-const ENEMYSQUADRONS = 0;
-const TANKS = 0;
+const LEVANTES =400;
+const ENEMYPLANES = 30;
+const ENEMYSQUADRONS = 1;
+const TANKS = 100;
 
-const STARS = 30;
+const STARS = 0;
 const BONUSBOMBS= 30;
 const BONUSMISSILES= 30;
 

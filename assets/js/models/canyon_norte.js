@@ -11,7 +11,6 @@ class Norte {
 
     this.sprite = new Image();
     this.sprite.src = './assets/img/norte.png'
-    //  this.sprite.src = './assets/img/antiaereo.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 
@@ -134,7 +133,7 @@ collidesWith(element) {
 checkCollisions() {
   const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.collidesWith(aerialExplosion));
   if (aerialExplosion) {
-    DAMAGES += 100
+    DAMAGES += 1
  //   this.bullets.pop(this.plane);
 
     //     this.sounds.ferit.play();

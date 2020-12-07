@@ -29,6 +29,7 @@ class Levante {
     this.bullets = [];
     this.explosions = [];
     this.explosions_smoke = [];
+    
 
     this.sounds = {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
@@ -79,7 +80,7 @@ class Levante {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.y < this.plane.y) {
       this.bullets.push(new Shot(this.ctx, this.x + 14, this.y + 10, 440 + this.height, 90));
       this.explosions.push(new Explosion(this.ctx, this.x, this.y + 40, 40));
-      setTimeout(() => this.explosions.pop(), 90);
+      setTimeout(() => this.explosions.pop(), 200);
 
       this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 10, this.y + 30, 20, 90));
 
@@ -88,7 +89,7 @@ class Levante {
 
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 20, this.y + 300, 90, 90)), 450);
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 40, this.y + 300, 90)), 450)
-      setTimeout(() => this.explosions.pop(), 490);
+      setTimeout(() => this.explosions.pop(), 800);
 
 
 
@@ -114,6 +115,8 @@ class Levante {
     this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
     this.y -= - GROUND_SPEED - TURBO;
     this.x += lateral_move;
+
+
   }
 
 
@@ -133,10 +136,17 @@ class Levante {
   checkCollisions() {
     const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.collidesWith(aerialExplosion));
     if (aerialExplosion) {
-      DAMAGES += 100
-   //   this.bullets.pop(this.plane);
 
-      //     this.sounds.ferit.play();
+      // this.explosions_smoke.push(new FixedFire(this.ctx, this.plane.x+ 40, this.plane.y - 20, 60))
+      // setTimeout(() => this.explosions_smoke.pop(), 100);
+
+
+      DAMAGES += 1
+
+
+
+
+
 
     }
   }

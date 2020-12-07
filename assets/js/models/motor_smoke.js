@@ -54,7 +54,7 @@ class MotorSmoke {
 
   move() {
  
-    this.y = this.plane.y + 0.2 ;
+    this.y = this.plane.y;
     this.x  = this.plane.x;
 
 

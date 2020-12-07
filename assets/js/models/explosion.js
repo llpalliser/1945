@@ -49,7 +49,6 @@ class Explosion {
     );
     this.drawCount++;
     this.animate();
-    // console.log (`DrawCount:`+ this.drawCount)
 
   }
 

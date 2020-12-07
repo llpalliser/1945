@@ -9,12 +9,9 @@ class IntroPage {
         this.img.isReady = false;
         this.img.onload = () => {
             this.img.isReady = true;
-
         }
         this.ctx.font = "100px Saira Stencil One";
         this.ctx.fillStyle = "red"
-
-
         this.fontRatio = this.canvas.width / 3840
 
 
@@ -30,44 +27,7 @@ class IntroPage {
 
     }
 
-    onKeyEvent(event) {
-        const state = event.type === 'keydown'
-        switch (event.keyCode) {
-
-
-
-            case KEY_RIGHT:
-
-                //     if (!this.playMusic) {
-                //         this.sounds.music.play();
-                //         this.playMusic = true;
-                //         console.log(this.playMusic)
-                //         break;
-
-                //     }
-
-                //    else if (this.playMusic) {
-                //         this.sounds.music.pause();
-                //         this.playMusic = false;
-                //         console.log(this.playMusic)
-                //         break;
-
-                //     }
-                break;
-
-
-
-
-
-            case KEY_DOWN: // => es background només es mou cap a la dreta
-                this.movement.down = state;
-                break;
-        }
-    }
-    // 3840 =>  100
-    // this.canvas.height  =>  x
-
-
+ 
 
 
     draw() {
@@ -81,14 +41,14 @@ class IntroPage {
         // TITLE
         this.ctx.font = `${140 * this.fontRatio}px Saira Stencil One`;
         this.ctx.shadowColor = "Black"
-        this.ctx.shadowBlur = 7;
+    //    this.ctx.shadowBlur = 7;
         this.ctx.lineWidth = 5;
         this.ctx.fillStyle = "rgb(153, 0, 0)"
         this.ctx.strokeText(`1945`, 50, 200 * this.fontRatio)
-        this.ctx.strokeText(`LIBERATION OF MENORCA`, 50, 340 * this.fontRatio)
+        this.ctx.strokeText(`BATTLE OF THE MEDITERRANEAN`, 50, 340 * this.fontRatio)
        // this.ctx.shadowBlur = 0;
         this.ctx.fillText(`1945`, 50, 200 * this.fontRatio)
-        this.ctx.fillText(`LIBERATION OF MENORCA`, 50, 340 * this.fontRatio)
+        this.ctx.fillText(`BATTLE OF THE MEDITERRANEAN`, 50, 340 * this.fontRatio)
 
 
 
@@ -116,7 +76,9 @@ class IntroPage {
         this.ctx.fillText(`PALLISER LABS 2020`, 50, this.canvas.height - 30 * this.fontRatio)
 
     }
-
+ clear() {
+     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+ }
 
 
 
