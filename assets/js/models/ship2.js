@@ -1,10 +1,9 @@
 class Ship2 {
 
-    constructor(ctx, x, y, plane) {
+    constructor(ctx, x, y) {
         this.ctx = ctx; 
         this.x = x; 
         this.y = y;
-        this.plane = plane;
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/ship2.png'
@@ -24,6 +23,15 @@ class Ship2 {
             this.height = this.sprite.frameHeight; // => li dic es height de sa moneda
 
         }
+
+        this.levantes = [
+            new Norte(this.ctx, this.x, this.y + 120, 30, 3), // Prova
+            new Norte(this.ctx, this.x, this.y + 160, 30, 3), // Prova
+            new Norte(this.ctx, this.x, this.y + 200, 30, 3), // Prova
+
+        ]
+
+
     }
 
     draw() {
@@ -46,11 +54,11 @@ class Ship2 {
             )
         }
     }
-    move() {
-        // this.y -= - GROUND_SPEED - TURBO;
-        // this.x += lateral_move;
-      }
 
+    move() {
+        this.y -= - GROUND_SPEED - TURBO 
+        this.x += lateral_move;
+      }
 
 
       collidesWith(element) {
@@ -59,8 +67,5 @@ class Ship2 {
           this.y < element.y + element.height &&
           this.y + this.height > element.y;
       }
-
-
-      
 
 }

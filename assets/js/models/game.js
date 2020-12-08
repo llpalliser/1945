@@ -113,11 +113,23 @@ class Game {
         this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, 0, 40);
         this.miradorTrasero = new Mirador(this.ctx, this.plane, +180, 0, 40);
 
+
+
+        // NAVAL
+
         this.ships = [
-            //    new Ship1(this.ctx, 700, + 300, this.plane),
-            //  new Ship2(this.ctx, 1300, -200, this.plane),
-            new Ship3(this.ctx, 1350, -800, this.plane),
-            new AircraftCarrier(this.ctx, 180, 400, this.plane),
+          //  new Ship1(this.ctx, 1300, 400, this.plane),
+
+
+          new Ship1(this.ctx, 1300, -1350, this.plane), 
+          
+// ANTI AIRCRAFTS
+            new Ship3(this.ctx, 1250, -700, this.plane, this.canvas),
+            new Ship3(this.ctx, 1350, -800, this.plane, this.canvas),
+            new Ship3(this.ctx, 1350, -2000, this.plane, this.canvas),
+
+
+            new AircraftCarrier(this.ctx, 220, 380, this.plane),
             new AntiaircraftShip(this.ctx, 800, 600, this.plane),
             //    new Ship4(this.ctx, 300, 400, this.plane),
 
@@ -134,11 +146,12 @@ class Game {
         this.tanks = [];
         this.levantes = [];
         this.nortes = [];
-        this.sures = [];
+        this.sures = [
+
+        ];
         this.motorSmokes = [];
 
         this.noBombings = [
-            new NoBombing(this.ctx, 1000, 300, 120, 1), // Santa Ana
 
             new NoBombing(this.ctx, 1000, -700, 120, 1), // Es castell
             new NoBombing(this.ctx, 1000, -1700, 150, 1), // Maó llevant
@@ -168,8 +181,6 @@ class Game {
             siren: new Audio('./assets/sound/click_click.wav'),
             squadron: new Audio('./assets/sound/squadron_sound.mp3'),
             plane_explosion: new Audio('./assets/sound/plane_explosion.mp3')
-
-
         }
 
         this.score = 0;
@@ -232,13 +243,21 @@ class Game {
     }
 
     randomNortes() {
-        for (let i = 0; i <= NORTES; i++) {
-            let posX = Math.floor((Math.random() * 3000) + -700);
-            let posY = Math.floor((Math.random() * -21000) + 200); // -3400
+        for (let i = 0; i <= NORTES/3; i++) {
+            let posX = Math.floor((Math.random() * 4000) + 1700);
+            let posY = Math.floor((Math.random() * -21000) + 3000); 
+          
+          
+          
+            if (posY < -3000 && posX > 1000 && posX < 2000) {} else {
             this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
             //    this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
             this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
         }
+    
+    }
+
+     
     }
 
     randomSures() {
@@ -624,7 +643,7 @@ class Game {
         this.sures.filter(sur => sur.y > -50).forEach(sur => sur.draw())
         this.tanks.filter(tank => tank.y > -50).forEach(tank => tank.draw())
         this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => enemyPlane.draw())
-        // this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => this.sounds.squadron.play())
+      // this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => this.sounds.squadron.play())
 
 
 
@@ -632,7 +651,7 @@ class Game {
         this.stars.filter(star => star.y > -50).forEach(star => star.draw())
         this.bonusBombs.filter(bonusBomb => bonusBomb.y > -50).forEach(bonusBomb => bonusBomb.draw())
         this.bonusMissiles.filter(bonusMissile => bonusMissile.y > -50).forEach(bonusMissile => bonusMissile.draw())
-        this.noBombings.filter(noBombing => noBombing.y > -100).forEach(noBombing => noBombing.draw())
+        this.noBombings.filter(noBombing => noBombing.y > -150).forEach(noBombing => noBombing.draw())
         this.points.forEach(point => point.draw());
 
         if (this.opbg.isReady) {
@@ -769,7 +788,7 @@ class Game {
         // this.canyons.forEach(canyon => canyon.shot());
 
 
-        this.sounds.motorPlane.play();
+      //  this.sounds.motorPlane.play();
 
 
         //   if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }

@@ -59,7 +59,7 @@ class Sur {
       this.explosions_smoke.forEach(explosion => explosion.draw())
 
       this.drawCount++;
-      this.animate();
+      this.shot()
       this.clear()
       this.checkCollisions()
 
@@ -69,22 +69,22 @@ class Sur {
 
   clear() {
 
-    this.bullets = this.bullets.filter(bullet => bullet.x >= this.x-430);
+    this.bullets = this.bullets.filter(bullet => bullet.x >= this.x - 430);
     // this.bullets = this.bullets.filter(bullet => bullet.x <= 2800);
-     this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
- 
-   
- }
+    this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
+
+
+  }
 
   shot() {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane.x < this.x) {
       this.bullets.push(new Shot(this.ctx, this.x - 34, this.y + 3, 440 + this.height, 180));
       this.explosions.push(new Explosion(this.ctx, this.x - 30, this.y, 40));
-      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y , 20, 90));
+      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y, 20, 90));
       setTimeout(() => this.explosions.pop(), 90);
 
-      setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x -450, this.y -90, 90, 90)), 550);
-      setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 450, this.y -70, 90)), 550)
+      setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 450, this.y - 90, 90, 90)), 550);
+      setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 450, this.y - 70, 90)), 550)
       //setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
       setTimeout(() => this.explosions.pop(), 600);
 
@@ -100,44 +100,36 @@ class Sur {
 
 
 
-move() {
+  move() {
 
-  this.bullets.forEach(bullet => bullet.move());
-  this.explosions.forEach(explosion => explosion.move());
-  this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
-
-
-  this.y -= - GROUND_SPEED - TURBO;
-  this.x += lateral_move;
-}
+    this.bullets.forEach(bullet => bullet.move());
+    this.explosions.forEach(explosion => explosion.move());
+    this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
 
 
-animate() {
-  // if (this.drawCount % MOVEMENT_FRAMES === 0) {
-  //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-  //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
-
-  //   this.drawCount = 0;
-  // }
-  this.shot()
-}
-
-collidesWith(element) {
-  return this.x < element.x + element.width &&
-    this.x + this.width > element.x &&
-    this.y < element.y + element.height &&
-    this.y + this.height > element.y;
-}
-
-
-
-checkCollisions() {
-  const dispars = this.bullets.some(bullet => this.plane.antiaerealCollidesWith(bullet));
-  if (dispars) {
-    DAMAGES += 10
-    this.bullets.pop(this.plane);
-    this.sounds.ferit.play();
+    this.y -= - GROUND_SPEED - TURBO;
+    this.x += lateral_move;
   }
-}
+
+
+
+
+  collidesWith(element) {
+    return this.x < element.x + element.width &&
+      this.x + this.width > element.x &&
+      this.y < element.y + element.height &&
+      this.y + this.height > element.y;
+  }
+
+
+
+  checkCollisions() {
+    const dispars = this.bullets.some(bullet => this.plane.antiaerealCollidesWith(bullet));
+    if (dispars) {
+      DAMAGES += 10
+      this.bullets.pop(this.plane);
+      this.sounds.ferit.play();
+    }
+  }
 
 }   

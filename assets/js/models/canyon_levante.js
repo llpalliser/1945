@@ -10,7 +10,6 @@ class Levante {
     this.canvas = canvas;
     this.sprite = new Image();
     this.sprite.src = './assets/img/levante.png'
-    //  this.sprite.src = './assets/img/antiaereo.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
 
@@ -35,8 +34,8 @@ class Levante {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
       ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
-    this.sounds.fire.volume = 0.1;
-    this.sounds.volume = 0.1;
+   // this.sounds.fire.volume = 0.1;
+   // this.sounds.volume = 1;
 
 
   }
@@ -61,9 +60,10 @@ class Levante {
       this.explosions_smoke.forEach(explosion => explosion.draw())
 
       this.drawCount++;
-      this.animate();
       this.clear()
       this.checkCollisions()
+      this.shot()
+
 
     }
   }
@@ -98,9 +98,8 @@ class Levante {
 
 
 
-      // this.sounds.fire.currentTime = 0;
-      this.sounds.fire.volume = 0.2;
       this.sounds.fire.play();
+      this.sounds.volume = 0.2;
       
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1500));
       this.canFire = false;
@@ -122,10 +121,6 @@ class Levante {
   }
 
 
-  animate() {
-    this.shot()
-  }
-
   collidesWith(element) {
     return this.x < element.x + element.width &&
       this.x + this.width > element.x &&
@@ -145,11 +140,6 @@ class Levante {
 
 
       DAMAGES += 1
-
-
-
-
-
 
     }
   }

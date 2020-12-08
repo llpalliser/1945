@@ -30,7 +30,7 @@ class enemyPlane {
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-    //  squadron: new Audio('./assets/sound/squadron_sound.m4a')
+     squadron: new Audio('./assets/sound/squadron_sound.m4a')
     }
   }
 
@@ -107,10 +107,6 @@ class enemyPlane {
   }
 
   collidesWith(element) {
-    // return this.x < element.x + element.width &&
-    //   this.x + this.width > element.x &&
-    //   this.y < element.y + element.height &&
-    //   this.y + this.height > element.y;
     return this.x < element.x + element.width &&
     this.x + this.h > element.x &&
     this.y < element.y + element.height &&
