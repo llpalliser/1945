@@ -82,7 +82,8 @@ class Norte {
 
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x + 450, this.y -50, 90)), 580)
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x +450, this.y -90, 90, 90)), 580);
-      setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
+  //    setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
+      setTimeout(() => this.explosions.pop(), 600);
 
 
 

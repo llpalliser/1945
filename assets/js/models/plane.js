@@ -32,7 +32,7 @@ class Plane {
 
 
         this.sounds = {
-            fire: new Audio('./assets/sound/shot.wav'),
+            fire: new Audio('./assets/sound/shot.mp3'),
         }
 
         this.sprite = new Image();

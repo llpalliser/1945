@@ -85,7 +85,8 @@ class Sur {
 
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x -450, this.y -90, 90, 90)), 550);
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 450, this.y -70, 90)), 550)
-      setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
+      //setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
+      setTimeout(() => this.explosions.pop(), 600);
 
 
       this.sounds.fire.play();

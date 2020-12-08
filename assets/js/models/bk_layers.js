@@ -26,7 +26,7 @@ class Layer {
       this.img.width = this.width;
       this.img.height = this.height;
       this.width = 5000,
-        this.height = 14000
+        this.height = 3500
     }
 
     this.movement = {

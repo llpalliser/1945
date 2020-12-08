@@ -30,7 +30,7 @@ class Canyon {
     this.canFire = true;
     this.bullets = [];
     this.sounds = {
-      fire: new Audio('./assets/sound/shot.wav')
+      fire: new Audio('./assets/sound/shot.mp3')
     }
 
 
