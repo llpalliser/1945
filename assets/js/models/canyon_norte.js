@@ -68,14 +68,13 @@ class Norte {
   clear() {
 
      this.bullets = this.bullets.filter(bullet => bullet.x <= this.x+450);
-    // this.bullets = this.bullets.filter(bullet => bullet.x <= 2800);
      this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
  
    
  }
 
   shot() {
-    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane.x > this.x) {
+    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= this.canvas.width - 500 && this.plane.x > this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 34, this.y + 3, 440 + this.height, 0));
       this.explosions.push(new Explosion(this.ctx, this.x + 40, this.y, 40));
       setTimeout(() => this.explosions.pop(), 90);
@@ -112,12 +111,7 @@ move() {
 
 
 animate() {
-  // if (this.drawCount % MOVEMENT_FRAMES === 0) {
-  //   this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
-  //   this.sprite.verticalFrameIndex = (this.sprite.verticalFrameIndex + 1) % this.sprite.verticalFrames;
 
-  //   this.drawCount = 0;
-  // }
   this.shot()
 }
 
