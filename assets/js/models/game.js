@@ -4,7 +4,7 @@ class Game {
 
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        this.canvas.width = window.innerWidth;
+        this.canvas.width = window.innerWidth - 50;
         this.canvas.height = window.innerHeight - 50;
 
         this.ctx = this.canvas.getContext('2d');

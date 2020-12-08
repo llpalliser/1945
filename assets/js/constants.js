@@ -48,15 +48,15 @@ let ENGINE4 = 100;
 
 // ENEMIES 
 const NORTES = 100;
-const SURES = 300;
-const LEVANTES =500;
+const SURES = 100;
+const LEVANTES =100;
 const ENEMYPLANES = 0;
 const ENEMYSQUADRONS = 1;
-const TANKS = 0;
+const TANKS = 100;
 
-const STARS = 0;
-const BONUSBOMBS= 30;
-const BONUSMISSILES= 30;
+const STARS = 50;
+const BONUSBOMBS= 40;
+const BONUSMISSILES= 40;
 
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR
