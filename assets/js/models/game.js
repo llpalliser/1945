@@ -118,12 +118,12 @@ class Game {
         // NAVAL
 
         this.ships = [
-          //  new Ship1(this.ctx, 1300, 400, this.plane),
+            //  new Ship1(this.ctx, 1300, 400, this.plane),
 
 
-          new Ship1(this.ctx, 1300, -1350, this.plane), 
-          
-// ANTI AIRCRAFTS
+            new Ship1(this.ctx, 1300, -1350, this.plane),
+
+            // ANTI AIRCRAFTS
             new Ship3(this.ctx, 1250, -700, this.plane, this.canvas),
             new Ship3(this.ctx, 1350, -800, this.plane, this.canvas),
             new Ship3(this.ctx, 1350, -2000, this.plane, this.canvas),
@@ -195,7 +195,7 @@ class Game {
         () {
         for (let i = 0; i <= STARS; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -23000) + -400); // 8000 -400
+            let posY = Math.floor((Math.random() * -23000) + -400); 
             this.stars.push(new Star(this.ctx, posX, posY, 60))
 
         }
@@ -205,7 +205,7 @@ class Game {
         () {
         for (let i = 0; i <= BONUSBOMBS; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -23000) + -400); // 8000 -400
+            let posY = Math.floor((Math.random() * -22000) + -400); 
             this.bonusBombs.push(new BonusBombs(this.ctx, posX, posY, 90))
 
         }
@@ -227,7 +227,7 @@ class Game {
             let posX = Math.floor((Math.random() * 3800) + 700);
             let posY = Math.floor((Math.random() * -23000) - 3000);
 
-            this.tanks.push(new Tank (this.ctx, posX, posY, 60, this.plane))
+            this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane))
             this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2, 135))
         }
 
@@ -243,42 +243,45 @@ class Game {
     }
 
     randomNortes() {
-        for (let i = 0; i <= NORTES/3; i++) {
-            let posX = Math.floor((Math.random() * 4000) + 1700);
-            let posY = Math.floor((Math.random() * -21000) + 3000); 
-          
-          
-          
-            if (posY < -3000 && posX > 1000 && posX < 2000) {} else {
-            this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
-            //    this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
-            this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
-        }
-    
-    }
+        for (let i = 0; i <= NORTES; i++) {
+            let posX = Math.floor((Math.random() * 4000) + -700);
+            let posY = Math.floor((Math.random() * -20000) - 900);
 
-     
+
+
+            if (posY < -2300 || posX > 1550 || posX < 1000) {
+                this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
+                //    this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
+                this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
+            }
+
+        }
+
+
     }
 
     randomSures() {
         for (let i = 0; i <= SURES; i++) {
-            let posX = Math.floor((Math.random() * 2000) + -700);
-            let posY = Math.floor((Math.random() * -21000) + 200); // -3400
-            this.sures.push(new Sur(this.ctx, posX, posY, 40, this.plane, this.canvas))
-            //    this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
-            this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
+            let posX = Math.floor((Math.random() * 4000) + -700);
+            let posY = Math.floor((Math.random() * -20000) - 400);
+
+            if (posY < -2300 || posX > 1550 || posX < 1000) {
+                this.sures.push(new Sur(this.ctx, posX, posY, 40, this.plane, this.canvas))
+                this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
+            }
         }
+
     }
 
     randomLevantes() {
         for (let i = 0; i <= LEVANTES; i++) {
-            let posX = Math.floor((Math.random() * 3800) - 700);
-            let posY = Math.floor((Math.random() * -21000) + 100); // -8000) + -3400);
-            //       this.levantes.push(new Levante(this.ctx, posX, posY, 40, this.plane))
-            this.levantes.push(new Levante(this.ctx, posX, posY, 40, this.plane, this.canvas))
-            //   this.levantes.push(new Levante(this.ctx, posX + 100, posY, 40, this.plane, this.canvas))
-            this.targets.push(new Target(this.ctx, posX, posY - 50, 1, this.canvas))
-            //    this.targets.push(new Target(this.ctx, posX + 103, posY - 50, 1, this.canvas))
+            let posX = Math.floor((Math.random() * 4000) - 800);
+            let posY = Math.floor((Math.random() * -20000) -400); // -8000) + -3400);
+
+            if (posY < -2300 || posX > 1550 || posX < 1000) {
+                this.levantes.push(new Levante(this.ctx, posX, posY, 40, this.plane, this.canvas))
+                this.targets.push(new Target(this.ctx, posX, posY - 50, 1, this.canvas))
+            }
         }
     }
 
@@ -303,8 +306,8 @@ class Game {
         for (let i = 0; i <= ENEMYPLANES; i++) {
             let posX = Math.floor((Math.random() * 3000) + 0);
             let posY = Math.floor((Math.random() * -23000) + -400);
-             this.enemyPlanes.push(new enemyPlane(this.ctx, posX - 300, posY, 140, Math.floor((Math.random() * 4) + 0), this.plane))
-          //  this.enemyPlanes.push(new enemyPlane(this.ctx, posX - 300, posY, 140, 1, this.plane))
+            this.enemyPlanes.push(new enemyPlane(this.ctx, posX - 300, posY, 140, Math.floor((Math.random() * 4) + 0), this.plane))
+            //  this.enemyPlanes.push(new enemyPlane(this.ctx, posX - 300, posY, 140, 1, this.plane))
         }
 
 
@@ -312,8 +315,8 @@ class Game {
 
     randomNoBombingAreas() {
         for (let i = 0; i <= NOBOMBINGAREAS; i++) {
-            let posX = Math.floor((Math.random() * 3800) +500);
-            let posY = Math.floor((Math.random() * -23000) -3000);
+            let posX = Math.floor((Math.random() * 3800) + 500);
+            let posY = Math.floor((Math.random() * -23000) - 3000);
             this.noBombings.push(new NoBombing(this.ctx, posX, posY, 120, 1))
         }
     }
@@ -643,7 +646,7 @@ class Game {
         this.sures.filter(sur => sur.y > -50).forEach(sur => sur.draw())
         this.tanks.filter(tank => tank.y > -50).forEach(tank => tank.draw())
         this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => enemyPlane.draw())
-      // this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => this.sounds.squadron.play())
+        // this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => this.sounds.squadron.play())
 
 
 
@@ -788,7 +791,7 @@ class Game {
         // this.canyons.forEach(canyon => canyon.shot());
 
 
-      //  this.sounds.motorPlane.play();
+        //  this.sounds.motorPlane.play();
 
 
         //   if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }
@@ -878,7 +881,7 @@ class Game {
             || this.levantes.some(levante => this.miradorFrontal.collidesWith(levante))
             || this.sures.some(sur => this.miradorFrontal.collidesWith(sur))
             || this.tanks.some(panzer => this.miradorFrontal.collidesWith(panzer))
-       //     || this.enemyPlanes.some(enemyPlane => this.miradorFrontal.collidesWith(enemyPlane))
+            //     || this.enemyPlanes.some(enemyPlane => this.miradorFrontal.collidesWith(enemyPlane))
             || this.ships.some(ship => this.miradorFrontal.collidesWith(ship))
 
 
@@ -960,7 +963,7 @@ class Game {
             this.tanks = this.tanks.filter(panzer => !this.collissions.some(collission => collission.collidesWith(panzer)))
             this.targets = this.targets.filter(target => !this.collissions.some(collission => collission.collidesWith(target)))
 
-         //   this.sounds.bomb.play();
+            //   this.sounds.bomb.play();
             this.score += 500;
         }
 
@@ -978,7 +981,7 @@ class Game {
 
 
 
-    
+
         // if (levColl) {
         //     this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX, this.shotY, 100))
         //     this.points.push(new Point(this.ctx, this.shotX, this.shotY, 100, 2))

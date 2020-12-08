@@ -29,7 +29,7 @@ class enemyPlane {
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-    //  squadron: new Audio('./assets/sound/squadron_sound.m4a')
+      squadron: new Audio('./assets/sound/squadron_sound.m4a')
     }
   }
 

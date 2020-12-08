@@ -47,9 +47,9 @@ let ENGINE4 = 100;
 
 
 // ENEMIES 
-const NORTES = 500;
-const SURES = 0;
-const LEVANTES =0;
+const NORTES = 100;
+const SURES = 100;
+const LEVANTES =100;
 const ENEMYPLANES = 30;
 const ENEMYSQUADRONS = 0;
 const TANKS = 0;
