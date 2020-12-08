@@ -2,16 +2,16 @@ class Background {
 
     constructor(ctx) {
         this.ctx = ctx;
-        this.x = -1000; // posició d'es background x
+        this.x = -1000; 
 
 
-        this.y = 0// 28000; // que son 0
+        this.y = 0
         this.move_left = false;
         this.move_right = false;
 
 
         this.img = new Image();
-        this.img.src = './assets/img/background.jpg' // 224 x 2144 px
+        this.img.src = './assets/img/background_small.jpg' 
 
         this.img.isReady = false;
         this.img.onload = () => {

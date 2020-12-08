@@ -22,7 +22,7 @@ class Game {
 
         this.plane = new Plane(this.ctx, this.canvas.width / 2 - 100, this.canvas.height / 3 * 2)
 
-        this.healthPlane = new PlaneHealth(this.ctx, this.canvas.width - 280, 80)
+        this.healthPlane = new PlaneHealth(this.ctx, this.canvas.width - 320, 80)
 
         this.paused = true;
         this.frontPointer = 0;
@@ -483,7 +483,7 @@ class Game {
             setInterval(() => {
                 this.checkEngineStatus();
 
-            }, 1000)
+            }, 1500)
 
 
         }
@@ -791,7 +791,7 @@ class Game {
 
 
 
-            this.motorSmokes.push(new MotorSmoke(this.ctx, this.plane.x + 65, this.plane.y, 80, this.plane))
+            //this.motorSmokes.push(new MotorSmoke(this.ctx, this.plane.x + 65, this.plane.y, 80, this.plane))
 
 
 

@@ -33,7 +33,7 @@ class Levante {
 
     this.sounds = {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
-      ferit: new Audio('./assets/sound/prova.wav')
+      ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
     this.sounds.fire.volume = 0.1;
     this.sounds.volume = 0.1;
@@ -89,14 +89,14 @@ class Levante {
 
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 20, this.y + 300, 90, 90)), 450);
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 40, this.y + 300, 90)), 450)
-      setTimeout(() => this.explosions.pop(), 800);
+      setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
 
 
 
 
 
 
-      this.sounds.fire.currentTime = 0;
+      // this.sounds.fire.currentTime = 0;
       this.sounds.fire.volume = 0.2;
       this.sounds.fire.play();
       
@@ -134,11 +134,12 @@ class Levante {
 
 
   checkCollisions() {
-    const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.collidesWith(aerialExplosion));
+    const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
     if (aerialExplosion) {
 
       // this.explosions_smoke.push(new FixedFire(this.ctx, this.plane.x+ 40, this.plane.y - 20, 60))
       // setTimeout(() => this.explosions_smoke.pop(), 100);
+      this.sounds.ferit.play();
 
 
       DAMAGES += 1

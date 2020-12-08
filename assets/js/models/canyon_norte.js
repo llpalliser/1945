@@ -32,7 +32,7 @@ class Norte {
 
     this.sounds = {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
-      ferit: new Audio('./assets/sound/prova.wav')
+      ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
 
   }
@@ -83,7 +83,7 @@ class Norte {
 
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x + 450, this.y -50, 90)), 580)
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x +450, this.y -90, 90, 90)), 580);
-      setTimeout(() => this.explosions.pop(), 800);
+      setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
 
 
 
@@ -131,10 +131,10 @@ collidesWith(element) {
 
 
 checkCollisions() {
-  const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.collidesWith(aerialExplosion));
+  const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
   if (aerialExplosion) {
     DAMAGES += 1
- //   this.bullets.pop(this.plane);
+    this.sounds.ferit.play();
 
     //     this.sounds.ferit.play();
 

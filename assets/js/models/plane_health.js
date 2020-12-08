@@ -8,19 +8,23 @@ class PlaneHealth {
 
         this.sprite = new Image();
         this.sprite.src = './assets/img/plane_health.png'
+
+
+
     //    this.sprite.horizontalFrameIndex = Math.floor(DAMAGES/100);
-        this.sprite.verticalFrameIndex = 0;
 
 
-        this.sprite.horizontalFrames = 5
+        this.sprite.horizontalFrames = 4.854
         this.sprite.verticalFrames = 1;
+        this.sprite.verticalFrameIndex = 0;
+        this.sprite.horizontalFrameIndex = 0;
         this.sprite.isReady = false;
         this.sprite.onload = () => {
             this.sprite.isReady = true;
             this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames)
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
-            this.width = this.sprite.frameWidth;
-            this.height = this.sprite.frameHeight;
+            this.width = 320, //this.sprite.frameWidth;
+            this.height = 85// this.sprite.frameHeight;
 
         }
     }
@@ -29,29 +33,27 @@ class PlaneHealth {
  
 
     draw() {
-        if (this.sprite.isReady) { // => abans de dibuixar-la ens hem d'assegurar que està pintada
+        if (this.sprite.isReady) { 
+          
             this.ctx.drawImage(
-                // => la colocamos dentro de la imagen y luego la posicionamos dentro del canvas
                 this.sprite,
-                Math.floor(DAMAGES/100) * this.sprite.frameWidth,
-                this.sprite.verticalFrameIndex * this.sprite.frameHeight,
+                this.sprite.frameWidth * Math.floor(DAMAGES * (this.sprite.horizontalFrames) / 1000),
+                this.sprite.frameHeight * this.sprite.verticalFrameIndex,
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
                 this.x,
                 this.y,
-                240, // 124,
-                70, // 40
-                
+                this.width,
+                this.height
+
             )
-        }
     }
 
+}
 
-    move() {
-        this.y -= - GROUND_SPEED - TURBO + 0.04;
-        this.x += lateral_move;
-    }
 
 
 
 }
+
+//                 Math.floor(DAMAGES * (this.sprite.horizontalFrames) / 1000),

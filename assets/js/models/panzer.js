@@ -37,7 +37,7 @@ class Panzer {
 
     this.sounds = {
       fire: new Audio('./assets/sound/panzer_sound.mp3'),
-    //  damaged: new Audio('/assets/sound/42PS_00010.wav')
+      ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
 
   }
@@ -122,12 +122,12 @@ class Panzer {
 
   
   checkCollisions() {
-    const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+    const dispars = this.bullets.some(bullet => this.plane.antiaerealCollidesWith(bullet));
     if (dispars) {
       DAMAGES += 10
-    //  this.sounds.ferit.play();
       this.bullets.pop(this.plane);
-      
+      this.sounds.ferit.play();
+
     }
   }
 

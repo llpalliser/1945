@@ -27,7 +27,6 @@ class Plane {
         this.fixedFires = [];
 
 
-        this.craters = [];
         this.averies1 = [];
 
 
@@ -47,8 +46,8 @@ class Plane {
             this.sprite.isReady = true
             this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames);
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames);
-            this.width = 220,  // this.sprite.frameWidth;
-                this.height = 140 //this.sprite.frameHeight;
+            this.width = 220,
+            this.height = 140
         }
 
         this.movement = {
@@ -93,13 +92,11 @@ class Plane {
     draw() {
 
 
-        // this.fixedFires.forEach(fixedFire => fixedFire.draw());
 
         if (this.sprite.isReady) {
-            this.craters.forEach(crater => crater.draw());
+
 
             this.ctx.drawImage(
-                // primero la posicionamos dentro del png
                 this.sprite,
                 this.sprite.frameWidth * this.sprite.horizontalFrameIndex,
                 this.sprite.frameHeight * this.sprite.verticalFrameIndex,
@@ -111,12 +108,8 @@ class Plane {
                 this.height
 
             )
-            this.bullets.forEach(bullet => bullet.draw());
-            this.explosiones.forEach(explosion => explosion.draw());
-
             this.smokes.forEach(smoke => smoke.draw());
-            //   this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.draw());
-            // this.averies1.forEach(averia1 => averia1.draw());
+
 
 
 
@@ -145,13 +138,11 @@ class Plane {
         this.smokes.forEach(smoke => smoke.move());
 
 
-        this.smokes.forEach(smoke => smoke.move());
 
 
         // this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.move());
         //   this.fixedFires.forEach(fixedFire => fixedFire.move());
 
-        this.craters.forEach(crater => crater.move());
         this.bullets.forEach(bullet => bullet.move());
 
         if (this.movement.right) {
@@ -223,13 +214,17 @@ class Plane {
         this.engineStatus = DAMAGES / 1000 * (Math.round(Math.random()) ? 1 : -1) * 1.5
 
 
-       // this.smokes.push(new FixedSmoke(this.ctx, this.x + 50, this.y - 20, 40))
+        // this.smokes.push(new FixedSmoke(this.ctx, this.x + 50, this.y - 20, 40))
 
 
         if (this.engine1 === false) {
-            this.engine = undefined;
-            this.smokes.push(new FixedSmoke(this.ctx, this.x + 50, this.y +30, 40))
-        }
+            // setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 4000) + 1000)
+            // setTimeout(() => this.smokes.push(new FixedFire(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 4000) + 1000)
+
+
+            // setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 148, this.y + 28, 20)), (Math.random() * 4000) + 1000)
+            // setTimeout(() => this.smokes.push(new FixedFire(this.ctx, this.x + 148, this.y + 28, 20)), (Math.random() * 4000) + 1000)
+      }
 
 
 
@@ -255,7 +250,12 @@ class Plane {
             this.y + this.height > element.y;
     }
 
-
+    antiaerealCollidesWith(element) {
+        return this.x < element.x + element.width &&
+            this.x + this.width > element.x &&
+            this.y < element.y + element.height &&
+            this.y + this.height > element.y;
+    }
 
 
 

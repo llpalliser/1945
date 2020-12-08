@@ -34,7 +34,7 @@ class Sur {
 
     this.sounds = {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
-      ferit: new Audio('./assets/sound/prova.wav')
+      ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
 
   }
@@ -85,12 +85,12 @@ class Sur {
 
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x -450, this.y -90, 90, 90)), 550);
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 450, this.y -70, 90)), 550)
-      setTimeout(() => this.explosions.pop(), 590);
+      setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
 
 
       this.sounds.fire.play();
       this.sounds.volume = 0.2;
-      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1000));
+      setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1500));
       this.canFire = false;
 
     }
@@ -132,7 +132,7 @@ collidesWith(element) {
 
 
 checkCollisions() {
-  const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+  const dispars = this.bullets.some(bullet => this.plane.antiaerealCollidesWith(bullet));
   if (dispars) {
     DAMAGES += 10
     this.bullets.pop(this.plane);
