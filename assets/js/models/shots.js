@@ -15,8 +15,7 @@ class Shot {
     if (this.direction === 0 || this.direction === 180) {
       this.sprite.src = './assets/img/shots_h.png';
     }
-    else 
-    {this.sprite.src = './assets/img/shots.png'}
+    else { this.sprite.src = './assets/img/shots.png' }
 
     this.sprite.isReady = false;
     this.sprite.horizontalFrameIndex = 0;
@@ -55,7 +54,7 @@ class Shot {
 
 
     );
-  
+
     this.drawCount++;
     this.animate();
 
@@ -70,6 +69,13 @@ class Shot {
       this.x += SHOT_SPEED;
       this.y += 0;
     }
+
+    if (this.direction ===45) {
+      this.x += SHOT_SPEED + 5;
+      this.y += SHOT_SPEED - 5;
+    }
+
+
     // LEVANTE
     else if (this.direction === 90) {
       this.x += 0;

@@ -104,7 +104,6 @@ class Panzer {
   move() {
 
     this.bullets.forEach(bullet => bullet.move());
-    //this.bullets.forEach(bullet => console.log(`Levante Y: `+ bullet.y));
 
 
 
@@ -123,7 +122,6 @@ class Panzer {
   checkCollisions() {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
-      console.log("TANK")
       DAMAGES -= 1
     }
   }

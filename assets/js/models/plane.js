@@ -79,7 +79,7 @@ class Plane {
                 this.movement.down = state;
                 break;
 
-
+   
 
         }
     }
@@ -133,17 +133,9 @@ class Plane {
 
 
     move() {
-        //    this.explosiones.forEach(explosion => explosion.move());
         this.x = this.x + WIND + this.engineStatus
         this.smokes.forEach(smoke => smoke.move());
-
-
-
-
-        // this.fixedSmokes.forEach(fixedSmoke => fixedSmoke.move());
-        //   this.fixedFires.forEach(fixedFire => fixedFire.move());
-
-        this.bullets.forEach(bullet => bullet.move());
+//        this.bullets.forEach(bullet => bullet.move());
 
         if (this.movement.right) {
             this.vx = + PLANE_SPEED + 1;
@@ -186,25 +178,7 @@ class Plane {
 
     }
 
-    animate() { // => aquí hi van tots els moviments
-
-        // if (this.movement.right) {
-        //     this.animateSprite(1, 0, 1, MOVEMENT_FRAMES);
-        //     // Frecuencia =>  hasta que no haga xx ciclos, no pintes el cambio de frames
-        //     // =>  initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency
-        // }
-
-        // if (this.movement.left) {
-        //     this.animateSprite(1, 0, 1, MOVEMENT_FRAMES);
-        //     // Frecuencia =>  hasta que no haga xx ciclos, no pintes el cambio de frames
-        //     // =>  initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency
-        // }
-
-
-        // else {
-        //     this.resetAnimation() // => si no pulso las teclas, reséate
-        // }
-
+    animate() { 
     }
 
     planeStatus() {

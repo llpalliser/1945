@@ -29,7 +29,7 @@ let GROUND_LATERAL_SPEED = 5; // 4 no s'empra?
 
 const SPEED = 2; // 4 no s'empra?
 
-const PLANE_SPEED = 3; // 5 no s'empra?
+const PLANE_SPEED = 4; 
 let TURBO = 0;
 const SHOT_SPEED = 10; // 10
 const MISSILE_SPEED = 9;
@@ -47,16 +47,17 @@ let ENGINE4 = 100;
 
 
 // ENEMIES 
-const NORTES = 70;
-const SURES = 70;
-const LEVANTES =70;
-const ENEMYPLANES = 100;
+const NORTES = 50;
+const SURES = 50;
+const LEVANTES =50;
+const ENEMYPLANES = 50;
 const ENEMYSQUADRONS = 0;
-const TANKS = 70;
+const TANKS = 50;
 
 const STARS = 70;
 const BONUSBOMBS= 70;
 const BONUSMISSILES= 70;
+const NOBOMBINGAREAS = 100;
 
 
 const CAMPO_TIRO_MIN = 200; // A PARTIR DE DONDE LOS ENEMIGOS PUEDEN DISPARAR

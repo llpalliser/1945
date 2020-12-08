@@ -100,7 +100,6 @@ class FixedFireSmoke {
 
     }
 
-    // console.log(this.sprite.horizontalFrameIndex)
 
   }
 

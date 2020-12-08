@@ -23,8 +23,7 @@ class enemyPlane {
       this.sprite.isReady = true;
       this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames)
       this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
-      this.width = this.sprite.frameWidth;
-      this.height = this.sprite.frameHeight;
+
     }
     this.canFire = true;
     this.bullets = [];
@@ -50,7 +49,6 @@ class enemyPlane {
       this.bullets.forEach(bullet => bullet.draw());
       this.explosions.forEach(explosion => explosion.draw())
       this.drawCount++;
-      this.animate();
       this.clear();
       this.checkCollisions()
       this.shot()
@@ -89,7 +87,7 @@ class enemyPlane {
 
   clear() {
 
-    this.bullets = this.bullets.filter(bullet => bullet.y <= Math.floor((Math.random() * 900) + 700));
+   this.bullets = this.bullets.filter(bullet => bullet.y <= this.y + 500);
 
   }
 
@@ -107,14 +105,15 @@ class enemyPlane {
   }
 
   collidesWith(element) {
-    // return this.x < element.x + element.width &&
-    //   this.x + this.width > element.x &&
-    //   this.y < element.y + element.height &&
-    //   this.y + this.height > element.y;
+
     return this.x < element.x + element.width &&
     this.x + this.h > element.x &&
     this.y < element.y + element.height &&
     this.y + this.h > element.y;
+    // return this.x < element.x + element.width &&
+    //   this.x + this.width > element.x &&
+    //   this.y < element.y + element.height &&
+    //   this.y + this.height > element.y;
   }
 
 

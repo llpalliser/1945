@@ -104,7 +104,6 @@ move() {
 
   this.bullets.forEach(bullet => bullet.move());
   this.explosions.forEach(explosion => explosion.move());
-  //this.bullets.forEach(bullet => console.log(`Norte X: ` + bullet.x));
   this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
 
 
