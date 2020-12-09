@@ -87,8 +87,9 @@ class Levante {
       // aerial explosion
 
 
-      setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 20, this.y + 300, 90, 90)), 450);
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 40, this.y + 300, 90)), 450)
+      setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 20, this.y + 300, 90, 90)), 450);
+
       setTimeout(() => this.explosions.pop(), 600);
 
       // setTimeout(() => this.explosions.pop(), Math.random() * 1000) + 500;
