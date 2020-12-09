@@ -10,9 +10,9 @@ class Location {
 
 
     draw() {
-        this.ctx.font = "46px Saira Stencil One";
+        this.ctx.font = "40px Saira Stencil One";
 
-        this.ctx.fillStyle = "White"
+        this.ctx.fillStyle = "Red"
 
         this.ctx.fillText(this.text, this.x, this.y);
 
@@ -21,7 +21,7 @@ class Location {
     }
 
     move() {
-        this.y -= - GROUND_SPEED - TURBO +0.1;
+        this.y -= - GROUND_SPEED - TURBO +0.03;
         this.x += lateral_move;
       }
     

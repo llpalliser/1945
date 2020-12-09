@@ -11,13 +11,13 @@ class Game {
 
         this.fps = 1000 / 60;
 
+        this.gameOver = false;
 
         this.drawIntervalId = undefined;
         this.introIntervalId = undefined;
         this.showIntro = true;
 
         this.intro = new IntroPage(this.ctx, this.canvas)
-
         this.background = new Background(this.ctx)
 
         this.plane = new Plane(this.ctx, this.canvas.width / 2 - 100, this.canvas.height / 3 * 2)
@@ -31,14 +31,14 @@ class Game {
         this.siren = false;
         // MAP
         this.mapImg = new Image();
-        this.mapImg.src = './assets/img/map.jpg' // 224 x 2144 px
+        this.mapImg.src = './assets/img/map.jpg'
         this.mapImg.isReady = false;
         this.mapImg.onload = () => {
             this.mapImg.isReady = true;
         }
 
         this.opbg = new Image();
-        this.opbg.src = './assets/img/bg80.png' // 224 x 2144 px
+        this.opbg.src = './assets/img/bg80.png'
         this.opbg.isReady = false;
         this.opbg.onload = () => {
             this.opbg.isReady = true;
@@ -46,7 +46,7 @@ class Game {
         }
 
         this.positionMark = new Image();
-        this.positionMark.src = './assets/img/redLine.png' // 224 x 2144 px
+        this.positionMark.src = './assets/img/b17_map.png'
         this.positionMark.isReady = false;
         this.positionMark.onload = () => {
             this.positionMark.isReady = true;
@@ -54,7 +54,7 @@ class Game {
         }
 
 
-
+        this.enemies = 0;
         this.mapped = false;
         this.fuel = FUEL;
 
@@ -62,11 +62,18 @@ class Game {
         this.canBomb = true;
 
         this.plane_destroyed = false;
+        this.nuclearBomb = true;
 
         this.locations = [
-           new Location(this.ctx, 900, 200, "LA MOLA"),
+            new Location(this.ctx, 900, 400, "LA MOLA FORTRESS"),
+            new Location(this.ctx, 500, 200, "SANT FELIP FORTRESS"),
+            new Location(this.ctx, 1000, 100, "LAZARETO"),
+            new Location(this.ctx, 1000, -600, "ES CASTELL"),
+            new Location(this.ctx, 1500, -1700, "NAVAL BASE"),
+            new Location(this.ctx, 1200, -1400, "MAÓ"),
 
-           new Location(this.ctx, 900, -900, `DAMAGES: ${DAMAGES}`),
+
+            new Location(this.ctx, 900, -900, `DAMAGES: ${DAMAGES}`),
 
 
         ]
@@ -81,6 +88,54 @@ class Game {
         this.burstY = 0;
 
 
+
+
+
+        // DISPAROS PLANE ------------------------------
+        this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, 0, 40);
+        this.miradorTrasero = new Mirador(this.ctx, this.plane, +180, 0, 40);
+
+
+
+    }
+
+    restart() {
+
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        clearInterval(this.drawIntervalId);
+        this.drawIntervalId = false;
+        this.start();
+
+
+    }
+
+    positioningElements() {
+        this.mapped = false;
+        this.intervalId = undefined;
+
+        DAMAGES = 0;
+        MISSILES = 100;
+        BOMBS = 100,
+
+            this.plane_destroyed = false;
+        this.nuclearBomb = true;
+        this.score = 0;
+        this.background.y = 0;
+        this.background = "";
+        this.background = new Background(this.ctx)
+
+
+        this.plane = new Plane(this.ctx, this.canvas.width / 2 - 100, this.canvas.height / 3 * 2)
+
+        this.healthPlane = new PlaneHealth(this.ctx, this.canvas.width - 320, 80)
+        this.missiles = [];
+        this.bombs = [];
+        this.bullets = [];
+        this.explosiones = [];
+        this.fixedClouds = [];
+        this.fixedFires = [];
+        this.craters = [];
+        this.collissions = [];
         this.layers = [
 
             new Layer(this.ctx, -1000, -4000, 5000, 3500, './assets/img/layers/layer1.jpg'),
@@ -94,181 +149,138 @@ class Game {
 
 
         ]
-
-
-        // DISPAROS PLANE ------------------------------
-
-        this.missiles = [];
-        this.bombs = [];
-        this.bullets = [];
-
-        this.explosiones = [];
-        this.fixedClouds = [];
-        this.fixedFires = [];
-        this.craters = [];
-        this.collissions = [];
-
-        this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, 0, 40);
-        this.miradorTrasero = new Mirador(this.ctx, this.plane, +180, 0, 40);
-
-
-
         // NAVAL
-
         this.ships = [
-            //  new Ship1(this.ctx, 1300, 400, this.plane),
-
-
             new Ship1(this.ctx, 1300, -1350, this.plane),
-
             // ANTI AIRCRAFTS
             new Ship3(this.ctx, 1250, -700, this.plane, this.canvas),
             new Ship3(this.ctx, 1350, -800, this.plane, this.canvas),
             new Ship3(this.ctx, 1350, -2000, this.plane, this.canvas),
 
+            // FLOTA
+
+            new Ship3(this.ctx, 175, -21700, this.plane, this.canvas),
+            new Ship3(this.ctx, 100, -21700, this.plane, this.canvas),
+            new Ship3(this.ctx, 25, -21700, this.plane, this.canvas),
+            new Ship3(this.ctx, -50, -21700, this.plane, this.canvas),
+            new Ship3(this.ctx, -125, -21700, this.plane, this.canvas),
+
+            new AircraftCarrier(this.ctx, -300, -22300, this.plane),
+            new AntiaircraftShip(this.ctx, -200, -22000, this.plane),
+
+
 
             new AircraftCarrier(this.ctx, 220, 380, this.plane),
             new AntiaircraftShip(this.ctx, 800, 600, this.plane),
             //    new Ship4(this.ctx, 300, 400, this.plane),
-
-
         ]
-
-
-        // prova//
-
-
-
-
         this.targets = [];
-
         this.stars = [];
         this.bonusBombs = [];
         this.bonusMissiles = [];
-
         this.canyons = [];
-        this.tanks = [];
+        this.tanks = [
+            new Tank(this.ctx, 1000, 240, 40, this.plane, true),
+            // new Tank(this.ctx, 1100, 340, 40, this.plane, true)
+            new Tank(this.ctx, 1420, 0, 40, this.plane, true),
+            new Tank(this.ctx, 1440, -40, 40, this.plane, true),
+            new Tank(this.ctx, 1460, -80, 40, this.plane, true),
+
+        ];
         this.levantes = [];
         this.nortes = [
             // FELIP
             new Sur(this.ctx, 495, 280, 40, this.plane, this.canvas),
             new Levante(this.ctx, 535, 280, 40, this.plane, this.canvas),
             new Norte(this.ctx, 575, 280, 40, this.plane, this.canvas),
-
-
-
             new Sur(this.ctx, 795, -100, 40, this.plane, this.canvas),
             new Levante(this.ctx, 835, -100, 40, this.plane, this.canvas),
             new Norte(this.ctx, 875, -100, 40, this.plane, this.canvas),
 
+            new Norte(this.ctx, 875, -100, 40, this.plane, this.canvas),
 
-
-
+            new Norte(this.ctx, 300, 160, 40, this.plane, this.canvas),
+            new Norte(this.ctx, 300, 200, 40, this.plane, this.canvas),
+            new Norte(this.ctx, 300, 240, 40, this.plane, this.canvas),
 
             // LA MOLA
             new Sur(this.ctx, 1095, 540, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1135, 540, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1175, 540, 40, this.plane, this.canvas),
-
             new Sur(this.ctx, 1195, 640, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1235, 640, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1275, 640, 40, this.plane, this.canvas),
-
-
             new Sur(this.ctx, 1295, 740, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1335, 740, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1375, 740, 40, this.plane, this.canvas),
-
-
-
-            new Sur(this.ctx, 1495, 40, 40, this.plane, this.canvas),
-            new Levante(this.ctx, 1535, 40, 40, this.plane, this.canvas),
-            new Norte(this.ctx, 1575, 40, 40, this.plane, this.canvas),
-
-            
-
-
+            new Sur(this.ctx, 1545, 40, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1585, 40, 40, this.plane, this.canvas),
+            new Norte(this.ctx, 1625, 40, 40, this.plane, this.canvas),
             // LAZARETO
-
             new Sur(this.ctx, 1195, -100, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1235, -100, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1275, -100, 40, this.plane, this.canvas),
-
-
-
             // MAO SUD
-
-
-
             new Sur(this.ctx, 1095, -1000, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1135, -1000, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1175, -1000, 40, this.plane, this.canvas),
-
             new Sur(this.ctx, 1120, -1250, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1160, -1250, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1200, -1250, 40, this.plane, this.canvas),
+
+
+            new Sur(this.ctx, 1260, -1395, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1300, -1395, 40, this.plane, this.canvas),
+            new Norte(this.ctx, 1340, -1395, 40, this.plane, this.canvas),
+
+
+
 
             // CALA LLONGA
 
             new Sur(this.ctx, 1620, -1250, 40, this.plane, this.canvas),
             new Levante(this.ctx, 1660, -1250, 40, this.plane, this.canvas),
             new Norte(this.ctx, 1700, -1250, 40, this.plane, this.canvas),
-
-
-
         ]
+        this.sures = [
+        ];
+        this.motorSmokes = [];
+        this.noBombings = [
+            new NoBombing(this.ctx, 1000, -700, 120, 1), // Es castell
+            new NoBombing(this.ctx, 1000, -1700, 150, 1), // Maó llevant
+            new NoBombing(this.ctx, 1100, -1900, 150, 1), // Maó central
+            new NoBombing(this.ctx, 1100, -2100, 150, 1), // Maó Ponent
+            new NoBombing(this.ctx, 1600, -7900, 300, 1), // lo
+            new NoBombing(this.ctx, 1000, -11600, 170, 1), // Es Migjorn
+            new NoBombing(this.ctx, 1000, -21000, 220, 1), // Ciutadella
+            new NoBombing(this.ctx, 700, -21200, 220, 1), // Ciutadella
+        ];
 
-            this.sures = [
-            ];
-            this.motorSmokes = [];
+        //  motorAudio.volume = 0.9;
 
-            this.noBombings = [
-
-                new NoBombing(this.ctx, 1000, -700, 120, 1), // Es castell
-                new NoBombing(this.ctx, 1000, -1700, 150, 1), // Maó llevant
-                new NoBombing(this.ctx, 1100, -1900, 150, 1), // Maó central
-                new NoBombing(this.ctx, 1100, -2100, 150, 1), // Maó Ponent
-
-                new NoBombing(this.ctx, 1600, -7900, 300, 1), // lo
-                new NoBombing(this.ctx, 1000, -11600, 170, 1), // Es Migjorn
-
-                new NoBombing(this.ctx, 1000, -21000, 220, 1), // Ciutadella
-                new NoBombing(this.ctx, 700, -21200, 220, 1), // Ciutadella
-
-
-
-
-            ];
-
-            //  motorAudio.volume = 0.9;
-
-            // SONIDOS
-            this.sounds = {
-                fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
-                click: new Audio('./assets/sound/click_click.wav'),
-                bomb: new Audio('./assets/sound/bomber-sound.mp3'),
-                motorPlane: new Audio('./assets/sound/bomber-sound2.mp3'),
-                missileSound: new Audio('assets/sound/missile_Shot.mp3'),
-                siren: new Audio('./assets/sound/click_click.wav'),
-                squadron: new Audio('./assets/sound/squadron_sound.mp3'),
-                plane_explosion: new Audio('./assets/sound/plane_explosion.mp3')
-            }
-
+        // SONIDOS
+        this.sounds = {
+            gameMusic: new Audio('./assets/sound/intro_Enola_Gay.mp3'),
+            fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
+            click: new Audio('./assets/sound/click_click.wav'),
+            bomb: new Audio('./assets/sound/bomber-sound.mp3'),
+            motorPlane: new Audio('./assets/sound/bomber-sound2.mp3'),
+            missileSound: new Audio('assets/sound/missile_Shot.mp3'),
+            siren: new Audio('./assets/sound/wwiiSiren_opt.mp3'),
+            squadron: new Audio('./assets/sound/squadron_sound.mp3'),
+            plane_explosion: new Audio('./assets/sound/plane_explosion.mp3')
+        }
         this.score = 0;
-
-
     }
 
     randomWind() {
         WIND = (Math.random() * 0.02) + 0.06 * (Math.round(Math.random()) ? 1 : -1)
     }
-    randomStars
-        () {
+    randomStars() {
         for (let i = 0; i <= STARS; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -23000) + -400);
+            let posY = Math.floor((Math.random() * -20000) + -400);
             this.stars.push(new Star(this.ctx, posX, posY, 60))
-
         }
     }
 
@@ -276,17 +288,15 @@ class Game {
         () {
         for (let i = 0; i <= BONUSBOMBS; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -22000) + -400);
+            let posY = Math.floor((Math.random() * -20000) + -400);
             this.bonusBombs.push(new BonusBombs(this.ctx, posX, posY, 90))
-
         }
     }
-
     randomBonusMissiles
         () {
         for (let i = 0; i <= BONUSMISSILES; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -23000) + -400); // 8000 -400
+            let posY = Math.floor((Math.random() * -20000) + -400); // 8000 -400
             this.bonusMissiles.push(new BonusMissile(this.ctx, posX, posY, 90))
 
         }
@@ -296,9 +306,9 @@ class Game {
     randomTanks() {
         for (let i = 0; i <= TANKS; i++) {
             let posX = Math.floor((Math.random() * 3800) + 700);
-            let posY = Math.floor((Math.random() * -23000) - 3000);
+            let posY = Math.floor((Math.random() * -18000) - 3000);
 
-            this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane))
+            this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane, false))
             this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2, 135))
         }
 
@@ -387,8 +397,8 @@ class Game {
 
     randomNoBombingAreas() {
         for (let i = 0; i <= NOBOMBINGAREAS; i++) {
-            let posX = Math.floor((Math.random() * 3800) + 500);
-            let posY = Math.floor((Math.random() * -23000) - 3000);
+            let posX = Math.floor((Math.random() * 3200) + 500);
+            let posY = Math.floor((Math.random() * -18000) - 3000);
             this.noBombings.push(new NoBombing(this.ctx, posX, posY, 120, 1))
         }
     }
@@ -413,7 +423,7 @@ class Game {
                 case START:
                     this.paused = false;
                     this.stopIntro();
-                    this.clearIntro();
+                    //    this.clearIntro();
                     this.start();
                     this.showIntro = false;
                     // this.intro.pop()
@@ -437,8 +447,11 @@ class Game {
                     this.stop();
                     break;
 
-                case RESTART: this.clear();
-                    this.paused = false;
+                case RESTART:
+
+                    //this.paused = true;
+                    this.mapped = false;
+                    this.restart();
                     break;
 
                 case START:
@@ -454,35 +467,46 @@ class Game {
                 case SPEED1: GROUND_SPEED = 0.5;
                     break;
 
-                case SPEED2: GROUND_SPEED = 1;
+                case SPEED2: GROUND_SPEED = 0.75;
                     break;
 
-                case SPEED3: GROUND_SPEED = 10;
+                case SPEED3: GROUND_SPEED = 40;
                     break;
 
 
                 case KEY_BURST:
 
-                // this.burstX = posx + 24;
-                // this.burstX = posy - 500;
-
-                // this.bullets.push(new Shot(this.ctx, this.plane.x + 34, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 1
-                // this.bullets.push(new Shot(this.ctx, this.plane.x + 94, this.plane.y + 3, 440 + this.plane.height, 270)); // cañon 4
-
-                // this.sounds.fire.currentTime = 0;
-                // this.sounds.fire.play();
+                    if (this.nuclearBomb) {
+                        this.shotX = posx + 24;
+                        this.shotY = posy + 150;
 
 
-                // setTimeout(() => this.canFire = true, 100);
+                        setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 100);
+                        setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + -3, 440 + this.plane.height)), 200);
+                        setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 300);
+                        setTimeout(() => this.bombs.push(new Bomb(this.ctx, this.plane.x + (this.plane.width / 2), this.plane.y + 3, 440 + this.plane.height)), 400);
+
+                        setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 70, posy + 150, 95, 95)), 2000);
+                        setTimeout(() => this.collissions.pop(this.craters), 2010);
 
 
-                // console.log(this.background.y)
+                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 80, posy + 150, 190)), 2000);
+                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 65, posy + 160, 290)), 2200);
+                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 95, posy + 180, 290)), 2400);
+                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 90, posy + 190, 290)), 2600);
 
-                // break;
+                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 80, posy + 150, 290)), 2000);
+                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 65, posy + 160, 290)), 2200);
+                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 95, posy + 180, 290)), 2400);
+                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 90, posy + 190, 290)), 2600);
+
+
+                    }
+                    break;
 
                 case KEY_FIRE:
 
-                    if (this.canFire) {
+                    if (this.canFire && MISSILES >=4) {
 
                         this.missiles.push(new Missile(this.ctx, this.plane.x + 65, this.plane.y + 3, 340 + this.plane.height, 270));
                         this.missiles.push(new Missile(this.ctx, this.plane.x + 85, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 2
@@ -514,7 +538,7 @@ class Game {
 
                 case KEY_BOMB:
 
-                    if (this.canBomb) {
+                    if (this.canBomb && BOMBS >=4) {
                         let posx = this.plane.x
                         let posy = this.plane.y
 
@@ -565,7 +589,6 @@ class Game {
 
             this.introIntervalId = setInterval(() => {
                 this.drawIntro();
-
             }, this.fps);
 
         }
@@ -574,61 +597,57 @@ class Game {
 
 
             if (!this.mapped) {
+                this.positioningElements()
                 this.randomStars()
                 this.randomBonusBombs()
                 this.randomBonusMissiles()
-
                 this.randomTanks()
                 this.randomNortes()
                 this.randomSures()
-
                 this.randomLevantes()
                 this.randomEnemyPlanes()
                 this.randomeEnemySquadrons()
                 this.randomWind();
                 this.randomNoBombingAreas();
-
                 this.mapped = true;
 
             }
 
             if (!this.drawIntervalId && !this.paused) {
-
                 this.drawIntervalId = setInterval(() => {
                     this.clear();
                     this.move();
                     this.draw();
                     this.checkCollisions();
-                    this.checkFuelStatus();
-                    this.checkSiren()
+
                 }, this.fps);
             }
 
             setInterval(() => {
                 this.checkEngineStatus();
+                this.checkFuelStatus();
 
-            }, 2500)
+                this.checkSiren()
+            }, 1000)
 
 
         }
     }
     clearIntro() {
-        //  this.intro.pop();
-
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }
 
     checkSiren() {
-        if (!this.siren && this.background.y >= 0) {
-
-            //   this.sounds.siren.play();
+        if (!this.siren && this.background.y >= 200 || !this.siren && this.background.y >= 7800) {
+            this.sounds.siren.play();
             this.siren = true
         }
 
-        if (this.siren && this.background.y >= 3500)
+        if (this.siren && this.background.y >= 2900 || this.siren && this.background.y >= 8800) {
 
             this.sounds.siren.pause();
-
-        this.siren = false;
+            this.siren = false;
+        }
     }
 
     clear() {
@@ -656,7 +675,6 @@ class Game {
         this.motorSmokes = this.motorSmokes.filter(motorSmoke => motorSmoke.y <= this.canvas.height)
 
         this.missiles = this.missiles.filter(missile => missile.y >= this.plane.y - 300);
-        // this.motorSmokes = this.motorSmokes.filter(motorSmoke => motorSmoke.y <= 1000)
         this.bombs = this.bombs.filter(bomb => bomb.y <= this.plane.y + 200);
         this.bullets = this.bullets.filter(bullet => bullet.y >= this.plane.y - 400);
 
@@ -677,6 +695,7 @@ class Game {
     stop() {
         clearInterval(this.drawIntervalId);
         this.drawIntervalId = undefined;
+
     }
 
     pause() {
@@ -694,7 +713,6 @@ class Game {
 
     drawIntro() {
         this.intro.draw();
-
     }
 
     draw() {
@@ -776,26 +794,26 @@ class Game {
         this.ctx.font = "26px Saira Stencil One";
 
         this.ctx.fillStyle = "White"
-        if (DAMAGES > 700) {this.ctx.fillStyle = "Red"} else {this.ctx.fillStyle = "White"}
+        if (DAMAGES > 700) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
         this.ctx.fillText(`DAMAGES: ` + DAMAGES, this.canvas.width - 310, 200);
         this.ctx.fillStyle = "White"
         this.ctx.fillText(`DISTANCE Km: ` + (this.background.y * 47 / 28000).toFixed(2), this.canvas.width - 310, 240);
         this.ctx.fillText(`PLANE SPEED: ` + ((362571.428 * GROUND_SPEED) / 1000).toFixed(2), this.canvas.width - 310, 280);
         this.ctx.fillText(`SCORE: ` + this.score, this.canvas.width - 300, 50);
-       
+
         this.ctx.fillText(`WIND SPEED: ${(WIND * 100).toFixed(2)} m/s`, this.canvas.width - 310, 320);
 
-       
-       
+
+
         this.ctx.fillText(`ENGINE 1: ${ENGINE1} %`, this.canvas.width - 310, 360);
         this.ctx.fillText(`ENGINE 2: ${ENGINE2} %`, this.canvas.width - 310, 400);
         this.ctx.fillText(`ENGINE 3: ${ENGINE3} %`, this.canvas.width - 310, 440);
         this.ctx.fillText(`ENGINE 4: ${ENGINE4} %`, this.canvas.width - 310, 480);
-        if (this.plane.engineDrift > 0.10) {this.ctx.fillStyle = "Red"} else {this.ctx.fillStyle = "White"}
-          this.ctx.fillText(`ENGINE DRIFT: ${this.plane.engineDrift} %`, this.canvas.width - 310, 520);
-        if (MISSILES < 20) {this.ctx.fillStyle = "Red"} else {this.ctx.fillStyle = "White"}
+        if (this.plane.engineDrift > 0.10) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
+        this.ctx.fillText(`ENGINE DRIFT: ${this.plane.engineDrift} %`, this.canvas.width - 310, 520);
+        if (MISSILES < 20) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
         this.ctx.fillText(`MISSILES: ${MISSILES}`, this.canvas.width - 310, 560);
-        if (BOMBS < 20) {this.ctx.fillStyle = "Red"} else {this.ctx.fillStyle = "White"}
+        if (BOMBS < 20) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
 
         this.ctx.fillText(`BOMBS: ${BOMBS}`, this.canvas.width - 310, 600);
 
@@ -810,7 +828,7 @@ class Game {
                 this.canvas.width - 330,
                 720,
 
-                320, 80
+                320, 105
             )
         }
 
@@ -818,10 +836,11 @@ class Game {
         if (this.positionMark.isReady) {
             this.ctx.drawImage(
                 this.positionMark,
-                this.canvas.width - 20 + (320 / 23500) * this.background.y * -1,
-                718,
-                6,
-                80
+                this.canvas.width - 20 + (320 / 25000) * this.background.y * -1,
+                718 + 115 + (100 / 3000) * (this.background.x * -1 + this.plane.x) * -1,
+                //718,
+                20,
+                20//
             )
         }
 
@@ -873,8 +892,8 @@ class Game {
         this.miradorTrasero.move();
 
 
-// GAME
-this.locations.forEach(location => location.move());
+        // GAME
+        this.locations.forEach(location => location.move());
 
 
         // this.canyons.forEach(canyon => canyon.shot());
@@ -885,7 +904,7 @@ this.locations.forEach(location => location.move());
 
         //   if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }
 
-        if (this.plane.x >= this.plane.maxX - 400 && this.background.x * -1 <= 1600) {
+        if (this.plane.x >= this.plane.maxX - 400 && this.background.x * -1 <= 1350) {
             this.background.moveRight();
         }
 
@@ -901,19 +920,35 @@ this.locations.forEach(location => location.move());
     }
 
 
+
     checkEngineStatus() {
         let engines = "4"
-        ENGINE1 = 100 - (DAMAGES / 4).toFixed(0)
-        ENGINE2 = 100 - (DAMAGES / 4).toFixed(0)
-        ENGINE3 = 100 - (DAMAGES / 4).toFixed(0)
-        ENGINE4 = 100 - (DAMAGES / 4).toFixed(0)
+        ENGINE1 = 100 - (100 - GROUND_SPEED * 100).toFixed(0)
+        ENGINE2 = 100 - (100 - GROUND_SPEED * 100).toFixed(0)
+        ENGINE3 = 100 - (100 - GROUND_SPEED * 100).toFixed(0)
+        ENGINE4 = 100 - (100 - GROUND_SPEED * 100).toFixed(0)
         this.engines = 100 - DAMAGES / 10
 
         this.plane.planeStatus();
-        if (DAMAGES >= 2000) {
+
+
+        if (DAMAGES >= 1000) {
+            this.gameOver = true;
+            this.gameOverPage = new GameOver(this.ctx, this.canvas, this.score, this.enemies);
+            this.paused = true;
+            this.stop();
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+            this.sounds.gameMusic.play();
+            this.mapped = false;
+            this.drawIntervalId = false;
+            this.gameOverPage.draw();
+            //  localStorage.setItem('best-score', this.bestScore)
+            //   if (this.score > this.bestScore) {
+            //     this.bestScore = this.score;
+            //     localStorage.setItem('best-score', this.bestScore)
+            //   }
 
         }
-        let motor1 = true;
 
 
 
@@ -1025,6 +1060,7 @@ this.locations.forEach(location => location.move());
 
             this.sounds.bomb.play();
             this.score += 100;
+            this.enemies++;
         }
 
         if (surColl) {
@@ -1035,6 +1071,8 @@ this.locations.forEach(location => location.move());
 
             this.sounds.bomb.play();
             this.score += 100;
+            this.enemies++;
+
         }
 
 
@@ -1045,6 +1083,8 @@ this.locations.forEach(location => location.move());
             this.targets = this.targets.filter(target => !this.collissions.some(collission => collission.collidesWith(target)))
             this.sounds.bomb.play();
             this.score += 200;
+            this.enemies++;
+
         }
         if (tankColl) {
             this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX + 40, this.shotY - 20, 100))
@@ -1054,6 +1094,8 @@ this.locations.forEach(location => location.move());
 
             //   this.sounds.bomb.play();
             this.score += 500;
+            this.enemies++;
+
         }
 
 
@@ -1066,6 +1108,8 @@ this.locations.forEach(location => location.move());
 
             this.sounds.bomb.play();
             this.score += 100;
+            this.enemies++;
+
         }
 
 
@@ -1094,6 +1138,8 @@ this.locations.forEach(location => location.move());
             this.sounds.plane_explosion.play();
 
             this.score += 1000;
+            this.enemies++;
+
         }
 
 
@@ -1107,6 +1153,7 @@ this.locations.forEach(location => location.move());
             this.sounds.plane_explosion.play();
 
             this.score += 1000;
+
         }
 
 

@@ -23,7 +23,9 @@
 6. Número de misiles restantes.
 7. Número de bombas restantes.
 8. Número de objetivos eliminados.
-9. Mapa con coordenadas reales de vuelo.
+
+### Mapa de navegación
+1. Se incluye mapa de navegación con coordenadas de situación de vuelo
 
 ### Navegación
 1. Deriva por viento aleatorio al empezar la partida
@@ -48,7 +50,6 @@
 
 
 ## Antiaéreos
-
 1. Frecuencia de disparo randomizado
 2. Los daños se causan con la explosión aérea, no con el impacto del proyectil subiendo
 3. Se ha randomizado el daño en el avión según la duración de la explosión
@@ -65,14 +66,14 @@
 3. Explosión en el aire
 
 ## Tanques
-1. Movimiento en diagonal
-2. Disparos tierr aire con explosión al paso del avión
+1. Movimiento en diagonal o parados
+2. Disparos tierra aire con explosión al paso del avión
 3. Destrucción por explosión con *llamarada de fuego*
-4. Mismo sistema de daños que el utilizado con los anti aéreos.
+4. Mismo sistema de daños que el utilizado con los anti aéreos
 
 ## Barcos
 1. Barcos navegando
-2. Barcos con anti-aéreos
+2. Barcos con anti-aéreos 
 
 ## Zonas de exclusión de bombardeo
 1. Penalización en caso de bombardeo de zonas civiles.

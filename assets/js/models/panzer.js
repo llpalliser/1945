@@ -1,6 +1,6 @@
 class Tank {
 
-  constructor(ctx, x, y, h, plane) {
+  constructor(ctx, x, y, h, plane, stopped) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
@@ -8,6 +8,7 @@ class Tank {
     this.drawCount = 0;
     this.explosion = 100;
     this.plane = plane;
+    this.stopped = stopped;
 
 
     this.sprite = new Image();
@@ -36,7 +37,7 @@ class Tank {
 
     this.sounds = {
       fire: new Audio('./assets/sound/panzer_sound.mp3'),
-   //   damaged: new Audio('/assets/sound/42PS_00010.wav')
+      //   damaged: new Audio('/assets/sound/42PS_00010.wav')
     }
 
   }
@@ -83,7 +84,7 @@ class Tank {
     if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
       this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 3, 440 + this.height, 135));
       this.explosions.push(new Explosion(this.ctx, this.x, this.y + 40, 40));
-      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y +15, 40, 135));
+      this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y + 15, 40, 135));
 
       this.sounds.fire.currentTime = 0;
       this.sounds.fire.play();
@@ -94,15 +95,26 @@ class Tank {
 
   clear() {
     this.bullets = this.bullets.filter(bullet => bullet.y <= Math.floor((Math.random() * 900) + 700));
+   // this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
+
   }
 
 
   move() {
-    this.bullets.forEach(bullet => bullet.move());
-    this.y -= - GROUND_SPEED - TURBO + 0.05;
-    this.x += lateral_move + 0.05;
-    this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
+    if (this.stopped) {
+      this.bullets.forEach(bullet => bullet.move());
+      this.y -= - GROUND_SPEED - TURBO;
+      this.x += lateral_move;
+      this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
 
+    }
+
+    else {
+      this.bullets.forEach(bullet => bullet.move());
+      this.y -= - GROUND_SPEED - TURBO + 0.05;
+      this.x += lateral_move + 0.05;
+      this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
+    }
   }
 
 
@@ -118,14 +130,16 @@ class Tank {
 
 
 
-  
+
   checkCollisions() {
-    const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
+    const dispars = this.bullets.some(bullet => this.plane.antiaerealCollidesWith(bullet));
     if (dispars) {
       DAMAGES += 10
-    //  this.sounds.ferit.play();
+      //  this.sounds.ferit.play();
       this.bullets.pop(this.plane);
-      
+      this.sounds.ferit.play();
+
+
     }
   }
 
