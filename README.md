@@ -87,6 +87,8 @@
 ## Carteles
 1. Carteles con algunas localizaciones (Efecto parallax)
 
+## Sirenas antiaéreas
+1. Se activan si te acercas a una ciudad
 
 ## Bonus
 1. Bonus randomizado obtención de reparación del avión
