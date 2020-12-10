@@ -101,7 +101,7 @@ class Sur {
     const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
     if (aerialExplosion) {
       this.sounds.ferit.play();
-      DAMAGES += 10;
+      DAMAGES += 2;
     }
   }
 

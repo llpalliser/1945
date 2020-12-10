@@ -10,6 +10,7 @@ class Layer {
     this.img = new Image();
     this.img.src = this.image
     this.img.isReady = false;
+
     this.img.onload = () => {
       this.img.isReady = true;
       this.width = 5000,
@@ -33,18 +34,6 @@ class Layer {
     this.y += GROUND_SPEED + TURBO
     this.x += lateral_move;
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

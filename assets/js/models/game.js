@@ -123,7 +123,7 @@ class Game {
         DAMAGES = 0;
         MISSILES = 100;
         BOMBS = 100,
-        BOMBS_SHOOTED = 0;
+            BOMBS_SHOOTED = 0;
         MISSILES_SHOOTED = 0;
         ENEMY_SHOTS = 0;
         this.plane_destroyed = false;
@@ -178,7 +178,7 @@ class Game {
             new Ship3(this.ctx, -125, -21700, this.plane, this.canvas),
 
             new AircraftCarrier(this.ctx, -300, -22300, this.plane),
-            new AntiaircraftShip(this.ctx, -200, -22000, this.plane),
+            // new AntiaircraftShip(this.ctx, -200, -22000, this.plane),
 
 
 
@@ -435,11 +435,8 @@ class Game {
                 case START:
                     this.paused = false;
                     this.stopIntro();
-                    //    this.clearIntro();
                     this.start();
                     this.showIntro = false;
-                    // this.intro.pop()
-
                     break;
 
 
@@ -602,6 +599,26 @@ class Game {
 
     start() {
 
+
+  
+        if (!this.mapped) {
+            this.positioningElements()
+            this.randomStars()
+            this.randomBonusBombs()
+            this.randomBonusMissiles()
+            this.randomTanks()
+            this.randomNortes()
+            this.randomSures()
+            this.randomLevantes()
+            this.randomEnemyPlanes()
+            this.randomeEnemySquadrons()
+            this.randomWind();
+            this.randomNoBombingAreas();
+            this.mapped = true;
+
+        }
+
+
         if (!this.introIntervalId && this.showIntro) {
 
             this.drawIntro();
@@ -615,24 +632,8 @@ class Game {
         else {
 
 
-            if (!this.mapped) {
-                this.positioningElements()
-                this.randomStars()
-                this.randomBonusBombs()
-                this.randomBonusMissiles()
-                this.randomTanks()
-                this.randomNortes()
-                this.randomSures()
-                this.randomLevantes()
-                this.randomEnemyPlanes()
-                this.randomeEnemySquadrons()
-                this.randomWind();
-                this.randomNoBombingAreas();
-                this.mapped = true;
 
-            }
-
-            if (!this.drawIntervalId && !this.paused) {
+            if (!this.drawIntervalId && !this.paused && this.mapped) {
                 this.drawIntervalId = setInterval(() => {
                     this.clear();
                     this.move();
@@ -757,7 +758,7 @@ class Game {
                 this.canvas.width - 330,
                 20,
                 320,
-                700
+                520
             )
         }
 
@@ -795,35 +796,30 @@ class Game {
 
         this.ctx.fillText(`WIND SPEED: ${(WIND * 100).toFixed(2)} m/s`, this.canvas.width - 310, 320);
 
-        this.ctx.fillText(`ENGINE 1: ${ENGINE1} %`, this.canvas.width - 310, 360);
-        this.ctx.fillText(`ENGINE 2: ${ENGINE2} %`, this.canvas.width - 310, 400);
-        this.ctx.fillText(`ENGINE 3: ${ENGINE3} %`, this.canvas.width - 310, 440);
-        this.ctx.fillText(`ENGINE 4: ${ENGINE4} %`, this.canvas.width - 310, 480);
+        this.ctx.fillText(`ENGINES: ${ENGINE1} %`, this.canvas.width - 310, 360);
         if (this.plane.engineDrift > 0.10) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
-        this.ctx.fillText(`ENGINE DRIFT: ${this.plane.engineDrift} %`, this.canvas.width - 310, 520);
+        this.ctx.fillText(`ENGINE DRIFT: ${this.plane.engineDrift} %`, this.canvas.width - 310, 400);
         if (MISSILES < 20) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
-        this.ctx.fillText(`MISSILES: ${MISSILES}`, this.canvas.width - 310, 560);
+        this.ctx.fillText(`MISSILES: ${MISSILES}`, this.canvas.width - 310, 440);
         if (BOMBS < 20) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
 
-        this.ctx.fillText(`BOMBS: ${BOMBS}`, this.canvas.width - 310, 600);
+        this.ctx.fillText(`BOMBS: ${BOMBS}`, this.canvas.width - 310, 480);
 
         if (this.mapImg.isReady) {
             this.ctx.drawImage(
                 this.mapImg,
                 this.canvas.width - 330,
-                720,
+                520,
 
                 320, 105
             )
         }
 
-
         if (this.positionMark.isReady) {
             this.ctx.drawImage(
                 this.positionMark,
                 this.canvas.width - 20 + (320 / 25000) * this.background.y * -1,
-                718 + 115 + (100 / 3000) * (this.background.x * -1 + this.plane.x) * -1,
-                //718,
+                518 + 115 + (100 / 3000) * (this.background.x * -1 + this.plane.x) * -1,
                 20,
                 20//
             )
@@ -905,18 +901,18 @@ class Game {
     }
 
 
-clearRandoms(){
-    this.stars = [];
-    this.bonusBombs = [];
-    this.bonusMissiles = [];
-    this.tanks = [];
-    this.targets = [];
-    this.nortes = [];
-    this.sures = [];
-    this.levantes = [];
-    this.enemyPlanes = [];
-    this.noBombings = [];
-}
+    clearRandoms() {
+        this.stars = [];
+        this.bonusBombs = [];
+        this.bonusMissiles = [];
+        this.tanks = [];
+        this.targets = [];
+        this.nortes = [];
+        this.sures = [];
+        this.levantes = [];
+        this.enemyPlanes = [];
+        this.noBombings = [];
+    }
     checkEngineStatus() {
         let engines = "4"
         ENGINE1 = 100 - (100 - GROUND_SPEED * 100).toFixed(0)
@@ -928,7 +924,7 @@ clearRandoms(){
         this.plane.planeStatus();
 
 
-        if (DAMAGES >= 1000) {
+        if (DAMAGES >= 1000 || this.background.y >= 23000) {
 
             this.gameOver = true;
             this.gameOverPage = new GameOver(this.ctx, this.canvas, this.score, this.enemies);
