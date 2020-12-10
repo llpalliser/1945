@@ -21,7 +21,7 @@
 1. Daños del avión gráfico (cambia según los daños recibidos)
 2. Distancia real recorrida en km (reales)
 3. Velocidad real en km/h
-4. Velocidad del viento lateral.
+4. Velocidad del viento lateral
 5. Deriva del avión por daños en los motores debido a los impactos recibidos
 6. Número de misiles restantes
 7. Número de bombas restantes
@@ -33,7 +33,6 @@
 ### Navegación
 1. Deriva por viento aleatorio al empezar la partida
 2. Deriva por el estado de los motores
-
 
 ### Motores y velocidad
 1. Velocidades reales B19 => 181 km/h =>  362km/h
@@ -95,10 +94,16 @@
 3. Bonus randomizado obtención de 100 bombas
 3. Efecto parallax
 
+## Métricas finales
+1. Enemigos destruidos
+2. Bombas lanzadas
+3. Misiles lanzados
+4. Disparos enemigos
+5. Puntuación
 
 ## Requisitos
 
-1. Probado en Google Chrome sobre i5 e i7
+1. Google Chrome sobre Intel i5 - i7
 2. No optimizado para Safari ni Firefox
 
 ![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/0.png?raw=true)
