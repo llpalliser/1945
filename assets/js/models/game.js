@@ -512,7 +512,6 @@ this.sounds.siren.volume = 0.9;
                         setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 70, posy + 150, 95, 95)), 2000);
                         setTimeout(() => this.collissions.pop(this.craters), 2010);
 
-
                         setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 80, posy + 150, 190)), 2000);
                         setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 65, posy + 160, 290)), 2200);
                         setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 95, posy + 180, 290)), 2400);
@@ -522,8 +521,6 @@ this.sounds.siren.volume = 0.9;
                         setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 65, posy + 160, 290)), 2200);
                         setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 95, posy + 180, 290)), 2400);
                         setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 90, posy + 190, 290)), 2600);
-
-
 
                     }
                     break;
