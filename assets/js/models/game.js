@@ -306,11 +306,17 @@ class Game {
 
 
     randomTanks() {
-        for (let i = 0; i <= TANKS; i++) {
-            let posX = Math.floor((Math.random() * 3800) + 700);
+        for (let i = 0; i <= TANKS/2; i++) {
+            let posX = Math.floor((Math.random() * 2500) + 700);
             let posY = Math.floor((Math.random() * -18000) - 3000);
-
             this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane, false))
+            this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2, 135))
+        }
+
+        for (let i = 0; i <= TANKS/2; i++) {
+            let posX = Math.floor((Math.random() * 3800) + 1000);
+            let posY = Math.floor((Math.random() * -18000) - 3000);
+            this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane, true))
             this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2, 135))
         }
 
@@ -636,7 +642,7 @@ class Game {
                 this.checkEngineStatus();
                 this.checkFuelStatus();
 
-                this.checkSiren()
+              if (!this.gameOver){this.checkSiren()}
             }, 1000)
 
 

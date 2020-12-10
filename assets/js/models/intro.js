@@ -78,10 +78,14 @@ class IntroPage {
 
 
         //this.ctx.strokeText(`PLANE NOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 200 * this.fontRatio)
-        this.ctx.strokeText(`PLANE NOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 300 * this.fontRatio)
+
+        this.ctx.strokeText(`USE THE BROWSER IN FULL SCREEN MODE AND RELOAD`, 50, this.canvas.height - 350 * this.fontRatio)
+        this.ctx.strokeText(`PLANE MOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 300 * this.fontRatio)
         this.ctx.strokeText(`MISSILES: SPACE BAR   BOMBS: ENTER BAR`, 50, this.canvas.height - 250 * this.fontRatio)
         this.ctx.strokeText(`ENGINES: NUMBERS 1-2-3`, 50, this.canvas.height - 200 * this.fontRatio)
-        this.ctx.fillText(`PLANE NOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 300 * this.fontRatio)
+
+        this.ctx.fillText(`USE THE BROWSER IN FULL SCREEN MODE AND RELOAD`, 50, this.canvas.height - 350 * this.fontRatio)
+        this.ctx.fillText(`PLANE MOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 300 * this.fontRatio)
         this.ctx.fillText(`MISSILES: SPACE BAR   BOMBS: ENTER BAR`, 50, this.canvas.height - 250 * this.fontRatio)
         this.ctx.fillText(`ENGINES: NUMBERS 1-2-3`, 50, this.canvas.height - 200 * this.fontRatio)
 

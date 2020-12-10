@@ -47,7 +47,7 @@ const SURES = 50;
 const LEVANTES = 50;
 const ENEMYPLANES = 50;
 const ENEMYSQUADRONS = 50;
-const TANKS = 50;
+const TANKS = 70;
 const BATTERIES = 220;
 
 const STARS = 20;
