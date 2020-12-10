@@ -92,3 +92,6 @@
 1. Chrome con monitor externo 4k
 2. Safari, con retardo en su arranque
 3. Firefox, problemas de renderizado
+
+
+https://llpalliser.github.io/1945/

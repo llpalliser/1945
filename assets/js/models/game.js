@@ -13,19 +13,13 @@ class Game {
         this.ctx = this.canvas.getContext('2d');
 
 
-
-        const path = new Path2D()
-        path.rect(250, 350, 200, 100)
-        path.rect(25, 72, 32, 32)
-        path.closePath()
-
-        //draw your shape data to the context
-        this.ctx.fillStyle = "#FFFFFF"
-        this.ctx.fillStyle = "rgba(225,225,225,0.5)"
-        this.ctx.fill(path)
-        this.ctx.lineWidth = 2
-        this.ctx.strokeStyle = "#000000"
-        this.ctx.stroke(path)
+        // //draw your shape data to the context
+        // this.ctx.fillStyle = "#FFFFFF"
+        // this.ctx.fillStyle = "rgba(225,225,225,0.5)"
+        // this.ctx.fill(path)
+        // this.ctx.lineWidth = 2
+        // this.ctx.strokeStyle = "#000000"
+        // this.ctx.stroke(path)
 
         this.fps = 1000 / 60;
 
