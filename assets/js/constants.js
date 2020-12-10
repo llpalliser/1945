@@ -46,8 +46,9 @@ const NORTES = 50;
 const SURES = 50;
 const LEVANTES = 50;
 const ENEMYPLANES = 50;
-const ENEMYSQUADRONS = 0;
+const ENEMYSQUADRONS = 50;
 const TANKS = 50;
+const BATTERIES = 220;
 
 const STARS = 20;
 const BONUSBOMBS= 40;

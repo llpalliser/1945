@@ -85,7 +85,6 @@ class Game {
             new Location(this.ctx, 1200, -1400, "MAÓ"),
 
 
-            new Location(this.ctx, 900, -900, `DAMAGES: ${DAMAGES}`),
 
 
         ]
@@ -328,19 +327,18 @@ class Game {
 
 
     randomBatteries() {
-        for (let i = 0; i <= NORTES; i++) {
+        for (let i = 0; i <= BATTERIES; i++) {
             let posX = Math.floor((Math.random() * 4000) + -700);
             let posY = Math.floor((Math.random() * -20000) - 900);
 
 
 
             if (posY < -2300 || posX > 1550 || posX < 1000) {
-                this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
-                this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
-                this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
-                this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
+                this.nortes.push(new Sur(this.ctx, posX + 40, posY, 40, this.plane, this.canvas)),
+                this.nortes.push(new Levante(this.ctx, posX+80, posY, 40, this.plane, this.canvas)),
+                this.nortes.push(new Norte(this.ctx, posX+120, posY, 40, this.plane, this.canvas)),
 
-                this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
+                this.targets.push(new Target(this.ctx, posX + 90, posY - 50, 0, this.canvas))
             }
 
         }
@@ -358,7 +356,7 @@ class Game {
             if (posY < -2300 || posX > 1550 || posX < 1000) {
                 this.nortes.push(new Norte(this.ctx, posX, posY, 40, this.plane, this.canvas))
                 //    this.nortes.push(new Norte(this.ctx, posX, posY + 50, 40, this.plane.x * -1, this.plane))
-                this.targets.push(new Target(this.ctx, posX, posY - 50, 0, this.canvas))
+                this.targets.push(new Target(this.ctx, posX, posY - 50, 1, this.canvas))
             }
 
         }
@@ -610,6 +608,7 @@ class Game {
             this.randomNortes()
             this.randomSures()
             this.randomLevantes()
+            this.randomBatteries()
             this.randomEnemyPlanes()
             this.randomeEnemySquadrons()
             this.randomWind();
@@ -630,7 +629,6 @@ class Game {
         }
 
         else {
-
 
 
             if (!this.drawIntervalId && !this.paused && this.mapped) {
