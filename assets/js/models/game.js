@@ -159,6 +159,13 @@ class Game {
             new Ship3(this.ctx, 1350, -800, this.plane, this.canvas),
             new Ship3(this.ctx, 1350, -2000, this.plane, this.canvas),
 
+
+           new Ship3(this.ctx, -900, -12200, this.plane, this.canvas),
+           new Ship3(this.ctx, -950, -13800, this.plane, this.canvas),
+
+
+
+
             // FLOTA
 
             new Ship3(this.ctx, 175, -21700, this.plane, this.canvas),
@@ -493,7 +500,7 @@ this.sounds.siren.volume = 0.9;
                 case SPEED2: GROUND_SPEED = 0.75;
                     break;
 
-                case SPEED3: GROUND_SPEED = 1;
+                case SPEED3: GROUND_SPEED = 10;
                     break;
 
 
