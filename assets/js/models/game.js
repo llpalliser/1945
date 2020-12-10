@@ -500,7 +500,7 @@ this.sounds.siren.volume = 0.9;
                 case SPEED2: GROUND_SPEED = 0.75;
                     break;
 
-                case SPEED3: GROUND_SPEED = 10;
+                case SPEED3: GROUND_SPEED = 1;
                     break;
 
 
