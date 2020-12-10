@@ -94,5 +94,14 @@
 1. Probado en Google Chrome sobre i5 e i7
 2. No optimizado para Safari ni Firefox
 
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/0.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/1.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/3.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/7.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/9.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/10.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/11.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/14.png?raw=true)
+![alt text](https://github.com/llpalliser/1945/blob/main/screenshots/15.png?raw=true)
 
 https://llpalliser.github.io/1945/
