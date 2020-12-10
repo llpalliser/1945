@@ -12,15 +12,6 @@ class Game {
 
         this.ctx = this.canvas.getContext('2d');
 
-
-        // //draw your shape data to the context
-        // this.ctx.fillStyle = "#FFFFFF"
-        // this.ctx.fillStyle = "rgba(225,225,225,0.5)"
-        // this.ctx.fill(path)
-        // this.ctx.lineWidth = 2
-        // this.ctx.strokeStyle = "#000000"
-        // this.ctx.stroke(path)
-
         this.fps = 1000 / 60;
 
         this.gameOver = false;

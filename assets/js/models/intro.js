@@ -17,36 +17,29 @@ class IntroPage {
 
 
         this.sounds = {
-            music: new Audio('./assets/sound/intro_Enola_Gay.mp3'),
+      //      music: new Audio('./assets/sound/intro_Enola_Gay.mp3'),
 
         }
 
         this.playMusic = false;
 
-
-
     }
 
- 
-
-
     draw() {
-        //       this.sounds.music.play();
+          //     this.sounds.music.play();
 
         if (this.img.isReady) {
-            this.ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height,     // source rectangle
-                0, 0, this.canvas.width, this.canvas.height); // destination rectangle
-        }
+            this.ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height,    
+                0, 0, this.canvas.width, this.canvas.height); 
+        
 
         // TITLE
         this.ctx.font = `${140 * this.fontRatio}px Saira Stencil One`;
         this.ctx.shadowColor = "Black"
-    //    this.ctx.shadowBlur = 7;
-        this.ctx.lineWidth = 5;
+        this.ctx.lineWidth = 3;
         this.ctx.fillStyle = "rgb(153, 0, 0)"
         this.ctx.strokeText(`1945`, 50, 200 * this.fontRatio)
         this.ctx.strokeText(`BATTLE OF THE MEDITERRANEAN`, 50, 340 * this.fontRatio)
-       // this.ctx.shadowBlur = 0;
         this.ctx.fillText(`1945`, 50, 200 * this.fontRatio)
         this.ctx.fillText(`BATTLE OF THE MEDITERRANEAN`, 50, 340 * this.fontRatio)
 
@@ -63,8 +56,8 @@ class IntroPage {
         // START
         this.ctx.font = `${80 * this.fontRatio}px Saira Stencil One`;
         this.ctx.fillStyle = "rgb(153, 0, 0)"
-        this.ctx.strokeText(`PRESS S - START`, this.canvas.width/2-100, this.canvas.height/2)
-        this.ctx.fillText(`PRESS S - START`, this.canvas.width/2-100, this.canvas.height/2)
+        this.ctx.strokeText(`PRESS S TO START`, this.canvas.width/2-150, this.canvas.height/2)
+        this.ctx.fillText(`PRESS S TO START`, this.canvas.width/2-150, this.canvas.height/2)
 
 
 
@@ -82,10 +75,24 @@ class IntroPage {
         this.ctx.fillStyle = "white"
 
         // this.ctx.fillStyle = "rgb(25, 51, 0)"
-        this.ctx.strokeText(`PALLISER LABS 2020`, 50, this.canvas.height - 30 * this.fontRatio)
 
+
+        //this.ctx.strokeText(`PLANE NOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 200 * this.fontRatio)
+        this.ctx.strokeText(`PLANE NOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 300 * this.fontRatio)
+        this.ctx.strokeText(`MISSILES: SPACE BAR   BOMBS: ENTER BAR`, 50, this.canvas.height - 250 * this.fontRatio)
+        this.ctx.strokeText(`ENGINES: NUMBERS 1-2-3`, 50, this.canvas.height - 200 * this.fontRatio)
+        this.ctx.fillText(`PLANE NOVEMENTS: ARROW KEYS`, 50, this.canvas.height - 300 * this.fontRatio)
+        this.ctx.fillText(`MISSILES: SPACE BAR   BOMBS: ENTER BAR`, 50, this.canvas.height - 250 * this.fontRatio)
+        this.ctx.fillText(`ENGINES: NUMBERS 1-2-3`, 50, this.canvas.height - 200 * this.fontRatio)
+
+
+        
+        this.ctx.strokeText(`PALLISER LABS 2020`, 50, this.canvas.height - 30 * this.fontRatio)
         this.ctx.fillText(`PALLISER LABS 2020`, 50, this.canvas.height - 30 * this.fontRatio)
 
+
+
+            }
     }
  clear() {
      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)

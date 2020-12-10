@@ -68,11 +68,11 @@ class GameOver {
         // SCORE
         this.ctx.font = `${100 * this.fontRatio}px Saira Stencil One`;
         this.ctx.fillStyle = "rgb(153, 0, 0)"
-        this.ctx.strokeText(`SCORE: ${this.score}`, 300, 600 * this.fontRatio)
-        this.ctx.fillText(`ENEMIES: ${this.enemies}`, 300, 700 * this.fontRatio)
+        this.ctx.fillText(`DESTROYED ENEMIES: ${this.enemies}`, 300, 700 * this.fontRatio)
         this.ctx.fillText(`BOMBS: ${BOMBS_SHOOTED}`, 300, 800 * this.fontRatio)
         this.ctx.fillText(`MISSILES: ${MISSILES_SHOOTED}`, 300, 900 * this.fontRatio)
         this.ctx.fillText(`ENEMY SHOTS: ${ENEMY_SHOTS}`, 300, 1000 * this.fontRatio)
+        this.ctx.strokeText(`SCORE: ${this.score}`, 300, 1100 * this.fontRatio)
 
 
 
