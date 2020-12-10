@@ -13,6 +13,7 @@
 5. Las velocidades y superficies son reales
 6. Navegación lateral con scroll horizontal
 
+
 ## Avión
 
 ### Panel de información
@@ -67,27 +68,33 @@
 2. Disparan ráfagas de metralleta
 3. Explosión en el aire
 
+
 ## Tanques
 1. Movimiento en diagonal o parados
 2. Disparos tierra aire con explosión al paso del avión
 3. Destrucción por explosión con *llamarada de fuego*
 4. Mismo sistema de daños que el utilizado con los anti aéreos
 
+
 ## Barcos
 1. Barcos navegando
 2. Barcos dotados de anti aéreos anti-aéreos 
 
+
 ## Zonas de exclusión de bombardeo
 1. Penalización en caso de bombardeo de zonas civiles.
 
+
 ## Carteles
 1. Carteles con algunas localizaciones (Efecto parallax)
+
 
 ## Bonus
 1. Bonus randomizado obtención de reparación del avión
 2. Bonus randomizado obtención de 100 misiles
 3. Bonus randomizado obtención de 100 bombas
 3. Efecto parallax
+
 
 ## Requisitos
 
