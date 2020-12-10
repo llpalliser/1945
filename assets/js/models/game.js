@@ -187,10 +187,32 @@ class Game {
             new Tank(this.ctx, 1420, 0, 40, this.plane, true),
             new Tank(this.ctx, 1440, -40, 40, this.plane, true),
             new Tank(this.ctx, 1460, -80, 40, this.plane, true),
+            new Tank(this.ctx, 1550, -2080, 40, this.plane, true),
+            new Tank(this.ctx, 1550, -2140, 40, this.plane, true),
+            new Tank(this.ctx, 1550, -2200, 40, this.plane, true),
+
+
 
         ];
         this.levantes = [];
         this.nortes = [
+
+            // COLARSEGA
+
+            new Tank(this.ctx, 1550, -2200, 40, this.plane, true),
+
+            new Levante(this.ctx, 1200, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1250, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1300, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1350, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1400, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1450, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1500, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1550, -2450, 40, this.plane, this.canvas),
+            new Levante(this.ctx, 1600, -2450, 40, this.plane, this.canvas),
+
+
+
             // FELIP
             new Sur(this.ctx, 495, 280, 40, this.plane, this.canvas),
             new Levante(this.ctx, 535, 280, 40, this.plane, this.canvas),
@@ -258,7 +280,6 @@ class Game {
             new NoBombing(this.ctx, 700, -21200, 220, 1), // Ciutadella
         ];
 
-        //  motorAudio.volume = 0.9;
 
         // SONIDOS
         this.sounds = {
@@ -272,6 +293,7 @@ class Game {
             squadron: new Audio('./assets/sound/squadron_sound.mp3'),
             plane_explosion: new Audio('./assets/sound/plane_explosion.mp3')
         }
+this.sounds.siren.volume = 0.9;
         this.score = 0;
     }
 
@@ -306,18 +328,18 @@ class Game {
 
 
     randomTanks() {
-        for (let i = 0; i <= TANKS/2; i++) {
+        for (let i = 0; i <= TANKS / 2; i++) {
             let posX = Math.floor((Math.random() * 2500) + 700);
             let posY = Math.floor((Math.random() * -18000) - 3000);
             this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane, false))
             this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2, 135))
         }
 
-        for (let i = 0; i <= TANKS/2; i++) {
+        for (let i = 0; i <= TANKS / 2; i++) {
             let posX = Math.floor((Math.random() * 3800) + 1000);
             let posY = Math.floor((Math.random() * -18000) - 3000);
             this.tanks.push(new Tank(this.ctx, posX, posY, 60, this.plane, true))
-            this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2, 135))
+            this.targets.push(new Target(this.ctx, posX + 20, posY - 40, 2))
         }
 
     }
@@ -328,14 +350,11 @@ class Game {
             let posX = Math.floor((Math.random() * 4000) + -700);
             let posY = Math.floor((Math.random() * -20000) - 900);
 
-
-
             if (posY < -2300 || posX > 1550 || posX < 1000) {
                 this.nortes.push(new Sur(this.ctx, posX + 40, posY, 40, this.plane, this.canvas)),
-                this.nortes.push(new Levante(this.ctx, posX+80, posY, 40, this.plane, this.canvas)),
-                this.nortes.push(new Norte(this.ctx, posX+120, posY, 40, this.plane, this.canvas)),
-
-                this.targets.push(new Target(this.ctx, posX + 90, posY - 50, 0, this.canvas))
+                    this.nortes.push(new Levante(this.ctx, posX + 80, posY, 40, this.plane, this.canvas)),
+                    this.nortes.push(new Norte(this.ctx, posX + 120, posY, 40, this.plane, this.canvas)),
+                    this.targets.push(new Target(this.ctx, posX + 90, posY - 50, 0, this.canvas))
             }
 
         }
@@ -474,7 +493,7 @@ class Game {
                 case SPEED2: GROUND_SPEED = 0.75;
                     break;
 
-                case SPEED3: GROUND_SPEED = 40;
+                case SPEED3: GROUND_SPEED = 1;
                     break;
 
 
@@ -595,7 +614,7 @@ class Game {
     start() {
 
 
-  
+
         if (!this.mapped) {
             this.positioningElements()
             this.randomStars()
@@ -642,7 +661,7 @@ class Game {
                 this.checkEngineStatus();
                 this.checkFuelStatus();
 
-              if (!this.gameOver){this.checkSiren()}
+                if (!this.gameOver) { this.checkSiren() }
             }, 1000)
 
 
@@ -737,7 +756,6 @@ class Game {
         this.nortes.filter(norte => norte.y > -50).forEach(norte => norte.draw())
         this.sures.filter(sur => sur.y > -50).forEach(sur => sur.draw())
         this.tanks.filter(tank => tank.y > -50).forEach(tank => tank.draw())
-        this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => enemyPlane.draw())
         this.targets.filter(target => target.y > -50).forEach(target => target.draw())
         this.stars.filter(star => star.y > -50).forEach(star => star.draw())
         this.bonusBombs.filter(bonusBomb => bonusBomb.y > -50).forEach(bonusBomb => bonusBomb.draw())
@@ -745,6 +763,7 @@ class Game {
         this.noBombings.filter(noBombing => noBombing.y > -150).forEach(noBombing => noBombing.draw())
         this.points.forEach(point => point.draw());
         this.locations.filter(location => location.y > -150).forEach(location => location.draw())
+        this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => enemyPlane.draw())
 
 
         if (this.opbg.isReady) {
@@ -875,7 +894,7 @@ class Game {
         // this.canyons.forEach(canyon => canyon.shot());
 
 
-        //  this.sounds.motorPlane.play();
+          this.sounds.motorPlane.play();
 
 
         //   if (this.plane.y <= 200) { TURBO = 10 } else { TURBO = 0 }

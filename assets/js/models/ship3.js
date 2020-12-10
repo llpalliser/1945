@@ -86,7 +86,7 @@ class Ship3 {
             setTimeout(() => this.canFire = true, Math.floor((Math.random() * 2000) + 1500));
             this.canFire = false;
 
-            ENEMY_SHOTS +=2;
+            ENEMY_SHOTS +=4;
         }
     }
 

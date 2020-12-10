@@ -108,7 +108,7 @@ class Ship1 {
         const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
         if (aerialExplosion) {
           this.sounds.ferit.play();
-          DAMAGES += 1
+          DAMAGES += 4
         }
       }
 

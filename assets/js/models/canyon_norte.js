@@ -102,7 +102,7 @@ class Norte {
     const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
     if (aerialExplosion) {
       this.sounds.ferit.play();
-      DAMAGES += 2;
+      DAMAGES += 4;
     }
   }
 

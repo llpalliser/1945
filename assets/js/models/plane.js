@@ -87,7 +87,7 @@ class Plane {
     clear() {
         //    this.smokes = this.smokes.filter(smoke => smoke.y >= this.canvas.height)
       //  this.smokes = this.smokes.filter(smoke => smoke.y >= this.planeStatus.y-100);
-      this.smokes = this.smokes.filter(smokes => smokes.y <= this.smokes.y - 150);
+    //   this.smokes = this.smokes.filter(smokes => smokes.y >= this.smokes.y - 150);
 
     }
 
@@ -143,21 +143,22 @@ class Plane {
         this.engineStatus = DAMAGES / 1000 * (Math.round(Math.random()) ? 1 : -1) * 1.5
         this.engineDrift = (DAMAGES / 1000).toFixed(2)
 
-        if (DAMAGES > 100) {
-            setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 7000) + 5000)
-            setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 7000) + 5000)
-        }
-
-        if (DAMAGES > 600) {
-
-            setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 150, this.y + 28, 20)), (Math.random() * 7000) + 5000)
-            setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 150, this.y + 28, 20)), (Math.random() * 7000) + 5000)
+        if (DAMAGES > 900) {
+           setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 7000) + 5000)
+       //    setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 7000) + 5000)
         }
 
         if (DAMAGES > 800) {
 
-            setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 120, this.y + 28, 30)), (Math.random() * 7000) + 5000)
-            setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 120, this.y + 28, 30)), (Math.random() * 7000) + 5000)
+       //     setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 150, this.y + 28, 20)), (Math.random() * 7000) + 5000)
+        //   setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 150, this.y + 28, 20)), (Math.random() * 7000) + 5000)
+        }
+
+        if (DAMAGES > 680) {
+
+       //     setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 120, this.y + 28, 30)), (Math.random() * 7000) + 5000)
+
+         //   setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 120, this.y + 28, 30)), (Math.random() * 7000) + 5000)
         }
 
     }

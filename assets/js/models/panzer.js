@@ -62,7 +62,7 @@ class Tank {
   }
 
   shot() {
-    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX) {
+    if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.plane.x < this.x) {
       this.bullets.push(new Shot(this.ctx, this.x + 20, this.y + 3, 440 + this.height, 135));
       this.explosions.push(new Explosion(this.ctx, this.x, this.y + 40, 40));
       this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y + 15, 40, 135));
