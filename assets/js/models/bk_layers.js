@@ -3,39 +3,18 @@ class Layer {
   constructor(ctx, x, y, w, h, image) {
     this.ctx = ctx;
     this.x = x;
-
-
     this.y = y;
     this.width = w;
     this.height = h;
     this.image = image;
-    this.vy = GROUND_SPEED;
-    this.vx = PLANE_SPEED;
-    this.move_left = false;
-    this.move_right = false;
-
-
     this.img = new Image();
     this.img.src = this.image
-
-
     this.img.isReady = false;
     this.img.onload = () => {
-
       this.img.isReady = true;
-      this.img.width = this.width;
-      this.img.height = this.height;
       this.width = 5000,
         this.height = 3500
     }
-
-    this.movement = {
-      right: false,
-      left: false,
-      down: false,
-      up: false
-    }
-
   }
 
   draw() {
@@ -51,11 +30,8 @@ class Layer {
   }
 
   move() {
-
     this.y += GROUND_SPEED + TURBO
     this.x += lateral_move;
-
-
   }
 
 

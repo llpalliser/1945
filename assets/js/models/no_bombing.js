@@ -6,13 +6,10 @@ class NoBombing {
         this.y = y;
         this.h = h;
         this.kind = kind;
-
         this.sprite = new Image();
         this.sprite.src = './assets/img/no_bombing_area.png'
         this.sprite.horizontalFrameIndex = 0;
         this.sprite.verticalFrameIndex = 0;
-
-
         this.sprite.horizontalFrames = 1;
         this.sprite.verticalFrames = 1;
         this.sprite.isReady = false;
@@ -22,7 +19,6 @@ class NoBombing {
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
             this.width = this.sprite.frameWidth;
             this.height = this.sprite.frameHeight;
-
         }
     }
 
@@ -38,7 +34,6 @@ class NoBombing {
                 this.y,
                 this.h,
                 this.h
-
             )
         }
     }

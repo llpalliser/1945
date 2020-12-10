@@ -6,15 +6,12 @@ class Sur {
     this.y = y;
     this.h = h;
     this.drawCount = 0;
-    this.xy = 2;
     this.plane = plane;
     this.canvas = canvas;
-
     this.sprite = new Image();
     this.sprite.src = './assets/img/sur.png'
     this.sprite.horizontalFrameIndex = 0;
     this.sprite.verticalFrameIndex = 0;
-
     this.sprite.horizontalFrames = 1;
     this.sprite.verticalFrames = 1;
     this.sprite.isReady = false;
@@ -35,10 +32,7 @@ class Sur {
       fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
       ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
-
   }
-
-
 
   draw() {
     if (this.sprite.isReady) {
@@ -56,22 +50,16 @@ class Sur {
       this.bullets.forEach(bullet => bullet.draw());
       this.explosions.forEach(explosion => explosion.draw())
       this.explosions_smoke.forEach(explosion => explosion.draw())
-
       this.drawCount++;
       this.shot()
       this.clear()
       this.checkCollisions()
-
     }
   }
 
-
   clear() {
-
     this.bullets = this.bullets.filter(bullet => bullet.x >= this.x - 430);
     this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
-
-
   }
 
   shot() {
@@ -81,35 +69,26 @@ class Sur {
       this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 5, this.y, 20, 90));
       setTimeout(() => this.explosions.pop(), 90);
 
+      // aerial explosion
       setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 450, this.y - 70, 90)), 550)
       setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x - 450, this.y - 90, 90, 90)), 580);
       setTimeout(() => this.explosions.pop(), 600);
-
 
       this.sounds.fire.play();
       this.sounds.volume = 0.2;
       setTimeout(() => this.canFire = true, Math.floor((Math.random() * 4000) + 1500));
       this.canFire = false;
-
+      ENEMY_SHOTS +=1;
     }
   }
 
-
-
-
   move() {
-
     this.bullets.forEach(bullet => bullet.move());
     this.explosions.forEach(explosion => explosion.move());
     this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
-
-
     this.y -= - GROUND_SPEED - TURBO;
     this.x += lateral_move;
   }
-
-
-
 
   collidesWith(element) {
     return this.x < element.x + element.width &&
@@ -118,14 +97,11 @@ class Sur {
       this.y + this.height > element.y;
   }
 
-
-
   checkCollisions() {
-    const dispars = this.bullets.some(bullet => this.plane.antiaerealCollidesWith(bullet));
-    if (dispars) {
-      DAMAGES += 10
-      this.bullets.pop(this.plane);
+    const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
+    if (aerialExplosion) {
       this.sounds.ferit.play();
+      DAMAGES += 10;
     }
   }
 

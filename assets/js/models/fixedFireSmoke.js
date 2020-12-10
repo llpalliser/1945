@@ -3,20 +3,9 @@ class FixedFireSmoke {
   constructor(ctx, x, y, h) {
     this.ctx = ctx;
     this.x = x;
-    this.vx = SHOT_SPEED;
-
-
     this.y = y;
     this.h = h;
-   // this.background = background;
-   // this.plane = plane;
-
-    this.vy = SHOT_SPEED;
-
-
-
     this.sprite = new Image();
-   // this.sprite.src = './assets/img/fixedSmoke.png';
    this.sprite.src = './assets/img/fixedSmoke_fire.png';
     this.sprite.isReady = false;
     this.sprite.horizontalFrameIndex = 0;
@@ -30,13 +19,10 @@ class FixedFireSmoke {
       this.width = this.sprite.frameWidth;
       this.height = this.sprite.frameHeight;
     }
-    this.explosion_draw = 0;
-
     this.drawCount = 0;
   }
 
   draw() {
-
     this.ctx.drawImage(
       this.sprite,
       this.sprite.horizontalFrameIndex * this.sprite.frameWidth,
@@ -47,14 +33,9 @@ class FixedFireSmoke {
       this.y,
       this.h,
       this.h
-
-
     );
     this.drawCount++;
-    //setTimeout(() => this.animate(), 1000);
     this.animate()
-
-
   }
 
   move() {
@@ -66,49 +47,23 @@ class FixedFireSmoke {
     this.animateSprite(0, 0, 0, 10)
   }
 
-
-
   animateSprite(initialVerticalIndex, initialHorizontalIndex, maxHorizontalIndex, frequency) {
-
     let subiendo = true
+    if (this.sprite.verticalFrameIndex != initialVerticalIndex) { 
+      this.sprite.verticalFrameIndex = initialVerticalIndex; 
+      this.sprite.horizontalFrameIndex = initialHorizontalIndex; 
 
-    // lo primero que se debe hacer es comprobar si el frame está en la posición inicial
-    if (this.sprite.verticalFrameIndex != initialVerticalIndex) { // => si no lo está
-      this.sprite.verticalFrameIndex = initialVerticalIndex; // => colócalo en el frame vertical inicial
-      this.sprite.horizontalFrameIndex = initialHorizontalIndex; // => colócalo en el frame horizontal inicial
-
-    } else if (this.drawCount % frequency === 0) {// => si ya estaba en el frame inicial (en reposo, por ejemplo)
-
-
-
-
-
-
+    } else if (this.drawCount % frequency === 0) {
       if (subiendo && this.sprite.horizontalFrameIndex <= 38 ) {
         this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
       }
-
       if (this.sprite.horizontalFrameIndex === 38) { subiendo = false 
       }
-
       if (!subiendo ) {
         this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex - 10) % this.sprite.horizontalFrames; // => 0 me paso al 1 y vuelvo al 0 (moviment Mario); que ho determina es Max frames horizontals
       }
-
        this.drawCount = 0;
-
-
     }
-
-
-  }
-
-
-
-
-  resetAnimation() {
-    this.sprite.horizontalFrameIndex = 0;
-    this.sprite.verticalFrameIndex = 0;
   }
 
 }

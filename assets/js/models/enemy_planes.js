@@ -6,12 +6,6 @@ class enemyPlane {
     this.y = y;
     this.h = h;
     this.plane = plane;
-    //this.explosion = 100;
-
-    //this.plane = plane;
-
-    this.xy = 2;
-
     this.sprite = new Image();
     this.sprite.src = './assets/img/enemy_planes.png'
     this.sprite.horizontalFrameIndex = kind;
@@ -26,11 +20,13 @@ class enemyPlane {
       this.width = this.sprite.frameWidth;
       this.height = this.sprite.frameHeight;
     }
+this.play = false;
     this.canFire = true;
     this.bullets = [];
     this.explosions = [];
     this.sounds = {
-     squadron: new Audio('./assets/sound/squadron_sound.mp3')
+     squadron: new Audio('./assets/sound/squadron_sound.mp3'),
+     ferit: new Audio('./assets/sound/plane_crash.mp3')
     }
   }
 
@@ -55,6 +51,7 @@ class enemyPlane {
       this.checkCollisions()
       this.shot()
     }
+    if (!this.play) {this.sounds.squadron.play(); this.play=true}
   }
 
 
@@ -119,7 +116,7 @@ class enemyPlane {
     const dispars = this.bullets.some(bullet => this.plane.collidesWith(bullet));
     if (dispars) {
       DAMAGES += 1
-      //   this.sounds.ferit.play();
+      this.sounds.ferit.play();
       this.bullets.pop(this.plane.y+100);
     }
   }

@@ -10,9 +10,7 @@ class BonusMissile {
         this.sprite.src = './assets/img/bonusMissile.png'
         this.sprite.horizontalFrameIndex = 0; 
         this.sprite.verticalFrameIndex = 0;
-       
-
-        this.sprite.horizontalFrames = 1; 
+               this.sprite.horizontalFrames = 1; 
         this.sprite.verticalFrames = 1;
         this.sprite.isReady = false; 
         this.sprite.onload = () => {

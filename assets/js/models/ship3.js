@@ -6,13 +6,10 @@ class Ship3 {
         this.y = y;
         this.plane = plane;
         this.canvas = canvas;
-
         this.sprite = new Image();
         this.sprite.src = './assets/img/ship3.png'
         this.sprite.horizontalFrameIndex = 0;
         this.sprite.verticalFrameIndex = 0;
-
-
         this.sprite.horizontalFrames = 1;
         this.sprite.verticalFrames = 1;
         this.sprite.isReady = false;
@@ -22,7 +19,6 @@ class Ship3 {
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
             this.width = this.sprite.frameWidth;
             this.height = this.sprite.frameHeight;
-
         }
 
         this.canFire = true;
@@ -34,9 +30,6 @@ class Ship3 {
             fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
             ferit: new Audio('./assets/sound/plane_crash.mp3')
         }
-
-
-
     }
 
     draw() {
@@ -49,7 +42,6 @@ class Ship3 {
                 this.sprite.frameHeight,
                 this.x,
                 this.y,
-
                 this.width,
                 this.height,
             )
@@ -57,7 +49,6 @@ class Ship3 {
             this.bullets.forEach(bullet => bullet.draw());
             this.explosions.forEach(explosion => explosion.draw())
             this.explosions_smoke.forEach(explosion => explosion.draw())
-
             this.drawCount++;
             this.shot();
             this.clear()
@@ -65,13 +56,9 @@ class Ship3 {
         }
     }
 
-
-
     clear() {
-
         this.bullets = this.bullets.filter(bullet => bullet.y <= this.y + 300);
         this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
-        //    this.explosions = this.explosions.filter(explosion => explosion.y >= 900);
     }
 
     shot() {
@@ -99,10 +86,9 @@ class Ship3 {
             setTimeout(() => this.canFire = true, Math.floor((Math.random() * 2000) + 1500));
             this.canFire = false;
 
+            ENEMY_SHOTS +=2;
         }
     }
-
-
 
     move() {
         this.bullets.forEach(bullet => bullet.move());
@@ -110,7 +96,6 @@ class Ship3 {
         this.y -= - GROUND_SPEED - TURBO;
         this.x += lateral_move;
     }
-
 
     collidesWith(element) {
         return this.x < element.x + element.width &&
@@ -122,14 +107,8 @@ class Ship3 {
     checkCollisions() {
         const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
         if (aerialExplosion) {
-    
-          // this.explosions_smoke.push(new FixedFire(this.ctx, this.plane.x+ 40, this.plane.y - 20, 60))
-          // setTimeout(() => this.explosions_smoke.pop(), 100);
-          this.sounds.ferit.play();
-    
-    
+          this.sounds.ferit.play();  
           DAMAGES += 1
-    
         }
       }
 

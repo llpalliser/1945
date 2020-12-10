@@ -22,7 +22,7 @@ class Crater {
     this.sprite.verticalFrameIndex = 0;
 
     this.sounds = {
-      fire: new Audio('./assets/sound/sf_explosion_20.mp3')
+      missileExp: new Audio('./assets/sound/explosion.mp3')
 
     }
     
@@ -55,7 +55,7 @@ class Crater {
 
       )
 
-     if(this.soundEffect) {this.sounds.fire.play(); this.soundEffect=false}
+     if(this.soundEffect) {this.sounds.missileExp.play(); this.soundEffect=false}
 
     }
 

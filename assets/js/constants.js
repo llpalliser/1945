@@ -12,26 +12,21 @@ const START = 83;
 const SPEED1 = 49;
 const SPEED2 = 50;
 const SPEED3 = 51;
+
+const MOVEMENT_FRAMES = 5;
+
+
+
+
+// SCENARY
+let GROUND_SPEED = 0.5;
+let GROUND_LATERAL_SPEED = 5; 
 let WIND = 0.0;
 
-const MOVEMENT_FRAMES = 5; // 10 no s'empra?
-
-
-
-
-
-let GROUND_SPEED = 0.5; // 2
-
-
-
-let GROUND_LATERAL_SPEED = 5; // 4 no s'empra?
-
-
-const SPEED = 2; // 4 no s'empra?
-
+const SPEED = 2; 
 const PLANE_SPEED = 2; 
 let TURBO = 0;
-const SHOT_SPEED = 10; // 10
+const SHOT_SPEED = 10;
 const MISSILE_SPEED = 9;
 const BOMB_SPEED = 2;
 
@@ -51,7 +46,7 @@ const NORTES = 50;
 const SURES = 50;
 const LEVANTES = 50;
 const ENEMYPLANES = 50;
-const ENEMYSQUADRONS = 50;
+const ENEMYSQUADRONS = 0;
 const TANKS = 50;
 
 const STARS = 20;
@@ -68,3 +63,7 @@ let DAMAGES = 0;
 let MISSILES = 100;
 let BOMBS = 100;
 let FUEL = 100;
+
+let BOMBS_SHOOTED = 0;
+let MISSILES_SHOOTED = 0;
+let ENEMY_SHOTS = 0;

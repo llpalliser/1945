@@ -3,11 +3,29 @@
 class Game {
 
     constructor(canvasId) {
+
+
+
         this.canvas = document.getElementById(canvasId);
         this.canvas.width = window.innerWidth - 50;
         this.canvas.height = window.innerHeight - 50;
 
         this.ctx = this.canvas.getContext('2d');
+
+
+
+        const path = new Path2D()
+        path.rect(250, 350, 200, 100)
+        path.rect(25, 72, 32, 32)
+        path.closePath()
+
+        //draw your shape data to the context
+        this.ctx.fillStyle = "#FFFFFF"
+        this.ctx.fillStyle = "rgba(225,225,225,0.5)"
+        this.ctx.fill(path)
+        this.ctx.lineWidth = 2
+        this.ctx.strokeStyle = "#000000"
+        this.ctx.stroke(path)
 
         this.fps = 1000 / 60;
 
@@ -80,21 +98,14 @@ class Game {
         this.planeExplosions = [];
         this.enemyPlanes = []
         this.points = []
-
-
         this.shotX = 0;
         this.shotY = 0;
         this.burstX = 0;
         this.burstY = 0;
 
-
-
-
-
         // DISPAROS PLANE ------------------------------
         this.miradorFrontal = new Mirador(this.ctx, this.plane, -320, 0, 40);
         this.miradorTrasero = new Mirador(this.ctx, this.plane, +180, 0, 40);
-
 
 
     }
@@ -103,8 +114,10 @@ class Game {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         clearInterval(this.drawIntervalId);
+        this.clearRandoms();
         this.drawIntervalId = false;
         this.start();
+
 
 
     }
@@ -116,8 +129,10 @@ class Game {
         DAMAGES = 0;
         MISSILES = 100;
         BOMBS = 100,
-
-            this.plane_destroyed = false;
+        BOMBS_SHOOTED = 0;
+        MISSILES_SHOOTED = 0;
+        ENEMY_SHOTS = 0;
+        this.plane_destroyed = false;
         this.nuclearBomb = true;
         this.score = 0;
         this.background.y = 0;
@@ -151,7 +166,10 @@ class Game {
         ]
         // NAVAL
         this.ships = [
-            new Ship1(this.ctx, 1300, -1350, this.plane),
+            new Ship1(this.ctx, 1300, -1350, this.plane, this.canvas),
+            new Ship1(this.ctx, 1600, 300, this.plane, this.canvas),
+
+
             // ANTI AIRCRAFTS
             new Ship3(this.ctx, 1250, -700, this.plane, this.canvas),
             new Ship3(this.ctx, 1350, -800, this.plane, this.canvas),
@@ -288,7 +306,7 @@ class Game {
         () {
         for (let i = 0; i <= BONUSBOMBS; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -20000) + -400);
+            let posY = Math.floor((Math.random() * -18000) + -400);
             this.bonusBombs.push(new BonusBombs(this.ctx, posX, posY, 90))
         }
     }
@@ -296,7 +314,7 @@ class Game {
         () {
         for (let i = 0; i <= BONUSMISSILES; i++) {
             let posX = Math.floor((Math.random() * 3800) + 0);
-            let posY = Math.floor((Math.random() * -20000) + -400); // 8000 -400
+            let posY = Math.floor((Math.random() * -18000) + -400);
             this.bonusMissiles.push(new BonusMissile(this.ctx, posX, posY, 90))
 
         }
@@ -501,12 +519,13 @@ class Game {
                         setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 90, posy + 190, 290)), 2600);
 
 
+
                     }
                     break;
 
                 case KEY_FIRE:
 
-                    if (this.canFire && MISSILES >=4) {
+                    if (this.canFire && MISSILES >= 4) {
 
                         this.missiles.push(new Missile(this.ctx, this.plane.x + 65, this.plane.y + 3, 340 + this.plane.height, 270));
                         this.missiles.push(new Missile(this.ctx, this.plane.x + 85, this.plane.y + 3, 340 + this.plane.height, 270)); // cañon 2
@@ -515,14 +534,18 @@ class Game {
 
 
                         // Daños
-                        setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 70, posy - 320, 90, 90)), 400);
+                        setTimeout(() => this.collissions.push(new Collission(this.ctx, posx + 50, posy - 320, 130, 90)), 400);
                         setTimeout(() => this.collissions.pop(this.craters), 410);
                         this.shotX = posx + 24;
                         this.shotY = posy - 320;
                         this.burstX = this.plane.x + 24
                         this.burstY = posy - 400
-                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 80, posy + -350, 90)), 400);
-                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 70, posy + -340, 90)), 400);
+                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 50, posy + -350, 90)), 395);
+                        setTimeout(() => this.fixedClouds.push(new FixedSmoke(this.ctx, posx + 110, posy + -350, 90)), 430);
+
+                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 40, posy + -340, 90)), 420);
+                        setTimeout(() => this.craters.push(new Crater(this.ctx, posx + 100, posy + -340, 90)), 420);
+
                         this.explosiones.push(new Explosion(this.ctx, this.plane.x + 65, this.plane.y, 28));
                         this.explosiones.push(new Explosion(this.ctx, this.plane.x + 85, this.plane.y, 28));
                         this.explosiones.push(new Explosion(this.ctx, this.plane.x + 112, this.plane.y, 28));
@@ -533,12 +556,13 @@ class Game {
                         setTimeout(() => this.canFire = true, 1100);
 
                         MISSILES = MISSILES - 4;
+                        MISSILES_SHOOTED += 4
                     }
                     break;
 
                 case KEY_BOMB:
 
-                    if (this.canBomb && BOMBS >=4) {
+                    if (this.canBomb && BOMBS >= 4) {
                         let posx = this.plane.x
                         let posy = this.plane.y
 
@@ -568,6 +592,7 @@ class Game {
                         this.canBomb = false;
                         setTimeout(() => this.canBomb = true, 1100);
                         BOMBS = BOMBS - 4;
+                        BOMBS_SHOOTED += 4
 
                     }
                     break;
@@ -716,27 +741,13 @@ class Game {
     }
 
     draw() {
-
-
-
-        //  this.background.draw(); // => quiero llamar al draw del background
-
-
         this.layers.filter(layer => layer.y + layer.height > -2900).forEach(layer => layer.draw())
         this.ships.forEach(ship => ship.draw());
-
-
-
-        //  this.canyons.forEach(canyon => canyon.draw());
-        this.nortes.filter(norte => norte.y > -50).forEach(norte => norte.draw())
         this.levantes.filter(levante => levante.y > -50).forEach(levante => levante.draw())
+        this.nortes.filter(norte => norte.y > -50).forEach(norte => norte.draw())
         this.sures.filter(sur => sur.y > -50).forEach(sur => sur.draw())
         this.tanks.filter(tank => tank.y > -50).forEach(tank => tank.draw())
         this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => enemyPlane.draw())
-        // this.enemyPlanes.filter(enemyPlane => enemyPlane.y > 0).forEach(enemyPlane => this.sounds.squadron.play())
-
-
-
         this.targets.filter(target => target.y > -50).forEach(target => target.draw())
         this.stars.filter(star => star.y > -50).forEach(star => star.draw())
         this.bonusBombs.filter(bonusBomb => bonusBomb.y > -50).forEach(bonusBomb => bonusBomb.draw())
@@ -756,13 +767,7 @@ class Game {
             )
         }
 
-
-
-
-
-
         // PLANE ---------xx
-
 
         this.explosiones.forEach(explosion => explosion.draw());
         this.motorSmokes.forEach(motorSmoke => motorSmoke.draw());
@@ -775,13 +780,6 @@ class Game {
         this.fixedFires.forEach(fixedFire => fixedFire.draw());
 
         this.points.forEach(point => point.draw());
-
-
-
-
-
-
-
 
         this.healthPlane.draw();
 
@@ -803,8 +801,6 @@ class Game {
 
         this.ctx.fillText(`WIND SPEED: ${(WIND * 100).toFixed(2)} m/s`, this.canvas.width - 310, 320);
 
-
-
         this.ctx.fillText(`ENGINE 1: ${ENGINE1} %`, this.canvas.width - 310, 360);
         this.ctx.fillText(`ENGINE 2: ${ENGINE2} %`, this.canvas.width - 310, 400);
         this.ctx.fillText(`ENGINE 3: ${ENGINE3} %`, this.canvas.width - 310, 440);
@@ -816,11 +812,6 @@ class Game {
         if (BOMBS < 20) { this.ctx.fillStyle = "Red" } else { this.ctx.fillStyle = "White" }
 
         this.ctx.fillText(`BOMBS: ${BOMBS}`, this.canvas.width - 310, 600);
-
-
-
-
-
 
         if (this.mapImg.isReady) {
             this.ctx.drawImage(
@@ -920,7 +911,18 @@ class Game {
     }
 
 
-
+clearRandoms(){
+    this.stars = [];
+    this.bonusBombs = [];
+    this.bonusMissiles = [];
+    this.tanks = [];
+    this.targets = [];
+    this.nortes = [];
+    this.sures = [];
+    this.levantes = [];
+    this.enemyPlanes = [];
+    this.noBombings = [];
+}
     checkEngineStatus() {
         let engines = "4"
         ENGINE1 = 100 - (100 - GROUND_SPEED * 100).toFixed(0)
@@ -933,45 +935,25 @@ class Game {
 
 
         if (DAMAGES >= 1000) {
+
             this.gameOver = true;
             this.gameOverPage = new GameOver(this.ctx, this.canvas, this.score, this.enemies);
             this.paused = true;
             this.stop();
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-            this.sounds.gameMusic.play();
+            // this.sounds.motorPlane.pause();
+            // this.sounds.siren.pause();
+            // this.sounds.squadron.pause();
+            // this.sounds.gameMusic.play();
+            this.sounds = [];
             this.mapped = false;
             this.drawIntervalId = false;
             this.gameOverPage.draw();
-            //  localStorage.setItem('best-score', this.bestScore)
-            //   if (this.score > this.bestScore) {
-            //     this.bestScore = this.score;
-            //     localStorage.setItem('best-score', this.bestScore)
-            //   }
-
         }
 
 
 
 
-
-        //this.motorSmokes.push(new MotorSmoke(this.ctx, this.plane.x + 65, this.plane.y, 80, this.plane))
-
-
-
-
-        //     if (DAMAGES > 0 && DAMAGES < 200 && motor1)
-
-
-
-        //         if (motor1) {
-        //             this.motorSmokes.push(new MotorSmoke(this.ctx, this.plane.x + 65, this.plane.y, 80, this.plane))
-        //    //         console.log("motor cascat")
-
-        //             motor1 = false
-
-
-        //         }
-        //     if (DAMAGES > 200 && DAMAGES < 300) { console.log("entre  200 y 300") }
 
     }
 
@@ -1005,7 +987,6 @@ class Game {
             || this.levantes.some(levante => this.miradorFrontal.collidesWith(levante))
             || this.sures.some(sur => this.miradorFrontal.collidesWith(sur))
             || this.tanks.some(panzer => this.miradorFrontal.collidesWith(panzer))
-            //     || this.enemyPlanes.some(enemyPlane => this.miradorFrontal.collidesWith(enemyPlane))
             || this.ships.some(ship => this.miradorFrontal.collidesWith(ship))
 
 
@@ -1103,26 +1084,11 @@ class Game {
             this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX + 40, this.shotY - 20, 100))
 
             this.points.push(new Point(this.ctx, this.shotX, this.shotY, 100, 0))
-            //   this.ships = this.ships.filter(ship => !this.collissions.some(collission => collission.collidesWith(ship)))
-            //    this.targets = this.targets.filter(target => !this.collissions.some(collission => collission.collidesWith(target)))
-
             this.sounds.bomb.play();
             this.score += 100;
             this.enemies++;
 
         }
-
-
-
-
-        // if (levColl) {
-        //     this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX, this.shotY, 100))
-        //     this.points.push(new Point(this.ctx, this.shotX, this.shotY, 100, 2))
-        //      this.levantes = this.levantes.filter(levante => !this.collissions.some(collission => collission.collidesWith(levante)))
-        //     this.sounds.bomb.play();
-        //     this.score += 100;
-        // }
-
 
 
 
@@ -1134,7 +1100,6 @@ class Game {
             setTimeout(() => this.fixedFires.push(new FixedFireSmoke(this.ctx, this.shotX + 40, this.shotY + 20, 100)), 300);
             this.enemyPlanes = this.enemyPlanes.filter(enemyPlane => !this.collissions.some(collission => collission.collidesWith(enemyPlane)))
 
-            //   this.sounds.bomb.play();
             this.sounds.plane_explosion.play();
 
             this.score += 1000;

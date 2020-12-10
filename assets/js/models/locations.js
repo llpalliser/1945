@@ -11,13 +11,8 @@ class Location {
 
     draw() {
         this.ctx.font = "40px Saira Stencil One";
-
         this.ctx.fillStyle = "Red"
-
-        this.ctx.fillText(this.text, this.x, this.y);
-
-                   
-        
+        this.ctx.fillText(this.text, this.x, this.y); 
     }
 
     move() {
@@ -25,6 +20,4 @@ class Location {
         this.x += lateral_move;
       }
     
-
-
 }

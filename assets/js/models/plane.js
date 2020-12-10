@@ -1,40 +1,28 @@
 class Plane {
 
-    constructor(ctx, x, y) { // => pasamos las coordenadas iniciales de Mario
-
+    constructor(ctx, x, y) {
         this.ctx = ctx;
         this.x = x;
         this.minX = 100;
         this.maxX = Math.floor(this.ctx.canvas.width - 500); // 600
         this.minY = 100;
         this.maxY = Math.floor(this.ctx.canvas.height - 200)
-
         this.vx = 0;
         this.y = y;
         this.vy = 0;
-
         this.engineStatus = 0;
         this.engineFire = []
         this.engine1 = false;
-
         this.canFire = true;
         this.bullets = [];
         this.explosiones = [];
-        this.smokes = []; //?
+        this.smokes = []; 
         this.engineDrift = 0;
         this.fixedSmokes = [];
-
         this.fixedFires = [];
-
-
-        this.averies1 = [];
-
-
-
         this.sounds = {
             fire: new Audio('./assets/sound/shot.mp3'),
         }
-
         this.sprite = new Image();
         this.sprite.src = './assets/img/b17_sprite.png';
         this.sprite.isReady = false;
@@ -49,20 +37,17 @@ class Plane {
             this.width = 220,
                 this.height = 140
         }
-
         this.movement = {
             up: false,
             right: false,
             left: false,
             down: false,
         }
-
         this.drawCount = 0;
     }
 
     onKeyEvent(event) {
         const state = event.type === 'keydown'
-
         switch (event.keyCode) {
             case KEY_UP:
                 this.movement.up = state;
@@ -72,30 +57,15 @@ class Plane {
                 break;
             case KEY_LEFT:
                 this.movement.left = state;
-
-
                 break;
             case KEY_DOWN:
                 this.movement.down = state;
                 break;
-
-
-
         }
     }
 
-
-
-
-
-
     draw() {
-
-
-
         if (this.sprite.isReady) {
-
-
             this.ctx.drawImage(
                 this.sprite,
                 this.sprite.frameWidth * this.sprite.horizontalFrameIndex,
@@ -106,37 +76,24 @@ class Plane {
                 this.y,
                 this.width,
                 this.height
-
             )
             this.smokes.forEach(smoke => smoke.draw());
-
-
-
-
             this.drawCount++;
             this.animate();
             this.clear()
-
-
-
         }
-
     }
-
-
 
     clear() {
-        //     this.smokes = this.smokes.filter(enemyPlane => enemyPlane.y <= this.canvas.height)
+        //    this.smokes = this.smokes.filter(smoke => smoke.y >= this.canvas.height)
+      //  this.smokes = this.smokes.filter(smoke => smoke.y >= this.planeStatus.y-100);
+      this.smokes = this.smokes.filter(smokes => smokes.y <= this.smokes.y - 150);
 
     }
-
-
 
     move() {
         this.x = this.x + WIND + this.engineStatus
         this.smokes.forEach(smoke => smoke.move());
-        //        this.bullets.forEach(bullet => bullet.move());
-
         if (this.movement.right) {
             this.vx = + PLANE_SPEED + 1;
         }
@@ -154,7 +111,7 @@ class Plane {
             this.vx = 0,
                 this.vy = 0;
 
-        } // =>  si no ho igualo a 0, no s'atura
+        }
 
         this.x += this.vx;
         this.y += this.vy;
@@ -174,8 +131,6 @@ class Plane {
             this.y = this.minY + 1;
         }
 
-
-
     }
 
     animate() {
@@ -188,10 +143,7 @@ class Plane {
         this.engineStatus = DAMAGES / 1000 * (Math.round(Math.random()) ? 1 : -1) * 1.5
         this.engineDrift = (DAMAGES / 1000).toFixed(2)
 
-        // this.smokes.push(new FixedSmoke(this.ctx, this.x + 50, this.y - 20, 40))
-
-
-        if (DAMAGES > 400) {
+        if (DAMAGES > 100) {
             setTimeout(() => this.smokes.push(new FixedSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 7000) + 5000)
             setTimeout(() => this.smokes.push(new FixedFireSmoke(this.ctx, this.x + 84, this.y + 24, 20)), (Math.random() * 7000) + 5000)
         }
@@ -211,18 +163,6 @@ class Plane {
     }
 
 
-    resetAnimation() {
-        this.sprite.verticalFrameIndex = 0;
-        this.sprite.horizontalFrameIndex = 0;
-
-    }
-
-
-
-
-
-
-
     collidesWith(element) {
         return this.x < element.x + element.width &&
             this.x + this.width > element.x &&
@@ -236,20 +176,5 @@ class Plane {
             this.y < element.y + element.height &&
             this.y + this.height > element.y;
     }
-
-
-
-
-
-
-
-
-
-    checkCollisions() {
-    }
-
-
-
-
 
 }

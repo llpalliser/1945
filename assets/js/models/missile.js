@@ -4,13 +4,10 @@ class Missile {
       this.ctx = ctx;
       this.x = x;
       this.vx = MISSILE_SPEED;
-     
-      this.direction = direction;
+           this.direction = direction;
       this.y = y;
       this.maxY = maxY;
-      this.vy = MISSILE_SPEED;
-      
-      this.sprite = new Image();
+           this.sprite = new Image();
       this.sprite.src = './assets/img/missile.png';
       this.sprite.isReady = false;
       this.sprite.horizontalFrameIndex = 0;
@@ -24,14 +21,9 @@ class Missile {
         this.width = this.sprite.frameWidth;
         this.height = this.sprite.frameHeight;
       }
-  
-      this.drawCount = 0;
-
+        this.drawCount = 0;
       this.bullets = [];
 
-
-
-      
     }
   
     draw() {
@@ -43,19 +35,13 @@ class Missile {
         this.sprite.frameHeight,
         this.x,
         this.y,
-        10,20
-    
-      
-      
+        10,20    
         );
 
       this.drawCount++;
       this.animate();
-
     }
 
-
-  
     move() {
 
       // NORTE
@@ -78,12 +64,8 @@ class Missile {
           this.x -= MISSILE_SPEED;
           this.y =10;
       }
-
-
       }
 
-
-  
     animate() {
       if (this.drawCount % MOVEMENT_FRAMES === 0) {
         this.sprite.horizontalFrameIndex = (this.sprite.horizontalFrameIndex + 1) % this.sprite.horizontalFrames;
@@ -91,18 +73,12 @@ class Missile {
       }
     }
 
-    
-  collidesWith(element) {
+     collidesWith(element) {
     return this.x < element.x + element.width &&
       this.x + this.width > element.x &&
       this.y < element.y + element.height &&
       this.y + this.height > element.y;
   }
-
-
-
-
-  
 
   }
   

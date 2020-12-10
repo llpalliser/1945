@@ -1,61 +1,97 @@
 class Ship1 {
 
-    constructor(ctx, x, y) {
+    constructor(ctx, x, y, plane, canvas) {
         this.ctx = ctx; 
         this.x = x; 
         this.y = y;
-
+        this.plane = plane;
+        this.canvas = canvas;
         this.sprite = new Image();
         this.sprite.src = './assets/img/ships1.png'
-        this.sprite.horizontalFrameIndex = 0; // => posición de reposo de la moneda linea 0
-        this.sprite.verticalFrameIndex = 0; // => posición de reposo de la moneda columna 0
-        // aunque no tenga posiciones verticales, ponerlo para así recordarlo siempre
-
-        // ahora hemos de decir cuantos frames tiene nuestro sprite: 
-        this.sprite.horizontalFrames = 1; // no son palabras reservadas
+        this.sprite.horizontalFrameIndex = 0; 
+        this.sprite.verticalFrameIndex = 0; 
+        this.sprite.horizontalFrames = 1; 
         this.sprite.verticalFrames = 1;
-        this.sprite.isReady = false; // casegurarse que las imágenes están en cache
+        this.sprite.isReady = false; 
         this.sprite.onload = () => {
             this.sprite.isReady = true;
             this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames)
             this.sprite.frameHeight = Math.floor(this.sprite.height / this.sprite.verticalFrames)
-            this.width = this.sprite.frameWidth; // => li dic es width de sa moneda
-            this.height = this.sprite.frameHeight; // => li dic es height de sa moneda
-
+            this.width = this.sprite.frameWidth; 
+            this.height = this.sprite.frameHeight; 
         }
-
-        this.levantes = [
-            new Norte(this.ctx, this.x, this.y + 120, 30, 3), // Prova
-            new Norte(this.ctx, this.x, this.y + 160, 30, 3), // Prova
-            new Norte(this.ctx, this.x, this.y + 200, 30, 3), // Prova
-
-        ]
-
-
+        this.canFire = true;
+        this.bullets = [];
+        this.explosions = [];
+        this.explosions_smoke = [];
+        this.sounds = {
+            fire: new Audio('./assets/sound/anti_aircraft_short.mp3'),
+            ferit: new Audio('./assets/sound/plane_crash.mp3')
+        }
     }
 
     draw() {
-        if (this.sprite.isReady) { // => abans de dibuixar-la ens hem d'assegurar que està pintada
+        if (this.sprite.isReady) { 
             this.ctx.drawImage(
-                // => la colocamos dentro de la imagen y luego la posicionamos dentro del canvas
-                this.sprite,
-                this.sprite.horizontalFrameIndex * this.sprite.frameWidth, // posició horitzontal dins s'sprite
-                // vgr si amplada de cada frame és 20, i es vol sa segona, 1*20 = 20
-                this.sprite.verticalFrameIndex * this.sprite.frameHeight, // posició vertical dins s'sprite
+                               this.sprite,
+                this.sprite.horizontalFrameIndex * this.sprite.frameWidth, 
+                this.sprite.verticalFrameIndex * this.sprite.frameHeight, 
                 this.sprite.frameWidth,
                 this.sprite.frameHeight,
-                // después la posicionamos dentro del canvas
                 this.x,
                 this.y,
-                // 50,
-                // 200
                this.width,
               this.height,
             )
+            this.bullets.forEach(bullet => bullet.draw());
+            this.explosions.forEach(explosion => explosion.draw())
+            this.explosions_smoke.forEach(explosion => explosion.draw())
+            this.drawCount++;
+            this.shot();
+            this.clear()
+            this.checkCollisions()
+
         }
     }
 
+
+    clear() {
+
+        this.bullets = this.bullets.filter(bullet => bullet.x <= this.x - 300);
+        this.explosions_smoke = this.explosions_smoke.filter(explosion => explosion.y <= this.canvas.height);
+    }
+
+    shot() {
+        if (this.canFire && this.y >= CAMPO_TIRO_MIN && this.y <= CAMPO_TIRO_MAX && this.y < this.plane.y && this.x > this.plane.x) {
+            this.bullets.push(new Shot(this.ctx, this.x + 28, this.y + 160, 440 + this.height, 135));
+            this.explosions.push(new Explosion(this.ctx, this.x+28, this.y + 160, 40));
+            setTimeout(() => this.explosions.pop(), 200);
+            this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 38, this.y + 160, 20, 135));
+            // aerial explosion
+            setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x -400, this.y + 300, 190, 90)), 450);
+            setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 400, this.y + 300, 90)), 450)
+            setTimeout(() => this.explosions.pop(), 600);
+            
+            this.bullets.push(new Shot(this.ctx, this.x + 28, this.y + 260, 440 + this.height, 135));
+            this.explosions.push(new Explosion(this.ctx, this.x+28, this.y + 220, 40));
+            setTimeout(() => this.explosions.pop(), 200);
+            this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x + 38, this.y + 220, 20, 135));
+            // aerial explosion
+            setTimeout(() => this.explosions_smoke.push(new ExplosionSmoke(this.ctx, this.x -400, this.y + 360, 190, 90)), 450);
+            setTimeout(() => this.explosions.push(new Explosion(this.ctx, this.x - 400, this.y + 360, 90)), 450)
+            setTimeout(() => this.explosions.pop(), 600);
+          
+            this.sounds.fire.play();
+            setTimeout(() => this.canFire = true, Math.floor((Math.random() * 2000) + 1500));
+            this.canFire = false;
+            ENEMY_SHOTS +=2;
+        }
+    }
+
+
     move() {
+        this.bullets.forEach(bullet => bullet.move());
+        this.explosions_smoke.forEach(explosion_smoke => explosion_smoke.move());
         this.y -= - GROUND_SPEED - TURBO 
         this.x += lateral_move;
       }
@@ -67,5 +103,14 @@ class Ship1 {
           this.y < element.y + element.height &&
           this.y + this.height > element.y;
       }
+
+      checkCollisions() {
+        const aerialExplosion = this.explosions.some(aerialExplosion => this.plane.antiaerealCollidesWith(aerialExplosion));
+        if (aerialExplosion) {
+          this.sounds.ferit.play();
+          DAMAGES += 1
+        }
+      }
+
 
 }

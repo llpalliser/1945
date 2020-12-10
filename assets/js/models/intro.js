@@ -58,6 +58,17 @@ class IntroPage {
         this.ctx.strokeText(`40km - 5.000 enemies - one objective`, 50, 400 * this.fontRatio)
         this.ctx.fillText(`40km - 5.000 enemies - one objective`, 50, 400 * this.fontRatio)
 
+
+
+        // START
+        this.ctx.font = `${80 * this.fontRatio}px Saira Stencil One`;
+        this.ctx.fillStyle = "rgb(153, 0, 0)"
+        this.ctx.strokeText(`PRESS S - START`, this.canvas.width/2-100, this.canvas.height/2)
+        this.ctx.fillText(`PRESS S - START`, this.canvas.width/2-100, this.canvas.height/2)
+
+
+
+
         // CREDITS
         this.ctx.font = `${48 * this.fontRatio}px Saira Stencil One`;
         this.ctx.fillStyle = "rgb(153, 0, 0)"
