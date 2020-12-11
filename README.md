@@ -103,6 +103,12 @@
 4. Disparos enemigos
 5. Puntuación
 
+## Navegación
+1. Movimiento del avión: botones de dirección
+2. Potencia del motor: 1 =>  50%, 2 => 75%, 3 => 100%
+3. Misiles: barra espaciadora
+4. Bombas: intro
+
 ## Requisitos
 
 1. Google Chrome sobre Intel i5 - i7
